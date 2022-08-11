@@ -1,4 +1,4 @@
-package shop.gaship.coupon.coupontype;
+package shop.gaship.coupon.coupontype.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
