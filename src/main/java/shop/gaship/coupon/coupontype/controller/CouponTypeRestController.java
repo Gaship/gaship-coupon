@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import shop.gaship.coupon.coupontype.entity.CouponTypeDto;
+import shop.gaship.coupon.coupontype.entity.CouponType;
 import shop.gaship.coupon.coupontype.service.CouponTypeService;
 
 /**
@@ -27,7 +27,7 @@ public class CouponTypeRestController {
      * @author 최겸준
      */
     @PostMapping
-    public ResponseEntity<Void> couponTypeAdd(@RequestBody @Valid CouponTypeDto couponType) {
+    public ResponseEntity<Void> couponTypeAdd(@RequestBody @Valid CouponType couponType) {
         return ResponseEntity.ok().build();
     }
 }

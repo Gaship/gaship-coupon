@@ -19,7 +19,5 @@ public class CouponIssueServiceImpl implements CouponIssueService {
 
     @Override
     public void addCouponIssue(CouponIssueCreationRequestDto couponIssueCreationRequestDto) {
-        this.requestDtoToCouponIssueEntity(couponIssueCreationRequestDto);
-        couponIssueCreationRequestDto.getCouponTypeNo();
     }
 }

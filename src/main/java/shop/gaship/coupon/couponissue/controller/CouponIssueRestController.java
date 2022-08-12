@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import shop.gaship.coupon.couponissue.dto.request.CouponIssueCreationRequestDto;
 import shop.gaship.coupon.couponissue.service.CouponIssueService;
-import shop.gaship.coupon.coupontype.entity.CouponTypeDto;
 
 /**
  * @author : 최겸준
@@ -23,7 +22,6 @@ public class CouponIssueRestController {
 
     @PostMapping
     public ResponseEntity<Void> couponIssueAdd(@RequestBody @Valid CouponIssueCreationRequestDto couponIssueCreationRequestDto) {
-        // Todo : dto만들고 dtoToEntity만들어야함
         couponIssueService.addCouponIssue(couponIssueCreationRequestDto);
         return ResponseEntity.ok().build();
     }

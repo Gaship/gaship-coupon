@@ -1,5 +1,6 @@
 package shop.gaship.coupon.couponissue.dto.request;
 
+import java.time.LocalDateTime;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import lombok.Getter;
@@ -13,11 +14,16 @@ public class CouponIssueCreationRequestDto {
     @NotNull
     @Min(1)
     private Integer couponTypeNo;
+
     @NotNull
     @Min(1)
     private Integer memberNo;
 
     @NotNull
-    @Min(1)
-    private Integer expirationMonth;
+    private LocalDateTime generationDatetime;
+
+    private LocalDateTime issueDatetime;
+
+    @NotNull
+    private LocalDateTime expirationDatetime;
 }
