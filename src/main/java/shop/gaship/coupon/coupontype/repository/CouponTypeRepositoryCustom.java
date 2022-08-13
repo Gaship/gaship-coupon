@@ -1,5 +1,9 @@
 package shop.gaship.coupon.coupontype.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import shop.gaship.coupon.coupontype.dto.CouponTypeDto;
+
 /**
  * couponType 의 repository(crud 를 위한)의 커스텀 클래스 입니다.
  *
@@ -8,4 +12,5 @@ package shop.gaship.coupon.coupontype.repository;
  */
 public interface CouponTypeRepositoryCustom {
 
+    Page<CouponTypeDto> findAllCouponTypes(Pageable pageable);
 }

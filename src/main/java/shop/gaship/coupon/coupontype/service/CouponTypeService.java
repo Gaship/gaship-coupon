@@ -1,5 +1,9 @@
 package shop.gaship.coupon.coupontype.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import shop.gaship.coupon.coupontype.dto.CouponTypeDto;
+
 /**
  * The interface Coupon type service.
  *
@@ -22,4 +26,5 @@ public interface CouponTypeService {
      */
     void deleteCouponType(Integer couponTypeNo);
 
+    Page<CouponTypeDto> findCouponTypes(Pageable pageable);
 }

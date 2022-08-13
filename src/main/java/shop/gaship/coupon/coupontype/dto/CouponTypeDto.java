@@ -23,5 +23,5 @@ public class CouponTypeDto {
     private Long discountAmount;
 
     @NotNull
-    private Boolean isFixedAmount;
+    private Boolean isStopGenerationIssue;
 }

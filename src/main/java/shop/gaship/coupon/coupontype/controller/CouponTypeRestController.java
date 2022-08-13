@@ -2,16 +2,21 @@ package shop.gaship.coupon.coupontype.controller;
 
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import shop.gaship.coupon.coupontype.dto.CouponTypeDto;
 import shop.gaship.coupon.coupontype.entity.CouponType;
 import shop.gaship.coupon.coupontype.service.CouponTypeService;
+import shop.gaship.coupon.dto.response.PageResponse;
 
 /**
  * The type Coupon type rest controller.
@@ -59,5 +64,11 @@ public class CouponTypeRestController {
         couponTypeService.deleteCouponType(couponTypeNo);
 
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping
+    public ResponseEntity<PageResponse<CouponTypeDto>> couponTypeList(Pageable pageable) {
+        Page<CouponTypeDto> couponTypesPage =
+            couponTypeService.findCouponTypes(pageable);
     }
 }
