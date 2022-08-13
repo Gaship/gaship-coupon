@@ -31,7 +31,6 @@ public class CouponTypeServiceImpl implements CouponTypeService {
     @Transactional
     @Override
     public void modifyCouponTypeStopGenerationIssue(Integer couponTypeNo) {
-
         CouponType couponType = getCouponType(couponTypeNo);
 
         couponType.changeStopGenerationIssue(true);
@@ -46,7 +45,6 @@ public class CouponTypeServiceImpl implements CouponTypeService {
     @Transactional
     @Override
     public void deleteCouponType(Integer couponTypeNo) {
-
         if (Boolean.FALSE.equals(couponGenerationIssueRepository.existCouponHasCouponTypeNo(couponTypeNo))) {
             throw new DenDeleteCouponTypeException();
         }
@@ -61,7 +59,7 @@ public class CouponTypeServiceImpl implements CouponTypeService {
      * 쿠폰타입번호로 쿠폰타입을 조회하기 위한 메서드 입니다.
      *
      * @param couponTypeNo 쿠폰타입을 조회하기 위한 쿠폰타입번호
-     * @return
+     * @return 쿠폰타입번호에 해당하는 쿠폰타입 객체를 반환 합니다.
      */
     private CouponType getCouponType(Integer couponTypeNo) {
         return couponTypeRepository.findById(couponTypeNo)

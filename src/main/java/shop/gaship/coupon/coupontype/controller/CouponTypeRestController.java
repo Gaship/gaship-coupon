@@ -36,22 +36,26 @@ public class CouponTypeRestController {
     }
 
     /**
-     * 해당 쿠폰타입의 stop_generation_issue의 수정 요청을 받는 메서드 입니다.
+     * 해당 쿠폰타입의 stop_generation_issue 의 수정 요청을 받는 메서드 입니다.
      *
      * @param couponTypeNo 수정해야할 쿠폰종류 번호 입니다.
      * @return 해당 요청을 성공적으로 잘 처리했다는 응답을 보냅니다.
      */
     @PatchMapping(value = "{couponTypeNo}/stop-generation-issue")
     public ResponseEntity<Void> couponTypeModify(@PathVariable(value = "couponTypeNo") Integer couponTypeNo) {
-
         couponTypeService.modifyCouponTypeStopGenerationIssue(couponTypeNo);
 
         return ResponseEntity.ok().build();
     }
 
+    /**
+     * 해당 쿠폰타입에 대한 삭제 요청을 받는 메서드 입니다.
+     *
+     * @param couponTypeNo 삭제하고자 하는 쿠폰 타입의 쿠폰 타입 번호 입니다.
+     * @return 해당 요청을 성공적으로 잘 처리했다는 응답을 보냅니다.
+     */
     @DeleteMapping(value = "{couponTypeNo}")
     public ResponseEntity<Void> couponTypeDelete(@PathVariable(value = "couponTypeNo") Integer couponTypeNo) {
-
         couponTypeService.deleteCouponType(couponTypeNo);
 
         return ResponseEntity.ok().build();

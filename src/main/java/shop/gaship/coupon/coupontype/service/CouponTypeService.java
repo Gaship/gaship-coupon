@@ -15,5 +15,11 @@ public interface CouponTypeService {
      */
     void modifyCouponTypeStopGenerationIssue(Integer couponTypeNo);
 
+    /**
+     * coupon type을 삭제하기 위한 메서드 입니다.
+     *
+     * @param couponTypeNo 삭제하고자 하는 쿠폰타입의 번호 입니다.
+     */
     void deleteCouponType(Integer couponTypeNo);
+
 }
