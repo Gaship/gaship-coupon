@@ -11,6 +11,8 @@ import shop.gaship.coupon.couponissue.dto.request.CouponIssueCreationRequestDto;
 import shop.gaship.coupon.couponissue.service.CouponIssueService;
 
 /**
+ * 쿠폰생성발급에 대한 요청을 처리하기위한 controller class입니다.
+ *
  * @author : 최겸준
  * @since 1.0
  */
