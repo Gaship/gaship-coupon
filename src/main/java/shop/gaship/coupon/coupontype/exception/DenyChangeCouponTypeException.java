@@ -1,6 +1,8 @@
 package shop.gaship.coupon.coupontype.exception;
 
 /**
+ * CouponType 엔티티를 수정, 삭제하고자 할때 이미 해당 쿠폰 타입의 쿠폰이 생성, 발급 되어있을 시 발생하는 에러 클래스 입니다.
+ *
  * @author : 조재철
  * @since 1.0
  */
