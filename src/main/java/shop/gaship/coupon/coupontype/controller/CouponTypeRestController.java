@@ -4,6 +4,7 @@ import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -44,6 +45,14 @@ public class CouponTypeRestController {
     public ResponseEntity<Void> couponTypeModify(@PathVariable(value = "couponTypeNo") Integer couponTypeNo) {
 
         couponTypeService.modifyCouponTypeStopGenerationIssue(couponTypeNo);
+
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping(value = "{couponTypeNo}")
+    public ResponseEntity<Void> couponTypeDelete(@PathVariable(value = "couponTypeNo") Integer couponTypeNo) {
+
+        couponTypeService.deleteCouponType(couponTypeNo);
 
         return ResponseEntity.ok().build();
     }

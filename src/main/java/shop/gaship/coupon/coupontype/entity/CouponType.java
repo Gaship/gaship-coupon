@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import lombok.Getter;
 import shop.gaship.coupon.couponissue.entity.CouponGenerationIssue;
 
 /**
@@ -19,6 +20,7 @@ import shop.gaship.coupon.couponissue.entity.CouponGenerationIssue;
  * @author : 최겸준
  * @since 1.0
  */
+@Getter
 @Entity
 @Table(name = "coupon_types")
 public class CouponType {

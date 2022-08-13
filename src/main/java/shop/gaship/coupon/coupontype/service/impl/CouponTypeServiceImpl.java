@@ -1,10 +1,11 @@
 package shop.gaship.coupon.coupontype.service.impl;
 
+import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import shop.gaship.coupon.couponissue.repository.CouponGenerationIssueRepository;
 import shop.gaship.coupon.coupontype.entity.CouponType;
-import shop.gaship.coupon.coupontype.exception.DenyChangeCouponTypeException;
+import shop.gaship.coupon.coupontype.exception.DenDeleteCouponTypeException;
 import shop.gaship.coupon.coupontype.exception.NotFoundCouponTypeException;
 import shop.gaship.coupon.coupontype.repository.CouponTypeRepository;
 import shop.gaship.coupon.coupontype.service.CouponTypeService;
@@ -27,17 +28,44 @@ public class CouponTypeServiceImpl implements CouponTypeService {
      *
      * @param couponTypeNo 수정하고자 하는 쿠폰타입의 번호 입니다.
      */
+    @Transactional
     @Override
     public void modifyCouponTypeStopGenerationIssue(Integer couponTypeNo) {
 
-        if (Boolean.FALSE.equals(couponGenerationIssueRepository.existCouponHasCouponTypeNo(couponTypeNo))) {
-            throw new DenyChangeCouponTypeException();
-        }
-
-        CouponType couponType = couponTypeRepository.findById(couponTypeNo)
-                                                    .orElseThrow(NotFoundCouponTypeException::new);
+        CouponType couponType = getCouponType(couponTypeNo);
 
         couponType.changeStopGenerationIssue(true);
 
     }
+
+    /**
+     * coupon type을 삭제하기 위한 메서드 입니다.
+     *
+     * @param couponTypeNo 삭제하고자 하는 쿠폰타입의 번호 입니다.
+     */
+    @Transactional
+    @Override
+    public void deleteCouponType(Integer couponTypeNo) {
+
+        if (Boolean.FALSE.equals(couponGenerationIssueRepository.existCouponHasCouponTypeNo(couponTypeNo))) {
+            throw new DenDeleteCouponTypeException();
+        }
+
+        CouponType couponType = getCouponType(couponTypeNo);
+
+        couponTypeRepository.delete(couponType);
+
+    }
+
+    /**
+     * 쿠폰타입번호로 쿠폰타입을 조회하기 위한 메서드 입니다.
+     *
+     * @param couponTypeNo 쿠폰타입을 조회하기 위한 쿠폰타입번호
+     * @return
+     */
+    private CouponType getCouponType(Integer couponTypeNo) {
+        return couponTypeRepository.findById(couponTypeNo)
+                                   .orElseThrow(NotFoundCouponTypeException::new);
+    }
+
 }
