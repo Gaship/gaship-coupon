@@ -1,5 +1,6 @@
 package shop.gaship.coupon.couponissue.repository.impl;
 
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import shop.gaship.coupon.couponissue.entity.CouponGenerationIssue;
 import shop.gaship.coupon.couponissue.entity.QCouponGenerationIssue;
@@ -19,18 +20,23 @@ public class CouponGenerationIssueRepositoryImpl
     }
 
     /**
-     * 해당 쿠폰 타입 번호를 가진 생성 or 발급 된 쿠폰의 갯수를 알아내는 메서드 입니다.
+     * 해당 쿠폰 타입 번호를 가진 생성 or 발급 된 쿠폰이 존재하는지 체크하는 메서드 입니다.
      *
      * @param couponTypeNo 쿠폰 타입 번호 입니다.
-     * @return 해당 쿠폰 타입 번호를 가진 생성 or 발급 된 쿠폰의 갯수를 반환 합니다.
+     * @return 해당 쿠폰 타입 번호를 가진 생성 or 발급 된 쿠폰의 존재 여부 반환.
      */
     @Override
-    public Long countByCouponTypeNo(Integer couponTypeNo) {
+    public Boolean existCouponHasCouponTypeNo(Integer couponTypeNo) {
         QCouponGenerationIssue couponGenerationIssue = QCouponGenerationIssue.couponGenerationIssue;
 
-        return from(couponGenerationIssue)
+        JPAQueryFactory jpaQueryFactory = new JPAQueryFactory(this.getEntityManager());
+
+        Integer fetchOne = jpaQueryFactory
+            .selectOne()
+            .from(couponGenerationIssue)
             .where(couponGenerationIssue.couponType.couponTypeNo.eq(couponTypeNo))
-            .select(couponGenerationIssue.count())
-            .fetchOne();
+            .fetchFirst();
+
+        return fetchOne != null;
     }
 }

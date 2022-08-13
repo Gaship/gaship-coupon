@@ -9,6 +9,6 @@ import shop.gaship.coupon.coupontype.entity.CouponType;
  * @author : 최겸준, 조재철
  * @since 1.0
  */
-public interface CouponTypeRepository extends JpaRepository<CouponType, Integer> {
+public interface CouponTypeRepository extends JpaRepository<CouponType, Integer>, CouponTypeRepositoryCustom {
 
 }
