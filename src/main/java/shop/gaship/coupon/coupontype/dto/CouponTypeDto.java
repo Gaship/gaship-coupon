@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import lombok.Getter;
 
 /**
- * @author : 최겸준
+ * @author 최겸준
  * @since 1.0
  */
 @Getter

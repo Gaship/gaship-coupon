@@ -3,12 +3,12 @@ package shop.gaship.coupon.coupongenerationissue.adapter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
-import shop.gaship.coupon.coupongenerationissue.dto.request.CouponIssueCreationRequestDto;
+import shop.gaship.coupon.coupongenerationissue.dto.request.CouponGenerationIssueCreationRequestDto;
 
 /**
  * 쿠폰 기능을 수행하기위해서 외부와의 통신이 필요할때 사용할 adapter class입니다.
  *
- * @author : 최겸준
+ * @author 최겸준
  * @since 1.0
  */
 @Component
@@ -16,9 +16,16 @@ import shop.gaship.coupon.coupongenerationissue.dto.request.CouponIssueCreationR
 public class CouponAdapter {
     private final WebClient schedulerWebClient;
 
-    public void addCouponGenerationIssue(CouponIssueCreationRequestDto couponIssueCreationRequestDto) {
+    /**
+     * 쿠폰 생성 및 발급 요청을 직접 통신하는 기능입니다.
+     * 
+     * @param couponGenerationIssueCreationRequestDto 쿠폰생성 및 발급을 위해 client에서 넘겨주는 정보가 들어있는 클래스입니다.
+     * @author 최겸준
+     */
+    public void addCouponGenerationIssue(
+        CouponGenerationIssueCreationRequestDto couponGenerationIssueCreationRequestDto) {
         schedulerWebClient.post()
-            .bodyValue(couponIssueCreationRequestDto)
+            .bodyValue(couponGenerationIssueCreationRequestDto)
             .retrieve()
             .bodyToMono(void.class)
             .block();

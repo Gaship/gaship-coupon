@@ -9,7 +9,9 @@ import org.springframework.http.MediaType;
 import org.springframework.web.reactive.function.client.WebClient;
 
 /**
- * @author : 최겸준
+ * property에 저장된 정보를 불러와서 webClient bean을 만드는 설정파일입니다.
+ *
+ * @author 최겸준
  * @since 1.0
  */
 @Configuration

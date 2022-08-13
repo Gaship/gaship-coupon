@@ -10,7 +10,7 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 /**
- * @author : 최겸준
+ * @author 최겸준
  * @since 1.0
  */
 @ExtendWith(SpringExtension.class)

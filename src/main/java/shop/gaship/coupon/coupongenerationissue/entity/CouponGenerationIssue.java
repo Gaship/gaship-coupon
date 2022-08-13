@@ -19,10 +19,9 @@ import shop.gaship.coupon.coupontype.entity.CouponType;
 /**
  * coupon_generations_issues 테이블과 1:1 대응되는 엔티티입니다.
  *
- * @author : 최겸준
+ * @author 최겸준
  * @since 1.0
  */
-
 @NamedEntityGraph(name = "CouponGenerationIssue.withCouponType", attributeNodes = {
     @NamedAttributeNode("couponType")
 })

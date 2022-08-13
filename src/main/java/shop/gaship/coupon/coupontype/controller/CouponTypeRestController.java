@@ -13,7 +13,7 @@ import shop.gaship.coupon.coupontype.service.CouponTypeService;
 /**
  * The type Coupon type rest controller.
  *
- * @author : 최겸준
+ * @author 최겸준
  * @since 1.0
  */
 @RequestMapping("/api/coupon-types")
