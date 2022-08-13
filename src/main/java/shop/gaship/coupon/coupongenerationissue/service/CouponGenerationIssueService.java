@@ -12,8 +12,8 @@ public interface CouponGenerationIssueService {
     /**
      * 쿠폰 생성 및 발급에대한 client의 요청을 adapter에 전달합니다.
      *
-     * @param couponTypeDto 쿠폰생성 및 발급을 위해 client에서 넘겨주는 정보가 들어있는 클래스입니다.
+     * @param couponGenerationIssueCreationRequestDto 쿠폰생성 및 발급을 위해 client에서 넘겨주는 정보가 들어있는 클래스입니다.
      * @author 최겸준
      */
-    void addCouponGenerationIssue(CouponGenerationIssueCreationRequestDto couponTypeDto);
+    void addCouponGenerationIssue(CouponGenerationIssueCreationRequestDto couponGenerationIssueCreationRequestDto);
 }

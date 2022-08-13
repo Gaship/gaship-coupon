@@ -18,12 +18,14 @@ import shop.gaship.coupon.coupongenerationissue.service.CouponGenerationIssueSer
  * @since 1.0
  */
 @RestController
-@RequestMapping("/api/coupon-issues")
+@RequestMapping("/api/coupon-generations-issues")
 @RequiredArgsConstructor
 public class CouponGenerationIssueRestController {
     private final CouponGenerationIssueService couponGenerationIssueService;
 
     /**
+     * 쿠폰을 생성 및 발급하기위한 요청을 처리하는 기능입니다.
+     *
      * @param couponGenerationIssueCreationRequestDto 쿠폰생성 및 발급을 위해 client에서 넘겨주는 정보가 들어있는 클래스입니다.
      * @return 성공적으로 요청이 이루어질시에 ResponseEntity의 body에 void를 넣고 상태코드 201을 반환합니다.
      * @author 최겸준

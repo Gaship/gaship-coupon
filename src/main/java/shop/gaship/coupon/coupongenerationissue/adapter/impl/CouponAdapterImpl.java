@@ -23,7 +23,7 @@ public class CouponAdapterImpl implements CouponAdapter {
      */
     public void addCouponGenerationIssue(
         CouponGenerationIssueCreationRequestDto couponGenerationIssueCreationRequestDto) {
-        schedulerWebClient.post()
+        schedulerWebClient.post().uri("/api/coupon-generations-issues")
             .bodyValue(couponGenerationIssueCreationRequestDto)
             .retrieve()
             .bodyToMono(void.class)
