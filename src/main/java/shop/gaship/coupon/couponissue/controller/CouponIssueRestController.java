@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import shop.gaship.coupon.couponissue.dto.request.CouponIssueCreationRequestDto;
-import shop.gaship.coupon.couponissue.service.CouponIssueService;
+import shop.gaship.coupon.couponissue.service.CouponGenerationIssueService;
 
 /**
  * @author : 최겸준
@@ -18,11 +18,11 @@ import shop.gaship.coupon.couponissue.service.CouponIssueService;
 @RequestMapping("/api/coupon-issues")
 @RequiredArgsConstructor
 public class CouponIssueRestController {
-    private final CouponIssueService couponIssueService;
+    private final CouponGenerationIssueService couponGenerationIssueService;
 
     @PostMapping
     public ResponseEntity<Void> couponIssueAdd(@RequestBody @Valid CouponIssueCreationRequestDto couponIssueCreationRequestDto) {
-        couponIssueService.addCouponIssue(couponIssueCreationRequestDto);
+        couponGenerationIssueService.addCouponIssue(couponIssueCreationRequestDto);
         return ResponseEntity.ok().build();
     }
 }
