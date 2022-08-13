@@ -1,4 +1,4 @@
-package shop.gaship.coupon.couponissue.entity;
+package shop.gaship.coupon.coupongenerationissue.entity;
 
 import java.time.LocalDateTime;
 import javax.persistence.Column;

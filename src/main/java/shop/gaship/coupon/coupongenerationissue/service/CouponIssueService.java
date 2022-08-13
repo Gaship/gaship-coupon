@@ -1,13 +1,11 @@
-package shop.gaship.coupon.couponissue.service;
+package shop.gaship.coupon.coupongenerationissue.service;
 
-import java.time.LocalDateTime;
-import shop.gaship.coupon.couponissue.dto.request.CouponIssueCreationRequestDto;
-import shop.gaship.coupon.couponissue.entity.CouponGenerationIssue;
+import shop.gaship.coupon.coupongenerationissue.dto.request.CouponIssueCreationRequestDto;
 
 /**
  * @author : 최겸준
  * @since 1.0
  */
 public interface CouponIssueService {
-    void addCouponIssue(CouponIssueCreationRequestDto couponTypeDto);
+    void addCouponGenerationIssue(CouponIssueCreationRequestDto couponTypeDto);
 }

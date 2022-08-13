@@ -1,12 +1,12 @@
-package shop.gaship.coupon.couponissue.service.impl;
+package shop.gaship.coupon.coupongenerationissue.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import shop.gaship.coupon.couponissue.adapter.CouponAdapter;
-import shop.gaship.coupon.couponissue.adapter.MemberAdapter;
-import shop.gaship.coupon.couponissue.dto.request.CouponIssueCreationRequestDto;
-import shop.gaship.coupon.couponissue.repository.CouponIssueRepository;
-import shop.gaship.coupon.couponissue.service.CouponIssueService;
+import shop.gaship.coupon.coupongenerationissue.adapter.CouponAdapter;
+import shop.gaship.coupon.coupongenerationissue.adapter.MemberAdapter;
+import shop.gaship.coupon.coupongenerationissue.dto.request.CouponIssueCreationRequestDto;
+import shop.gaship.coupon.coupongenerationissue.repository.CouponIssueRepository;
+import shop.gaship.coupon.coupongenerationissue.service.CouponIssueService;
 
 /**
  * @author : 최겸준
@@ -20,7 +20,7 @@ public class CouponIssueServiceImpl implements CouponIssueService {
     private final CouponAdapter couponAdapter;
 
     @Override
-    public void addCouponIssue(CouponIssueCreationRequestDto couponIssueCreationRequestDto) {
-        couponAdapter.addCouponIssue(couponIssueCreationRequestDto);
+    public void addCouponGenerationIssue(CouponIssueCreationRequestDto couponIssueCreationRequestDto) {
+        couponAdapter.addCouponGenerationIssue(couponIssueCreationRequestDto);
     }
 }

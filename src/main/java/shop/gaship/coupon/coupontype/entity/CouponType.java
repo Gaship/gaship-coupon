@@ -3,7 +3,6 @@ package shop.gaship.coupon.coupontype.entity;
 import com.sun.istack.NotNull;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import shop.gaship.coupon.couponissue.entity.CouponGenerationIssue;
+import shop.gaship.coupon.coupongenerationissue.entity.CouponGenerationIssue;
 
 /**
  * coupon_types 테이블과 1:1 대응되는 엔티티입니다.
