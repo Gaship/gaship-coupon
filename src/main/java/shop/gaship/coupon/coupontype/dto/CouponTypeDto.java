@@ -4,13 +4,17 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 /**
  * @author : 최겸준
  * @since 1.0
  */
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class CouponTypeDto {
     @NotBlank
     private String name;
