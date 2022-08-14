@@ -26,4 +26,6 @@ public interface CouponGenerationIssueService {
      * @return
      */
     CouponGenerationIssueDetailsResponseDto findCouponGenerationIssue(Integer couponGenerationIssueNo);
+
+    void addCouponGenerationIssueToRecommendMember(Integer recommendMemberNo);
 }

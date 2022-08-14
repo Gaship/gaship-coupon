@@ -40,6 +40,12 @@ public class CouponGenerationIssueRestController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    @PostMapping("/{recommendMemberNo}")
+    public ResponseEntity<Void> couponGenerationIssueAddToRecommendMember(@PathVariable Integer recommendMemberNo) {
+        couponGenerationIssueService.addCouponGenerationIssueToRecommendMember(recommendMemberNo);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
     /**
      * 쿠폰의 상세조회 요청을 할때 처리할 메서드입니다.
      *

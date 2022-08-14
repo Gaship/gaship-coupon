@@ -9,10 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedAttributeNode;
-import javax.persistence.NamedEntityGraph;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import shop.gaship.coupon.coupontype.entity.CouponType;
@@ -53,4 +52,16 @@ public class CouponGenerationIssue {
 
     @Column(name = "used_datetime")
     private LocalDateTime usedDatetime;
+
+    @Builder
+    public CouponGenerationIssue(CouponType couponType, Integer memberNo,
+                                 LocalDateTime generationDatetime,
+                                 LocalDateTime issueDatetime,
+                                 LocalDateTime expirationDatetime) {
+        this.couponType = couponType;
+        this.memberNo = memberNo;
+        this.generationDatetime = generationDatetime;
+        this.issueDatetime = issueDatetime;
+        this.expirationDatetime = expirationDatetime;
+    }
 }
