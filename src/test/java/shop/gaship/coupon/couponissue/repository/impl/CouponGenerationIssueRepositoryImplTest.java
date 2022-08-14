@@ -1,7 +1,6 @@
 package shop.gaship.coupon.couponissue.repository.impl;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
@@ -16,6 +15,8 @@ import shop.gaship.coupon.coupontype.entity.CouponType;
 import shop.gaship.coupon.coupontype.repository.CouponTypeRepository;
 
 /**
+ * CouponGenerationIssue 의 커스텀 repository 테스트 클래스 입니다.
+ *
  * @author : 조재철
  * @since 1.0
  */

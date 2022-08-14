@@ -31,6 +31,7 @@ import shop.gaship.coupon.coupontype.entity.CouponType;
 @Getter
 @NoArgsConstructor
 public class CouponGenerationIssue {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "coupon_generation_issue_no")

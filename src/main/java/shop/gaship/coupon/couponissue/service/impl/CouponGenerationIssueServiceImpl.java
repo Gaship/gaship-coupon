@@ -14,6 +14,7 @@ import shop.gaship.coupon.couponissue.service.CouponGenerationIssueService;
 @Service
 @RequiredArgsConstructor
 public class CouponGenerationIssueServiceImpl implements CouponGenerationIssueService {
+
     private final CouponGenerationIssueRepository couponIssueRepository;
     private final MemberAdapter memberAdapter;
 

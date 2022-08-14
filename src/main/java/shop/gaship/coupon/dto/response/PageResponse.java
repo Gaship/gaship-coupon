@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
  */
 @Getter
 public class PageResponse<T> {
+
     private final List<T> content;
     //총 페이지 번호
     private final int totalPage;

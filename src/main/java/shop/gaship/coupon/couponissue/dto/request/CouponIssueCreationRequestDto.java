@@ -11,6 +11,7 @@ import lombok.Getter;
  */
 @Getter
 public class CouponIssueCreationRequestDto {
+
     @NotNull
     @Min(1)
     private Integer couponTypeNo;

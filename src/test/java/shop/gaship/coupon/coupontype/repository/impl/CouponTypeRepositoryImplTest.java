@@ -25,6 +25,8 @@ import shop.gaship.coupon.coupontype.entity.CouponType;
 import shop.gaship.coupon.coupontype.repository.CouponTypeRepository;
 
 /**
+ * CouponType 커스텀 repository 테스트 클래스 입니다.
+ *
  * @author : 조재철
  * @since 1.0
  */

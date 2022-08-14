@@ -7,6 +7,7 @@ package shop.gaship.coupon.dataprotection.exception;
  * @since 1.0
  */
 public class DecodeFailureException extends RuntimeException {
+
     public DecodeFailureException(String message) {
         super(message);
     }

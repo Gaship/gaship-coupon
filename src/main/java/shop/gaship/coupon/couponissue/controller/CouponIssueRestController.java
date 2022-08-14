@@ -18,10 +18,12 @@ import shop.gaship.coupon.couponissue.service.CouponGenerationIssueService;
 @RequestMapping("/api/coupon-issues")
 @RequiredArgsConstructor
 public class CouponIssueRestController {
+
     private final CouponGenerationIssueService couponGenerationIssueService;
 
     @PostMapping
-    public ResponseEntity<Void> couponIssueAdd(@RequestBody @Valid CouponIssueCreationRequestDto couponIssueCreationRequestDto) {
+    public ResponseEntity<Void> couponIssueAdd(
+        @RequestBody @Valid CouponIssueCreationRequestDto couponIssueCreationRequestDto) {
         couponGenerationIssueService.addCouponIssue(couponIssueCreationRequestDto);
         return ResponseEntity.ok().build();
     }

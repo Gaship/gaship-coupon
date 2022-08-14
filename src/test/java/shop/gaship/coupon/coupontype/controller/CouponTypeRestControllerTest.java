@@ -25,6 +25,8 @@ import shop.gaship.coupon.coupontype.dto.CouponTypeDto;
 import shop.gaship.coupon.coupontype.service.impl.CouponTypeServiceImpl;
 
 /**
+ * CouponType controller 테스트 클래스 입니다.
+ *
  * @author : 조재철
  * @since 1.0
  */
@@ -64,7 +66,7 @@ class CouponTypeRestControllerTest {
     private void setCouponTypeDtoFixRateCanDeleteList() {
         List<CouponTypeDto> couponTypeDtoFixRateCanList = List.of(couponTypeDtoFixRateCanDelete);
 
-        couponTypeDtoFixRateCanPage= new PageImpl(couponTypeDtoFixRateCanList, PageRequest.of(0, 5), 10);
+        couponTypeDtoFixRateCanPage = new PageImpl(couponTypeDtoFixRateCanList, PageRequest.of(0, 5), 10);
     }
 
     @Order(1)

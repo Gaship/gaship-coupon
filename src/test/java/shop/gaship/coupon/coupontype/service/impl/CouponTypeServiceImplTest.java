@@ -26,9 +26,10 @@ import shop.gaship.coupon.coupontype.entity.CouponType;
 import shop.gaship.coupon.coupontype.exception.DeleteCouponTypeException;
 import shop.gaship.coupon.coupontype.repository.CouponTypeRepository;
 import shop.gaship.coupon.coupontype.service.CouponTypeService;
-import shop.gaship.coupon.dto.response.PageResponse;
 
 /**
+ * CouponType service 테스트 클래스 입니다.
+ *
  * @author : 조재철
  * @since 1.0
  */

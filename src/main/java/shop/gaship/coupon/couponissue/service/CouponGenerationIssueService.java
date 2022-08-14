@@ -7,5 +7,6 @@ import shop.gaship.coupon.couponissue.dto.request.CouponIssueCreationRequestDto;
  * @since 1.0
  */
 public interface CouponGenerationIssueService {
+
     void addCouponIssue(CouponIssueCreationRequestDto couponTypeDto);
 }

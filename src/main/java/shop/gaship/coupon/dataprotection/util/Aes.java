@@ -17,6 +17,7 @@ import shop.gaship.coupon.dataprotection.exception.EncodeFailureException;
  */
 @Component
 public class Aes {
+
     private static final String ENCODE_ERROR_MESSAGE = "정보 암호화에 실패했습니다.";
     private static final String DECODE_ERROR_MESSAGE = "정보 복호화에 실패했습니다.";
     private final SecretKeySpec secretKeySpec;
@@ -28,7 +29,7 @@ public class Aes {
      * @param userInformationProtectionValue salt를 위한 일반 텍스트 문자열입니다.
      */
     public Aes(String userInformationProtectionValue,
-               @Value("${aes.algorithm}") String transformation) {
+        @Value("${aes.algorithm}") String transformation) {
         this.secretKeySpec =
             new SecretKeySpec(userInformationProtectionValue.getBytes(StandardCharsets.UTF_8),
                 "AES");
