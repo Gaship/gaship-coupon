@@ -66,9 +66,39 @@ public class CouponTypeRestController {
         return ResponseEntity.ok().build();
     }
 
+    /**
+     * 쿠폰 타입에 대한 전체 조회의 요청을 받는 클래스 입니다.
+     *
+     * @param pageable pagination 에 맞게 조회하기 위한 정보를 담고있는 객체.
+     * @return 요청에 대한 응답으로 요청을 성공적으로 잘 처리했다는 응답과, couponType 의 PageResponse 타입으로 보냅니다.
+     */
     @GetMapping
     public ResponseEntity<PageResponse<CouponTypeDto>> couponTypeList(Pageable pageable) {
         Page<CouponTypeDto> couponTypesPage =
             couponTypeService.findCouponTypes(pageable);
+
+        PageResponse<CouponTypeDto> couponTypesResponsePage = new PageResponse<>(couponTypesPage);
+
+        return ResponseEntity.ok(couponTypesResponsePage);
+    }
+
+    @GetMapping(value = "{couponTypeNo}/delete-can")
+    public ResponseEntity<PageResponse<CouponTypeDto>> couponTypeListCanDelete(Pageable pageable) {
+        Page<CouponTypeDto> couponTypesCanDeletePage =
+            couponTypeService.findCouponTypesCanDelete(pageable);
+
+        PageResponse<CouponTypeDto> couponTypesResponsePage = new PageResponse<>(couponTypesCanDeletePage);
+
+        return ResponseEntity.ok(couponTypesResponsePage);
+    }
+
+    @GetMapping(value = "{couponTypeNo}/delete-cannot")
+    public ResponseEntity<PageResponse<CouponTypeDto>> couponTypeListCannotDelete(Pageable pageable) {
+        Page<CouponTypeDto> couponTypesCannotDeletePage =
+            couponTypeService.findCouponTypesCannotDelete(pageable);
+
+        PageResponse<CouponTypeDto> couponTypesResponsePage = new PageResponse<>(couponTypesCannotDeletePage);
+
+        return ResponseEntity.ok(couponTypesResponsePage);
     }
 }

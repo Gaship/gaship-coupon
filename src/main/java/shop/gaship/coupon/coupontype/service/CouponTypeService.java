@@ -27,4 +27,8 @@ public interface CouponTypeService {
     void deleteCouponType(Integer couponTypeNo);
 
     Page<CouponTypeDto> findCouponTypes(Pageable pageable);
+
+    Page<CouponTypeDto> findCouponTypesCanDelete(Pageable pageable);
+
+    Page<CouponTypeDto> findCouponTypesCannotDelete(Pageable pageable);
 }

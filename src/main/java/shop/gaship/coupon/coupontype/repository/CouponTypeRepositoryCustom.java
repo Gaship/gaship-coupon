@@ -13,4 +13,8 @@ import shop.gaship.coupon.coupontype.dto.CouponTypeDto;
 public interface CouponTypeRepositoryCustom {
 
     Page<CouponTypeDto> findAllCouponTypes(Pageable pageable);
+
+    Page<CouponTypeDto> findAllCouponTypesCanDelete(Pageable pageable);
+
+    Page<CouponTypeDto> findAllCouponTypesCannotDelete(Pageable pageable);
 }

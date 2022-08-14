@@ -63,6 +63,16 @@ public class CouponTypeServiceImpl implements CouponTypeService {
         return couponTypeRepository.findAllCouponTypes(pageable);
     }
 
+    @Override
+    public Page<CouponTypeDto> findCouponTypesCanDelete(Pageable pageable) {
+        return couponTypeRepository.findAllCouponTypesCanDelete(pageable);
+    }
+
+    @Override
+    public Page<CouponTypeDto> findCouponTypesCannotDelete(Pageable pageable) {
+        return couponTypeRepository.findAllCouponTypesCannotDelete(pageable);
+    }
+
     /**
      * 쿠폰타입번호로 쿠폰타입을 조회하기 위한 메서드 입니다.
      *
