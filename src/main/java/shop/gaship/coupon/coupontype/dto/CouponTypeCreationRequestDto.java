@@ -11,7 +11,6 @@ import lombok.Setter;
  * @since 1.0
  */
 @Getter
-@Setter
 public class CouponTypeCreationRequestDto {
     @NotBlank
     private String name;
@@ -22,4 +21,13 @@ public class CouponTypeCreationRequestDto {
 
     @Min(0)
     private Long discountAmount;
+
+    public void setDiscountRate(Double discountRate) {
+        this.discountRate = discountRate;
+    }
+
+    public void setDiscountAmount(Long discountAmount) {
+        this.discountAmount = discountAmount;
+    }
+
 }
