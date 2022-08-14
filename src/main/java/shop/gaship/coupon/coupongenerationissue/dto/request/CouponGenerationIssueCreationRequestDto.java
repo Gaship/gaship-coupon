@@ -19,7 +19,7 @@ public class CouponGenerationIssueCreationRequestDto {
 
     @NotNull
     @Min(1)
-    private Integer memberNo;
+    private Integer memberGradeNo;
 
     @NotNull
     private LocalDateTime generationDatetime;

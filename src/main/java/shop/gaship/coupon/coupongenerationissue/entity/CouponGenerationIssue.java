@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedAttributeNode;
 import javax.persistence.NamedEntityGraph;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,9 +23,8 @@ import shop.gaship.coupon.coupontype.entity.CouponType;
  * @author 최겸준
  * @since 1.0
  */
-@NamedEntityGraph(name = "CouponGenerationIssue.withCouponType", attributeNodes = {
-    @NamedAttributeNode("couponType")
-})
+@NamedQuery(name = "CouponGenerationIssue.findByIdAsFetchJoin",
+    query = "select c from CouponGenerationIssue c join fetch c.couponType where c.couponGenerationIssueNo = :couponGenerationIssueNo")
 @Entity
 @Table(name = "coupon_generations_issues")
 @Getter

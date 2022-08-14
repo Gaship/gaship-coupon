@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import lombok.Getter;
 import shop.gaship.coupon.coupongenerationissue.entity.CouponGenerationIssue;
 
 /**
@@ -20,6 +21,7 @@ import shop.gaship.coupon.coupongenerationissue.entity.CouponGenerationIssue;
  */
 @Entity
 @Table(name = "coupon_types")
+@Getter
 public class CouponType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

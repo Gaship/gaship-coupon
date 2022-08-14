@@ -1,6 +1,8 @@
 package shop.gaship.coupon.coupongenerationissue.repository;
 
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import shop.gaship.coupon.coupongenerationissue.entity.CouponGenerationIssue;
 
 /**
@@ -10,4 +12,6 @@ import shop.gaship.coupon.coupongenerationissue.entity.CouponGenerationIssue;
  * @since 1.0
  */
 public interface CouponGenerationIssueRepository extends JpaRepository<CouponGenerationIssue, Integer> {
+    @Query(name = "CouponGenerationIssue.findByIdAsFetchJoin")
+    Optional<CouponGenerationIssue> findCouponGenerationIssueByIdAsFetchJoin(Integer couponGenerationIssueNo);
 }

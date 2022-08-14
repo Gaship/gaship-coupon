@@ -8,7 +8,7 @@ import shop.gaship.coupon.coupongenerationissue.dto.request.CouponGenerationIssu
  * @author 최겸준
  * @since 1.0
  */
-public interface CouponAdapter {
+public interface SchedulerAdapterAboutCouponCreation {
 
     /**
      * 쿠폰 생성 및 발급 요청을 직접 통신하는 기능입니다.

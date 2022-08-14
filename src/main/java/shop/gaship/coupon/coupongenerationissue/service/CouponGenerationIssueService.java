@@ -1,5 +1,7 @@
 package shop.gaship.coupon.coupongenerationissue.service;
 
+import java.sql.SQLException;
+import shop.gaship.coupon.coupongenerationissue.dto.response.CouponGenerationIssueDetailsResponseDto;
 import shop.gaship.coupon.coupongenerationissue.dto.request.CouponGenerationIssueCreationRequestDto;
 
 /**
@@ -16,4 +18,12 @@ public interface CouponGenerationIssueService {
      * @author 최겸준
      */
     void addCouponGenerationIssue(CouponGenerationIssueCreationRequestDto couponGenerationIssueCreationRequestDto);
+
+    /**
+     * 쿠폰의 상세조회 요청을 할때 처리할 메서드입니다.
+     *
+     * @param couponGenerationIssueNo
+     * @return
+     */
+    CouponGenerationIssueDetailsResponseDto findCouponGenerationIssue(Integer couponGenerationIssueNo);
 }

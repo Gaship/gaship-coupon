@@ -1,14 +1,18 @@
 package shop.gaship.coupon.coupongenerationissue.controller;
 
+import java.sql.SQLException;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import shop.gaship.coupon.coupongenerationissue.dto.request.CouponGenerationIssueCreationRequestDto;
+import shop.gaship.coupon.coupongenerationissue.dto.response.CouponGenerationIssueDetailsResponseDto;
 import shop.gaship.coupon.coupongenerationissue.service.CouponGenerationIssueService;
 
 /**
@@ -35,4 +39,16 @@ public class CouponGenerationIssueRestController {
         couponGenerationIssueService.addCouponGenerationIssue(couponGenerationIssueCreationRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
+    /**
+     * 쿠폰의 상세조회 요청을 할때 처리할 메서드입니다.
+     *
+     * @param couponGenerationIssueNo 조회시 기준이 되는 쿠폰생성발급 테이블의 로우번호입니다.
+     * @return body에 CouponGenerationIssueDetailsResponseDto를 담아서 200 상태코드와 함께 반환합니다.
+     */
+    @GetMapping("/{couponGenerationIssueNo}")
+    public ResponseEntity<CouponGenerationIssueDetailsResponseDto> couponGenerationIssueDetails(@PathVariable Integer couponGenerationIssueNo) {
+        return ResponseEntity.ok(couponGenerationIssueService.findCouponGenerationIssue(couponGenerationIssueNo));
+    }
+
 }

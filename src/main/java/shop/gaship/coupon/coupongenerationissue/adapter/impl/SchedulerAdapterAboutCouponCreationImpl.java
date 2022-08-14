@@ -3,19 +3,19 @@ package shop.gaship.coupon.coupongenerationissue.adapter.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
-import shop.gaship.coupon.coupongenerationissue.adapter.CouponAdapter;
 import shop.gaship.coupon.coupongenerationissue.dto.request.CouponGenerationIssueCreationRequestDto;
 
 /**
- * CouponAdapter interface를 구현한 클래스입니다.
+ * SchedulerAdapterAboutCouponCreation interface를 구현한 클래스입니다.
  *
  * @author 최겸준
- * @see shop.gaship.coupon.coupongenerationissue.adapter.CouponAdapter;
+ * @see shop.gaship.coupon.coupongenerationissue.adapter.SchedulerAdapterAboutCouponCreation ;
  * @since 1.0
  */
 @Component
 @RequiredArgsConstructor
-public class CouponAdapterImpl implements CouponAdapter {
+public class SchedulerAdapterAboutCouponCreationImpl implements
+    shop.gaship.coupon.coupongenerationissue.adapter.SchedulerAdapterAboutCouponCreation {
     private final WebClient schedulerWebClient;
 
     /**
