@@ -82,7 +82,13 @@ public class CouponTypeRestController {
         return ResponseEntity.ok(couponTypesResponsePage);
     }
 
-    @GetMapping(value = "{couponTypeNo}/delete-can")
+    /**
+     * 해당 쿠폰 타입 중 아직 생성, 발급이 안된 쿠폰 타입 조회 요청을 받는 클래스 입니다.
+     *
+     * @param pageable pagination 에 맞게 조회하기 위한 정보를 담고있는 객체.
+     * @return 요청에 대한 응답으로 요청을 성공적으로 잘 처리했다는 응답과, couponType 의 PageResponse 타입으로 보냅니다.
+     */
+    @GetMapping(value = "/delete-can")
     public ResponseEntity<PageResponse<CouponTypeDto>> couponTypeListCanDelete(Pageable pageable) {
         Page<CouponTypeDto> couponTypesCanDeletePage =
             couponTypeService.findCouponTypesCanDelete(pageable);
@@ -92,7 +98,13 @@ public class CouponTypeRestController {
         return ResponseEntity.ok(couponTypesResponsePage);
     }
 
-    @GetMapping(value = "{couponTypeNo}/delete-cannot")
+    /**
+     * 해당 쿠폰 타입 중 이미 생성, 발급이 된 쿠폰 타입 조회 요청을 받는 클래스 입니다.
+     *
+     * @param pageable pagination 에 맞게 조회하기 위한 정보를 담고있는 객체.
+     * @return 요청에 대한 응답으로 요청을 성공적으로 잘 처리했다는 응답과, couponType 의 PageResponse 타입으로 보냅니다.
+     */
+    @GetMapping(value = "/delete-cannot")
     public ResponseEntity<PageResponse<CouponTypeDto>> couponTypeListCannotDelete(Pageable pageable) {
         Page<CouponTypeDto> couponTypesCannotDeletePage =
             couponTypeService.findCouponTypesCannotDelete(pageable);

@@ -58,23 +58,41 @@ public class CouponTypeServiceImpl implements CouponTypeService {
 
     }
 
+    /**
+     * 모든 coupon type 의 Page 타입만큼 가져오기 위한 service 메서드 입니다.
+     *
+     * @param pageable pagination 에 맞게 조회하기 위한 정보를 담고있는 객체.
+     * @return 모든 쿠폰 타입의 Page 타입.
+     */
     @Override
     public Page<CouponTypeDto> findCouponTypes(Pageable pageable) {
         return couponTypeRepository.findAllCouponTypes(pageable);
     }
 
+    /**
+     * 아직 생성, 발급 되지 않은 coupon type 의 Page 타입만큼 가져오기 위한 service 메서드 입니다.
+     *
+     * @param pageable pagination 에 맞게 조회하기 위한 정보를 담고있는 객체.
+     * @return 아직 생성, 발급 되지 않은 쿠폰 타입의 Page 타입.
+     */
     @Override
     public Page<CouponTypeDto> findCouponTypesCanDelete(Pageable pageable) {
         return couponTypeRepository.findAllCouponTypesCanDelete(pageable);
     }
 
+    /**
+     * 이미 생성, 발급 된 coupon type 의 Page 타입만큼 가져오기 위한 service 메서드 입니다.
+     *
+     * @param pageable pagination 에 맞게 조회하기 위한 정보를 담고있는 객체.
+     * @return 이미 생성, 발급 된 쿠폰 타입의 Page 타입.
+     */
     @Override
     public Page<CouponTypeDto> findCouponTypesCannotDelete(Pageable pageable) {
         return couponTypeRepository.findAllCouponTypesCannotDelete(pageable);
     }
 
     /**
-     * 쿠폰타입번호로 쿠폰타입을 조회하기 위한 메서드 입니다.
+     * 쿠폰타입번호로 쿠폰타입을 조회하기 위한 service 메서드 입니다.
      *
      * @param couponTypeNo 쿠폰타입을 조회하기 위한 쿠폰타입번호
      * @return 쿠폰타입번호에 해당하는 쿠폰타입 객체를 반환 합니다.
