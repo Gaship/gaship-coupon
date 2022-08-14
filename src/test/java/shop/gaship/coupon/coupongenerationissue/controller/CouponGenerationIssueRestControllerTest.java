@@ -1,8 +1,11 @@
 package shop.gaship.coupon.coupongenerationissue.controller;
 
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -55,4 +58,14 @@ class CouponGenerationIssueRestControllerTest {
 
         verify(couponGenerationIssueService).findCouponGenerationIssue(1);
     }
+
+    @DisplayName("추천인에게 쿠폰생성발급 요청이 들어오면 예외없이 addCouponGenerationIssueToRecommendMember() 메서드가 잘 동작한다.")
+    @Test
+    void couponGenerationIssueAddToRecommendMember() throws Exception {
+        doNothing().when(couponGenerationIssueService).addCouponGenerationIssueToRecommendMember(1);
+        mvc.perform(post("/api/coupon-generations-issues/{recommendMemberNo}", 1).accept(MediaType.APPLICATION_JSON))
+            .andExpect(status().isCreated());
+        verify(couponGenerationIssueService).addCouponGenerationIssueToRecommendMember(1);
+    }
+
 }

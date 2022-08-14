@@ -1,9 +1,13 @@
 package shop.gaship.coupon.coupongenerationissue.service.impl;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatNoException;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.verify;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -20,8 +24,13 @@ import shop.gaship.coupon.coupongenerationissue.adapter.SchedulerAdapterAboutCou
 import shop.gaship.coupon.coupongenerationissue.dto.response.CouponGenerationIssueDetailsResponseDto;
 import shop.gaship.coupon.coupongenerationissue.entity.CouponGenerationIssue;
 import shop.gaship.coupon.coupongenerationissue.exception.CouponGenerationIssueNotFoundException;
+import shop.gaship.coupon.coupongenerationissue.exception.CouponTypeNotFoundException;
+import shop.gaship.coupon.coupongenerationissue.exception.RecommendMemberCouponTypeNotFoundException;
 import shop.gaship.coupon.coupongenerationissue.repository.CouponGenerationIssueRepository;
 import shop.gaship.coupon.coupontype.entity.CouponType;
+import shop.gaship.coupon.coupontype.repository.CouponTypeRepository;
+import shop.gaship.coupon.recommendmembercoupontype.entity.RecommendMemberCouponType;
+import shop.gaship.coupon.recommendmembercoupontype.repository.RecommendMemberCouponTypeRepository;
 
 /**
  * @author : 최겸준
@@ -40,6 +49,12 @@ class CouponGenerationIssueServiceImplTest {
     @MockBean
     private SchedulerAdapterAboutCouponCreation schedulerAdapterAboutCouponCreation;
 
+    @MockBean
+    private CouponTypeRepository couponTypeRepository;
+
+    @MockBean
+    private RecommendMemberCouponTypeRepository recommendMemberCouponTypeRepository;
+
     private CouponGenerationIssue couponGenerationIssue;
 
     private CouponType couponType;
@@ -47,6 +62,7 @@ class CouponGenerationIssueServiceImplTest {
     @BeforeEach
     void setUp() {
         couponType = new CouponType();
+        ReflectionTestUtils.setField(couponType, "couponTypeNo", 1);
         ReflectionTestUtils.setField(couponType, "name", "couponTypeName");
         ReflectionTestUtils.setField(couponType, "discountAmount", 1000L);
         ReflectionTestUtils.setField(couponType, "discountRate", null);
@@ -99,6 +115,53 @@ class CouponGenerationIssueServiceImplTest {
         assertThatThrownBy(() -> service.findCouponGenerationIssue(1)).isInstanceOf(
             CouponGenerationIssueNotFoundException.class)
             .hasMessageContaining(CouponGenerationIssueNotFoundException.MESSAGE);
+    }
 
+    @DisplayName("비지니스 로직이 정상적으로 동작하며 정상적으로 save 메소드까지 동작한다.")
+    @Test
+    void addCouponGenerationIssueToRecommendMember() {
+        RecommendMemberCouponType recommendMemberCouponType = new RecommendMemberCouponType();
+        recommendMemberCouponType.setCouponType(couponType);
+        recommendMemberCouponType.setRegisterDatetime(LocalDateTime.now());
+        recommendMemberCouponType.setCouponTypeNo(1);
+
+        given(recommendMemberCouponTypeRepository.findFirstByOrderByCouponTypeNoDesc())
+            .willReturn(Optional.ofNullable(recommendMemberCouponType));
+
+        given(couponTypeRepository.findById(anyInt()))
+            .willReturn(Optional.ofNullable(couponType));
+
+        assertThatNoException().isThrownBy(() -> service.addCouponGenerationIssueToRecommendMember(1));
+        verify(couponGenerationIssueRepository).save(any(CouponGenerationIssue.class));
+    }
+
+    @DisplayName("추천인쿠폰종류가 존재하지 않을때 추천인쿠폰생성발급 요청이 들어오면 RecommendMemberCouponTypeNotFoundException 이 발생한다.")
+    @Test
+    void addCouponGenerationIssueToRecommendMember_fail_RecommendMemberCouponTypeNotFoundException() {
+        given(recommendMemberCouponTypeRepository.findFirstByOrderByCouponTypeNoDesc())
+            .willReturn(Optional.empty());
+
+        assertThatThrownBy(() -> service.addCouponGenerationIssueToRecommendMember(1))
+            .isInstanceOf(RecommendMemberCouponTypeNotFoundException.class)
+            .hasMessageContaining(RecommendMemberCouponTypeNotFoundException.MESSAGE);
+    }
+
+    @DisplayName("존재하지 않는 쿠폰타입을 요청하면 CouponTypeNotFoundException 이 발생한다.")
+    @Test
+    void addCouponGenerationIssueToRecommendMember_fail_CouponTypeNotFoundException() {
+        RecommendMemberCouponType recommendMemberCouponType = new RecommendMemberCouponType();
+        recommendMemberCouponType.setCouponType(couponType);
+        recommendMemberCouponType.setRegisterDatetime(LocalDateTime.now());
+        recommendMemberCouponType.setCouponTypeNo(1);
+
+        given(recommendMemberCouponTypeRepository.findFirstByOrderByCouponTypeNoDesc())
+            .willReturn(Optional.ofNullable(recommendMemberCouponType));
+
+        given(couponTypeRepository.findById(anyInt()))
+            .willReturn(Optional.empty());
+
+        assertThatThrownBy(() -> service.addCouponGenerationIssueToRecommendMember(1))
+            .isInstanceOf(CouponTypeNotFoundException.class)
+            .hasMessageContaining(CouponTypeNotFoundException.MESSAGE);
     }
 }

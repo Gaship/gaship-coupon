@@ -67,4 +67,6 @@ class CouponGenerationIssueRepositoryTest {
             .isEqualTo(couponGenerationIssue.getMemberNo());
         assertThat(type.getCouponTypeNo()).isEqualTo(couponType.getCouponTypeNo());
     }
+
+
 }
