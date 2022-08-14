@@ -3,15 +3,16 @@ package shop.gaship.coupon.coupontype.dto;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * @author 최겸준
  * @since 1.0
  */
 @Getter
-public class CouponTypeDto {
+@Setter
+public class CouponTypeCreationRequestDto {
     @NotBlank
     private String name;
 
@@ -21,7 +22,4 @@ public class CouponTypeDto {
 
     @Min(0)
     private Long discountAmount;
-
-    @NotNull
-    private Boolean isFixedAmount;
 }

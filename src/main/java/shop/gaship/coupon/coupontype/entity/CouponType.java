@@ -10,7 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import shop.gaship.coupon.coupongenerationissue.entity.CouponGenerationIssue;
 
 /**
@@ -22,6 +25,8 @@ import shop.gaship.coupon.coupongenerationissue.entity.CouponGenerationIssue;
 @Entity
 @Table(name = "coupon_types")
 @Getter
+@Setter
+@NoArgsConstructor
 public class CouponType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,4 +47,13 @@ public class CouponType {
 
     @OneToMany(mappedBy = "couponType")
     private List<CouponGenerationIssue> couponGenerationIssueList = new ArrayList<>();
+
+    @Builder
+    public CouponType(String name, Long discountAmount, Double discountRate,
+                      Boolean isStopGenerationIssue) {
+        this.name = name;
+        this.discountAmount = discountAmount;
+        this.discountRate = discountRate;
+        this.isStopGenerationIssue = isStopGenerationIssue;
+    }
 }
