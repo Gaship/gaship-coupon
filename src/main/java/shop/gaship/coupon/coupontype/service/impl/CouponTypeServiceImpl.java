@@ -92,6 +92,28 @@ public class CouponTypeServiceImpl implements CouponTypeService {
     }
 
     /**
+     * 정액 할인 정책을 가진 coupont type 의 Page 타입만큼 조회하기 위한 service 메서드 입니다.
+     *
+     * @param pageable pagination 에 맞게 조회하기 위한 정보를 담고있는 객체.
+     * @return 정액 할인 정책인 쿠폰 타입의 Page 타입.
+     */
+    @Override
+    public Page<CouponTypeDto> findCouponTypesFixedAmount(Pageable pageable) {
+        return couponTypeRepository.findAllCouponTypesFixedAmount(pageable);
+    }
+
+    /**
+     * 정률 할인 정책을 가진 coupont type 의 Page 타입만큼 조회하기 위한 service 메서드 입니다.
+     *
+     * @param pageable pagination 에 맞게 조회하기 위한 정보를 담고있는 객체.
+     * @return 정률 할인 정책인 쿠폰 타입의 Page 타입.
+     */
+    @Override
+    public Page<CouponTypeDto> findCouponTypesFixedRate(Pageable pageable) {
+        return couponTypeRepository.findAllCouponTypesFixedRate(pageable);
+    }
+
+    /**
      * 쿠폰타입번호로 쿠폰타입을 조회하기 위한 service 메서드 입니다.
      *
      * @param couponTypeNo 쿠폰타입을 조회하기 위한 쿠폰타입번호

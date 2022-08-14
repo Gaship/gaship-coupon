@@ -1,10 +1,5 @@
 package shop.gaship.coupon.dto.response;
 
-/**
- * @author : 조재철
- * @since 1.0
- */
-
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;

@@ -35,4 +35,20 @@ public interface CouponTypeRepositoryCustom {
      * @return 이미 생성, 발급 된 쿠폰 타입의 Page 타입.
      */
     Page<CouponTypeDto> findAllCouponTypesCannotDelete(Pageable pageable);
+
+    /**
+     * 정액 할인 정책을 가진 coupont type의 Page 타입 만큼 가져오기 위한 repository 메서드 입니다.
+     *
+     * @param pageable pagination 에 맞게 조회하기 위한 정보를 담고있는 객체.
+     * @return 정액 할인 정책인 쿠폰 타입의 Page 타입.
+     */
+    Page<CouponTypeDto> findAllCouponTypesFixedAmount(Pageable pageable);
+
+    /**
+     * 정률 할인 정책을 가진 coupont type의 Page 타입 만큼 가져오기 위한 repository 메서드 입니다.
+     *
+     * @param pageable pagination 에 맞게 조회하기 위한 정보를 담고있는 객체.
+     * @return 정률 할인 정책인 쿠폰 타입의 Page 타입.
+     */
+    Page<CouponTypeDto> findAllCouponTypesFixedRate(Pageable pageable);
 }

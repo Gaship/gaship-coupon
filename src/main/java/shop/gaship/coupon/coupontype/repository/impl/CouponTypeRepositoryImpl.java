@@ -102,4 +102,46 @@ public class CouponTypeRepositoryImpl
         return PageableExecutionUtils.getPage(couponTypeDtoListCannotDelete, pageable,
             couponTypeDtoListCannotDelete::size);
     }
+
+    /**
+     * 정액 할인 정책을 가진 coupont type 의 Page 타입 만큼 가져오기 위한 repository 메서드 입니다.
+     *
+     * @param pageable pagination 에 맞게 조회하기 위한 정보를 담고있는 객체.
+     * @return 정액 할인 정책인 쿠폰 타입의 Page 타입.
+     */
+    @Override
+    public Page<CouponTypeDto> findAllCouponTypesFixedAmount(Pageable pageable) {
+        List<CouponTypeDto> couponTypeDtoListFixedAmount = from(couponType)
+            .where(couponType.discountRate.isNull(), couponType.discountAmount.isNotNull())
+            .offset(pageable.getOffset())
+            .limit(Math.min(pageable.getPageSize(), 10))
+            .orderBy(couponType.couponTypeNo.desc())
+            .select(Projections.constructor(CouponTypeDto.class, couponType.name, couponType.discountRate,
+                couponType.discountAmount, couponType.couponGenerationIssueList))
+            .fetch();
+
+        return PageableExecutionUtils.getPage(couponTypeDtoListFixedAmount, pageable,
+            couponTypeDtoListFixedAmount::size);
+    }
+
+    /**
+     * 정률 할인 정책을 가진 coupont type의 Page 타입 만큼 가져오기 위한 repository 메서드 입니다.
+     *
+     * @param pageable pagination 에 맞게 조회하기 위한 정보를 담고있는 객체.
+     * @return 정률 할인 정책인 쿠폰 타입의 Page 타입.
+     */
+    @Override
+    public Page<CouponTypeDto> findAllCouponTypesFixedRate(Pageable pageable) {
+        List<CouponTypeDto> couponTypeDtoListFixedRate = from(couponType)
+            .where(couponType.discountRate.isNotNull(), couponType.discountAmount.isNull())
+            .offset(pageable.getOffset())
+            .limit(Math.min(pageable.getPageSize(), 10))
+            .orderBy(couponType.couponTypeNo.desc())
+            .select(Projections.constructor(CouponTypeDto.class, couponType.name, couponType.discountRate,
+                couponType.discountAmount, couponType.couponGenerationIssueList))
+            .fetch();
+
+        return PageableExecutionUtils.getPage(couponTypeDtoListFixedRate, pageable,
+            couponTypeDtoListFixedRate::size);
+    }
 }
