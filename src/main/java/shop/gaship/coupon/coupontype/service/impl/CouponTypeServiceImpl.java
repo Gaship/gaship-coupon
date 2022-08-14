@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import shop.gaship.coupon.couponissue.repository.CouponGenerationIssueRepository;
 import shop.gaship.coupon.coupontype.dto.CouponTypeDto;
 import shop.gaship.coupon.coupontype.entity.CouponType;
-import shop.gaship.coupon.coupontype.exception.DenDeleteCouponTypeException;
+import shop.gaship.coupon.coupontype.exception.DeleteCouponTypeException;
 import shop.gaship.coupon.coupontype.exception.NotFoundCouponTypeException;
 import shop.gaship.coupon.coupontype.repository.CouponTypeRepository;
 import shop.gaship.coupon.coupontype.service.CouponTypeService;
@@ -48,8 +48,8 @@ public class CouponTypeServiceImpl implements CouponTypeService {
     @Transactional
     @Override
     public void deleteCouponType(Integer couponTypeNo) {
-        if (Boolean.FALSE.equals(couponGenerationIssueRepository.existCouponHasCouponTypeNo(couponTypeNo))) {
-            throw new DenDeleteCouponTypeException();
+        if (Boolean.TRUE.equals(couponGenerationIssueRepository.existCouponHasCouponTypeNo(couponTypeNo))) {
+            throw new DeleteCouponTypeException();
         }
 
         CouponType couponType = getCouponType(couponTypeNo);
