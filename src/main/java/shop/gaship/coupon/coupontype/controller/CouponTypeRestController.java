@@ -30,9 +30,9 @@ public class CouponTypeRestController {
      * @return response entity
      * @author 최겸준
      */
-    @PostMapping("/fixed-rate")
-    public ResponseEntity<Void> couponTypeAddFixedRate(@RequestBody @Valid CouponTypeCreationRequestDto couponTypeCreationRequestDto) {
-        couponTypeCreationRequestDto.setDiscountAmount(null);
+    @PostMapping("/fixed-amount")
+    public ResponseEntity<Void> couponTypeAddFixedAmount(@RequestBody @Valid CouponTypeCreationRequestDto couponTypeCreationRequestDto) {
+        couponTypeCreationRequestDto.setDiscountRate(null);
         couponTypeService.addCouponType(couponTypeCreationRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -41,9 +41,9 @@ public class CouponTypeRestController {
      * @return response entity
      * @author 최겸준
      */
-    @PostMapping("/fixed-amount")
-    public ResponseEntity<Void> couponTypeAddFixedAmount(@RequestBody @Valid CouponTypeCreationRequestDto couponTypeCreationRequestDto) {
-        couponTypeCreationRequestDto.setDiscountRate(null);
+    @PostMapping("/fixed-rate")
+    public ResponseEntity<Void> couponTypeAddFixedRate(@RequestBody @Valid CouponTypeCreationRequestDto couponTypeCreationRequestDto) {
+        couponTypeCreationRequestDto.setDiscountAmount(null);
         couponTypeService.addCouponType(couponTypeCreationRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import shop.gaship.coupon.coupongenerationissue.exception.CouponTypeNotFoundException;
-import shop.gaship.coupon.coupongenerationissue.exception.RecommendMemberCouponTypeNotFoundException;
 import shop.gaship.coupon.coupontype.dto.CouponTypeCreationRequestDto;
 import shop.gaship.coupon.coupontype.entity.CouponType;
 import shop.gaship.coupon.coupontype.repository.CouponTypeRepository;
@@ -42,14 +41,18 @@ public class CouponTypeServiceImpl implements CouponTypeService {
 
         Optional<RecommendMemberCouponType> optionalRecommendMemberCouponType
             = recommendMemberCouponTypeRepository.findFirstByOrderByCouponTypeNoDesc();
-        
+
         creationCouponTypeAndRecommendMemberCouponType(couponTypeCreationRequestDto);
 
-        if (optionalRecommendMemberCouponType.isEmpty()) return;
-        changePrevRecommendMemberCouponTypeAsStop(optionalRecommendMemberCouponType);
+        if (optionalRecommendMemberCouponType.isEmpty()) {
+            return;
+        }
+        changePrevRecommendMemberCouponTypeAsStop(
+            optionalRecommendMemberCouponType.get().getCouponTypeNo());
     }
 
-    private void creationCouponTypeAndRecommendMemberCouponType(CouponTypeCreationRequestDto couponTypeCreationRequestDto) {
+    private void creationCouponTypeAndRecommendMemberCouponType(
+        CouponTypeCreationRequestDto couponTypeCreationRequestDto) {
         CouponType couponType = couponTypeCreationRequestDtoToCouponTypeEntity(
             couponTypeCreationRequestDto);
         couponTypeRepository.save(couponType);
@@ -60,8 +63,8 @@ public class CouponTypeServiceImpl implements CouponTypeService {
         recommendMemberCouponTypeRepository.save(recommendMemberCouponType);
     }
 
-    private void changePrevRecommendMemberCouponTypeAsStop(Optional<RecommendMemberCouponType> optionalRecommendMemberCouponType) {
-        Integer couponTypeNo = optionalRecommendMemberCouponType.orElseThrow(RecommendMemberCouponTypeNotFoundException::new).getCouponTypeNo();
+    private void changePrevRecommendMemberCouponTypeAsStop(
+        Integer couponTypeNo) {
         CouponType couponType = couponTypeRepository.findById(couponTypeNo).orElseThrow(
             CouponTypeNotFoundException::new);
 
