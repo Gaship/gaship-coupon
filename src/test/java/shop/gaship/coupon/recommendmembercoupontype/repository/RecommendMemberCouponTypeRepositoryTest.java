@@ -3,7 +3,6 @@ package shop.gaship.coupon.recommendmembercoupontype.repository;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalDateTime;
-import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -51,7 +50,7 @@ class RecommendMemberCouponTypeRepositoryTest {
         testEntityManager.flush();
         testEntityManager.clear();
 
-        RecommendMemberCouponType result = repository.findFirstByOrderByCouponTypeNoDesc().get();
+        RecommendMemberCouponType result = repository.findTopFetchJoinByOrderByCouponTypeNoDesc().get();
         assertThat(result.getCouponTypeNo())
             .isEqualTo(recommendMemberCouponType.getCouponTypeNo());
     }
@@ -80,7 +79,7 @@ class RecommendMemberCouponTypeRepositoryTest {
         testEntityManager.flush();
         testEntityManager.clear();
 
-        RecommendMemberCouponType result = repository.findFirstByOrderByCouponTypeNoDesc().get();
+        RecommendMemberCouponType result = repository.findTopFetchJoinByOrderByCouponTypeNoDesc().get();
         assertThat(result.getCouponTypeNo())
             .isEqualTo(recommendMemberCouponType2.getCouponTypeNo());
     }
@@ -118,7 +117,7 @@ class RecommendMemberCouponTypeRepositoryTest {
         testEntityManager.flush();
         testEntityManager.clear();
 
-        RecommendMemberCouponType result = repository.findFirstByOrderByCouponTypeNoDesc().get();
+        RecommendMemberCouponType result = repository.findTopFetchJoinByOrderByCouponTypeNoDesc().get();
         assertThat(result.getCouponTypeNo())
             .isEqualTo(recommendMemberCouponType2.getCouponTypeNo());
     }

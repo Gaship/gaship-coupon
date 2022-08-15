@@ -95,18 +95,16 @@ class CouponTypeServiceImplTest {
         RecommendMemberCouponType recommendMemberCouponType = mock(RecommendMemberCouponType.class);
         when(recommendMemberCouponType.getCouponTypeNo())
             .thenReturn(1);
+        when(recommendMemberCouponType.getCouponType())
+            .thenReturn(couponTypeFixedRate);
 
-        given(recommendMemberCouponTypeRepository.findFirstByOrderByCouponTypeNoDesc())
+        given(recommendMemberCouponTypeRepository.findTopFetchJoinByOrderByCouponTypeNoDesc())
             .willReturn(Optional.ofNullable(recommendMemberCouponType));
-
-        given(couponTypeRepository.findById(anyInt()))
-            .willReturn(Optional.ofNullable(couponTypeFixedRate));
 
         couponTypeService.modifyRecommendMemberCoupon(couponTypeCreationRequestDtoFixedRate);
 
         verify(couponTypeRepository).save(any(CouponType.class));
         verify(recommendMemberCouponTypeRepository).save(any(RecommendMemberCouponType.class));
-        verify(couponTypeRepository).findById(1);
 
         assertThat(couponTypeFixedRate.getIsStopGenerationIssue())
             .isTrue();
@@ -115,29 +113,10 @@ class CouponTypeServiceImplTest {
     @DisplayName("존재하지 않는 추천인이 올시에 changePrevRecommendMemberCouponTypeAsStop 메서드가 작동하지 않는다.")
     @Test
     void modifyRecommendMemberCoupon_never_changePrevRecommendMemberCouponTypeAsStop() {
-        given(recommendMemberCouponTypeRepository.findFirstByOrderByCouponTypeNoDesc())
+        given(recommendMemberCouponTypeRepository.findTopFetchJoinByOrderByCouponTypeNoDesc())
             .willReturn(Optional.empty());
         assertThatNoException().isThrownBy(() -> couponTypeService.modifyRecommendMemberCoupon(couponTypeCreationRequestDtoFixedRate));
 
         verify(couponTypeRepository, never()).findById(anyInt());
-    }
-
-    @DisplayName("존재하지 않는 쿠폰종류번호가 나왔을시에 CouponTypeNotFoundException 이 발생한다.")
-    @Test
-    void modifyRecommendMemberCoupon_fail_CouponTypeNotFoundException() {
-
-        RecommendMemberCouponType recommendMemberCouponType = mock(RecommendMemberCouponType.class);
-        when(recommendMemberCouponType.getCouponTypeNo())
-            .thenReturn(1);
-
-        given(recommendMemberCouponTypeRepository.findFirstByOrderByCouponTypeNoDesc())
-            .willReturn(Optional.ofNullable(recommendMemberCouponType));
-
-        given(couponTypeRepository.findById(anyInt()))
-            .willReturn(Optional.empty());
-
-        assertThatThrownBy(() -> couponTypeService.modifyRecommendMemberCoupon(couponTypeCreationRequestDtoFixedRate))
-            .isInstanceOf(CouponTypeNotFoundException.class)
-            .hasMessageContaining(CouponTypeNotFoundException.MESSAGE);
     }
 }

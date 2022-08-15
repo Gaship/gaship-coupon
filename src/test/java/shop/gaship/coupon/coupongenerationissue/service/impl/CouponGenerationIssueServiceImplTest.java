@@ -124,7 +124,7 @@ class CouponGenerationIssueServiceImplTest {
         recommendMemberCouponType.setRegisterDatetime(LocalDateTime.now());
         recommendMemberCouponType.setCouponTypeNo(1);
 
-        given(recommendMemberCouponTypeRepository.findFirstByOrderByCouponTypeNoDesc())
+        given(recommendMemberCouponTypeRepository.findTopFetchJoinByOrderByCouponTypeNoDesc())
             .willReturn(Optional.ofNullable(recommendMemberCouponType));
 
         given(couponTypeRepository.findById(anyInt()))
@@ -137,30 +137,11 @@ class CouponGenerationIssueServiceImplTest {
     @DisplayName("추천인쿠폰종류가 존재하지 않을때 추천인쿠폰생성발급 요청이 들어오면 RecommendMemberCouponTypeNotFoundException 이 발생한다.")
     @Test
     void addCouponGenerationIssueToRecommendMember_fail_RecommendMemberCouponTypeNotFoundException() {
-        given(recommendMemberCouponTypeRepository.findFirstByOrderByCouponTypeNoDesc())
+        given(recommendMemberCouponTypeRepository.findTopFetchJoinByOrderByCouponTypeNoDesc())
             .willReturn(Optional.empty());
 
         assertThatThrownBy(() -> service.addCouponGenerationIssueToRecommendMember(1))
             .isInstanceOf(RecommendMemberCouponTypeNotFoundException.class)
             .hasMessageContaining(RecommendMemberCouponTypeNotFoundException.MESSAGE);
-    }
-
-    @DisplayName("존재하지 않는 쿠폰타입을 요청하면 CouponTypeNotFoundException 이 발생한다.")
-    @Test
-    void addCouponGenerationIssueToRecommendMember_fail_CouponTypeNotFoundException() {
-        RecommendMemberCouponType recommendMemberCouponType = new RecommendMemberCouponType();
-        recommendMemberCouponType.setCouponType(couponType);
-        recommendMemberCouponType.setRegisterDatetime(LocalDateTime.now());
-        recommendMemberCouponType.setCouponTypeNo(1);
-
-        given(recommendMemberCouponTypeRepository.findFirstByOrderByCouponTypeNoDesc())
-            .willReturn(Optional.ofNullable(recommendMemberCouponType));
-
-        given(couponTypeRepository.findById(anyInt()))
-            .willReturn(Optional.empty());
-
-        assertThatThrownBy(() -> service.addCouponGenerationIssueToRecommendMember(1))
-            .isInstanceOf(CouponTypeNotFoundException.class)
-            .hasMessageContaining(CouponTypeNotFoundException.MESSAGE);
     }
 }

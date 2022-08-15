@@ -55,7 +55,6 @@ class CouponGenerationIssueRepositoryTest {
     @Test
     void findByIdWithCouponType() {
 
-
         CouponGenerationIssue result
             = repository.findCouponGenerationIssueByIdAsFetchJoin(
                 couponGenerationIssue.getCouponGenerationIssueNo()).get();
