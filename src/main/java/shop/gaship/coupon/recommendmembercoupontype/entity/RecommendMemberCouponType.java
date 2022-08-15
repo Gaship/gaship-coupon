@@ -7,6 +7,8 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.Getter;
@@ -17,6 +19,10 @@ import shop.gaship.coupon.coupontype.entity.CouponType;
  * @author : 최겸준
  * @since 1.0
  */
+@NamedEntityGraph(name = "RecommendMemberCouponType.withCouponType",
+attributeNodes = {
+    @NamedAttributeNode("couponType")
+})
 @Entity
 @Table(name = "recommend_member_coupon_type")
 @Setter

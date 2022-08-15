@@ -1,6 +1,7 @@
 package shop.gaship.coupon.recommendmembercoupontype.repository;
 
 import java.util.Optional;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import shop.gaship.coupon.recommendmembercoupontype.entity.RecommendMemberCouponType;
 
@@ -11,5 +12,6 @@ import shop.gaship.coupon.recommendmembercoupontype.entity.RecommendMemberCoupon
 public interface RecommendMemberCouponTypeRepository
     extends JpaRepository<RecommendMemberCouponType, Integer> {
 
-    Optional<RecommendMemberCouponType> findFirstByOrderByCouponTypeNoDesc();
+    @EntityGraph(value = "RecommendMemberCouponType.withCouponType")
+    Optional<RecommendMemberCouponType> findTopFetchJoinByOrderByCouponTypeNoDesc();
 }

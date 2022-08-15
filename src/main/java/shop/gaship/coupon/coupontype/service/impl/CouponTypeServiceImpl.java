@@ -5,7 +5,6 @@ import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import shop.gaship.coupon.coupontype.exception.CouponTypeNotFoundException;
 import shop.gaship.coupon.coupontype.dto.CouponTypeCreationRequestDto;
 import shop.gaship.coupon.coupontype.entity.CouponType;
 import shop.gaship.coupon.coupontype.repository.CouponTypeRepository;
@@ -47,15 +46,15 @@ public class CouponTypeServiceImpl implements CouponTypeService {
         CouponTypeCreationRequestDto couponTypeCreationRequestDto) {
 
         Optional<RecommendMemberCouponType> optionalRecommendMemberCouponType
-            = recommendMemberCouponTypeRepository.findFirstByOrderByCouponTypeNoDesc();
+            = recommendMemberCouponTypeRepository.findTopFetchJoinByOrderByCouponTypeNoDesc();
 
-        creationCouponTypeAndRecommendMemberCouponType(couponTypeCreationRequestDto);
+        createCouponTypeAndRecommendMemberCouponType(couponTypeCreationRequestDto);
 
         if (optionalRecommendMemberCouponType.isEmpty()) {
             return;
         }
-        changePrevRecommendMemberCouponTypeAsStop(
-            optionalRecommendMemberCouponType.get().getCouponTypeNo());
+        CouponType couponType = optionalRecommendMemberCouponType.get().getCouponType();
+        couponType.setIsStopGenerationIssue(Boolean.TRUE);
     }
 
     /**
@@ -63,7 +62,7 @@ public class CouponTypeServiceImpl implements CouponTypeService {
      *
      * @param couponTypeCreationRequestDto 추가시 필요한 정보를 담고있는 DTO 객체입니다.
      */
-    private void creationCouponTypeAndRecommendMemberCouponType(
+    private void createCouponTypeAndRecommendMemberCouponType(
         CouponTypeCreationRequestDto couponTypeCreationRequestDto) {
         CouponType couponType = couponTypeCreationRequestDtoToCouponTypeEntity(
             couponTypeCreationRequestDto);
@@ -75,16 +74,5 @@ public class CouponTypeServiceImpl implements CouponTypeService {
         recommendMemberCouponTypeRepository.save(recommendMemberCouponType);
     }
 
-    /**
-     * 기존에 추천인 쿠폰종류가 존재했다면 해당 쿠폰종류를 더이상 쿠폰으로 만들수 없도록 만드는 기능입니다.
-     *
-     * @param couponTypeNo 기존 추천인쿠폰종류 번호입니다.
-     */
-    private void changePrevRecommendMemberCouponTypeAsStop(
-        Integer couponTypeNo) {
-        CouponType couponType = couponTypeRepository.findById(couponTypeNo).orElseThrow(
-            CouponTypeNotFoundException::new);
 
-        couponType.setIsStopGenerationIssue(Boolean.TRUE);
-    }
 }

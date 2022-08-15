@@ -1,0 +1,13 @@
+GET http://localhost:7075/api/coupon-generations-issues/1
+
+###
+POST http://localhost:7075/api/coupon-generations-issues/1
+
+###
+PUT http://localhost:7075/api/coupon-types/recommend-member-coupon
+Content-Type: application/json
+
+{
+  "name" : "추천인 20% 할인쿠폰",
+  "discountRate" : 0.8
+}

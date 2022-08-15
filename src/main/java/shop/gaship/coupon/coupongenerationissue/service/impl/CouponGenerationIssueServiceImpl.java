@@ -13,7 +13,6 @@ import shop.gaship.coupon.coupongenerationissue.exception.RecommendMemberCouponT
 import shop.gaship.coupon.coupongenerationissue.repository.CouponGenerationIssueRepository;
 import shop.gaship.coupon.coupongenerationissue.service.CouponGenerationIssueService;
 import shop.gaship.coupon.coupontype.entity.CouponType;
-import shop.gaship.coupon.coupontype.exception.CouponTypeNotFoundException;
 import shop.gaship.coupon.coupontype.repository.CouponTypeRepository;
 import shop.gaship.coupon.recommendmembercoupontype.entity.RecommendMemberCouponType;
 import shop.gaship.coupon.recommendmembercoupontype.repository.RecommendMemberCouponTypeRepository;
@@ -52,20 +51,17 @@ public class CouponGenerationIssueServiceImpl implements CouponGenerationIssueSe
     @Override
     public void addCouponGenerationIssueToRecommendMember(Integer recommendMemberNo) {
         RecommendMemberCouponType recommendMemberCouponType =
-            recommendMemberCouponTypeRepository.findFirstByOrderByCouponTypeNoDesc().orElseThrow(
+            recommendMemberCouponTypeRepository.findTopFetchJoinByOrderByCouponTypeNoDesc().orElseThrow(
                 RecommendMemberCouponTypeNotFoundException::new);
 
-        CouponType couponType =
-            couponTypeRepository.findById(recommendMemberCouponType.getCouponTypeNo())
-                .orElseThrow(CouponTypeNotFoundException::new);
-
         CouponGenerationIssue couponGenerationIssue = CouponGenerationIssue.builder()
-            .couponType(couponType)
+            .couponType(recommendMemberCouponType.getCouponType())
             .memberNo(recommendMemberNo)
             .generationDatetime(LocalDateTime.now())
             .issueDatetime(LocalDateTime.now())
             .expirationDatetime(LocalDateTime.now())
             .build();
+
         couponGenerationIssueRepository.save(couponGenerationIssue);
     }
 
