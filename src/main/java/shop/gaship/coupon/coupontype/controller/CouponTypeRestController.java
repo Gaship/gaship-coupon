@@ -32,7 +32,7 @@ public class CouponTypeRestController {
      * @author 최겸준
      */
     @PostMapping("/fixed-amount")
-    public ResponseEntity<Void> couponTypeAddFixedAmount(
+    public ResponseEntity<Void> fixedAmountCouponTypeAdd(
         @RequestBody @Valid CouponTypeCreationRequestDto couponTypeCreationRequestDto) {
         couponTypeCreationRequestDto.setDiscountRate(null);
         couponTypeService.addCouponType(couponTypeCreationRequestDto);
@@ -47,7 +47,7 @@ public class CouponTypeRestController {
      * @author 최겸준
      */
     @PostMapping("/fixed-rate")
-    public ResponseEntity<Void> couponTypeAddFixedRate(
+    public ResponseEntity<Void> fixedRateCouponTypeAdd(
         @RequestBody @Valid CouponTypeCreationRequestDto couponTypeCreationRequestDto) {
         couponTypeCreationRequestDto.setDiscountAmount(null);
         couponTypeService.addCouponType(couponTypeCreationRequestDto);
@@ -63,7 +63,7 @@ public class CouponTypeRestController {
      * @author 최겸준
      */
     @PutMapping("/recommend-member-coupon")
-    public ResponseEntity<Void> couponTypeModifyRecommendMemberCoupon(
+    public ResponseEntity<Void> recommendMemberCouponTypeModify(
         @RequestBody @Valid CouponTypeCreationRequestDto couponTypeCreationRequestDto) {
         couponTypeCreationRequestDto.setDiscountAmount(null);
         couponTypeService.modifyRecommendMemberCoupon(couponTypeCreationRequestDto);
