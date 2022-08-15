@@ -34,7 +34,8 @@ public interface CouponTypeService {
      * @return CouponTypeEntity가 반환됩니다.
      * @author 최겸준
      */
-    default CouponType couponTypeCreationRequestDtoToCouponTypeEntity(CouponTypeCreationRequestDto couponTypeCreationRequestDto) {
+    default CouponType couponTypeCreationRequestDtoToCouponTypeEntity(
+        CouponTypeCreationRequestDto couponTypeCreationRequestDto) {
         return CouponType.builder()
             .name(couponTypeCreationRequestDto.getName())
             .discountAmount(couponTypeCreationRequestDto.getDiscountAmount())

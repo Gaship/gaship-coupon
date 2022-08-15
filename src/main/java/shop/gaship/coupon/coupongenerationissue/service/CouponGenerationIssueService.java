@@ -10,6 +10,7 @@ import shop.gaship.coupon.coupongenerationissue.dto.response.CouponGenerationIss
  * @since 1.0
  */
 public interface CouponGenerationIssueService {
+
     /**
      * 쿠폰 생성 및 발급에대한 client의 요청을 adapter에 전달합니다.
      *

@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = "datasource")
 public class DataSourceConfig {
+
     private String driverClassName;
     private String url;
     private String username;

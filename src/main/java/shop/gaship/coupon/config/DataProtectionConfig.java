@@ -36,6 +36,7 @@ import shop.gaship.coupon.dataprotection.exception.NotFoundDataProtectionReposeD
 @ConfigurationProperties(prefix = "secure-key-manager")
 @Slf4j
 public class DataProtectionConfig {
+
     private String url;
     private String appKey;
     private String userInfoProtectionKey;

@@ -15,6 +15,7 @@ import shop.gaship.coupon.dataprotection.exception.EncodeFailureException;
  */
 @Component
 public class Sha512 {
+
     private static final String ENCODE_ERROR_MESSAGE = "정보 암호화에 실패했습니다.";
 
     /**

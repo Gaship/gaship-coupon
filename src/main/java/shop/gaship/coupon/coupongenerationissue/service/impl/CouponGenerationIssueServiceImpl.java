@@ -51,8 +51,9 @@ public class CouponGenerationIssueServiceImpl implements CouponGenerationIssueSe
     @Override
     public void addCouponGenerationIssueToRecommendMember(Integer recommendMemberNo) {
         RecommendMemberCouponType recommendMemberCouponType =
-            recommendMemberCouponTypeRepository.findTopFetchJoinByOrderByCouponTypeNoDesc().orElseThrow(
-                RecommendMemberCouponTypeNotFoundException::new);
+            recommendMemberCouponTypeRepository.findTopFetchJoinByOrderByCouponTypeNoDesc()
+                .orElseThrow(
+                    RecommendMemberCouponTypeNotFoundException::new);
 
         CouponGenerationIssue couponGenerationIssue = CouponGenerationIssue.builder()
             .couponType(recommendMemberCouponType.getCouponType())

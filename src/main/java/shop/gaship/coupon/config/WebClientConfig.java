@@ -19,6 +19,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Getter
 @Setter
 public class WebClientConfig {
+
     private String schedulerUrl;
 
     @Bean

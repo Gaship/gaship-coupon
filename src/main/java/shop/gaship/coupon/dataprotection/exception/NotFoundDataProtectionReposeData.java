@@ -7,6 +7,7 @@ package shop.gaship.coupon.dataprotection.exception;
  * @since 1.0
  */
 public class NotFoundDataProtectionReposeData extends RuntimeException {
+
     public NotFoundDataProtectionReposeData(String s) {
         super(s);
     }

@@ -13,6 +13,7 @@ import lombok.Getter;
  */
 @Getter
 public class CouponTypeCreationRequestDto {
+
     @NotBlank
     private String name;
 

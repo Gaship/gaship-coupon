@@ -14,7 +14,6 @@ public class SecureKeyResponse {
     private Header header;
     private Body body;
 
-
     /**
      * Secure Manager Key의 json응답의 header property의 구조를 역직렬화 시킬 구조입니다.
      *
