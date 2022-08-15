@@ -1,11 +1,13 @@
 package shop.gaship.coupon.coupongenerationissue.controller;
 
+import java.util.List;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -184,5 +186,31 @@ public class CouponGenerationIssueRestController {
             new PageResponse<>(couponGenerationIssueUnusedAndUnexpiredByMemberNoPage);
 
         return ResponseEntity.ok(couponGenerationIssueUnusedAndUnexpiredByMemberNoResponsePage);
+    }
+
+    /**
+     * 주문으로 인하여 쿠폰을 사용상태로 변경 요청을 처리하는 메서드.
+     *
+     * @param couponGenerationIssueNumbers 사용하고자 하는 쿠폰생성발급 번호.
+     * @return 요청에 대한 처리가 잘되었다는 응답을 반환.
+     */
+    @PatchMapping("/used")
+    public ResponseEntity<Void> useCoupons(@RequestBody List<Integer> couponGenerationIssueNumbers) {
+        couponGenerationIssueService.useCoupons(couponGenerationIssueNumbers);
+
+        return ResponseEntity.ok().build();
+    }
+
+    /**
+     * 주문 취소로 인하여 사용하였던 쿠폰을 사용 전으로 되돌리는 요청을 처리하는 메서드.
+     *
+     * @param couponIssueNumbers 사용 취소하고자 하는 쿠폰생성발급 번호.
+     * @return 요청에 대한 처리가 잘되었다는 응답을 반환.
+     */
+    @PatchMapping("/used-to-cancel")
+    public ResponseEntity<Void> cancelUsedCoupons(@RequestBody List<Integer> couponIssueNumbers) {
+        couponGenerationIssueService.cancelUsedCoupons(couponIssueNumbers);
+
+        return ResponseEntity.ok().build();
     }
 }

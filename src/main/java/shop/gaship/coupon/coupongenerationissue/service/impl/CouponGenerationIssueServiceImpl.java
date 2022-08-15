@@ -1,5 +1,8 @@
 package shop.gaship.coupon.coupongenerationissue.service.impl;
 
+import java.time.LocalDateTime;
+import java.util.List;
+import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -7,6 +10,8 @@ import org.springframework.stereotype.Service;
 import shop.gaship.coupon.coupongenerationissue.adapter.MemberAdapter;
 import shop.gaship.coupon.coupongenerationissue.dto.request.CouponIssueCreationRequestDto;
 import shop.gaship.coupon.coupongenerationissue.dto.response.CouponGenerationIssueResponseDto;
+import shop.gaship.coupon.coupongenerationissue.entity.CouponGenerationIssue;
+import shop.gaship.coupon.coupongenerationissue.exception.NotFoundCouponGenerationIssueException;
 import shop.gaship.coupon.coupongenerationissue.repository.CouponGenerationIssueRepository;
 import shop.gaship.coupon.coupongenerationissue.service.CouponGenerationIssueService;
 
@@ -125,5 +130,43 @@ public class CouponGenerationIssueServiceImpl implements CouponGenerationIssueSe
         Pageable pageable, Integer memberNo) {
         return couponGenerationIssueRepository.findAllCouponGenerationIssuesUnusedAndUnexpiredByMemberNo(pageable,
             memberNo);
+    }
+
+    /**
+     * 주문시 해당 쿠폰을 사용시 비즈니스 로직을 처리하는 메서드.
+     *
+     * @param couponGenerationIssueNumbers 사용하고자 하는 쿠폰생성발급 번호.
+     */
+    @Transactional
+    @Override
+    public void useCoupons(List<Integer> couponGenerationIssueNumbers) {
+
+        for (Integer couponGenerationIssueNumber : couponGenerationIssueNumbers) {
+            CouponGenerationIssue couponGenerationIssue =
+                couponGenerationIssueRepository.findById(couponGenerationIssueNumber).orElseThrow(
+                    NotFoundCouponGenerationIssueException::new);
+
+            couponGenerationIssue.useCoupon(LocalDateTime.now());
+        }
+
+    }
+
+    /**
+     * 주문 취소시 해당 사용 쿠폰을 취소하는 비즈니스 로직을 처리하는 메서드.
+     *
+     * @param couponGenerationIssueNumbers 사용 취소하고자 하는 쿠폰생성발급 번호.
+     */
+    @Transactional
+    @Override
+    public void cancelUsedCoupons(List<Integer> couponGenerationIssueNumbers) {
+
+        for (Integer couponGenerationIssueNumber : couponGenerationIssueNumbers) {
+            CouponGenerationIssue couponGenerationIssue =
+                couponGenerationIssueRepository.findById(couponGenerationIssueNumber).orElseThrow(
+                    NotFoundCouponGenerationIssueException::new);
+
+            couponGenerationIssue.cancelUsedCoupon();
+        }
+
     }
 }

@@ -1,5 +1,6 @@
 package shop.gaship.coupon.coupongenerationissue.service;
 
+import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import shop.gaship.coupon.coupongenerationissue.dto.request.CouponIssueCreationRequestDto;
@@ -87,4 +88,18 @@ public interface CouponGenerationIssueService {
      */
     Page<CouponGenerationIssueResponseDto> findCouponGenerationIssuesUnusedAndUnexpiredByMemberNo(Pageable pageable,
         Integer memberNo);
+
+    /**
+     * 주문시 해당 쿠폰을 사용시 비즈니스 로직을 처리하는 메서드.
+     *
+     * @param couponGenerationIssueNumbers 사용하고자 하는 쿠폰생성발급 번호.
+     */
+    void useCoupons(List<Integer> couponGenerationIssueNumbers);
+
+    /**
+     * 주문 취소시 해당 사용 쿠폰을 취소하는 비즈니스 로직을 처리하는 메서드.
+     *
+     * @param couponGenerationIssueNumbers 사용 취소하고자 하는 쿠폰생성발급 번호.
+     */
+    void cancelUsedCoupons(List<Integer> couponGenerationIssueNumbers);
 }

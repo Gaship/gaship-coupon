@@ -55,4 +55,12 @@ public class CouponGenerationIssue {
 
     @Column(name = "used_datetime")
     private LocalDateTime usedDatetime;
+
+    public void useCoupon(LocalDateTime now) {
+        this.usedDatetime = now;
+    }
+
+    public void cancelUsedCoupon() {
+        this.usedDatetime = null;
+    }
 }
