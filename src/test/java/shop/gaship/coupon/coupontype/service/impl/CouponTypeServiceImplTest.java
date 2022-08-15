@@ -9,7 +9,6 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 
 
@@ -23,8 +22,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.util.ReflectionTestUtils;
-import shop.gaship.coupon.coupongenerationissue.exception.CouponTypeNotFoundException;
-import shop.gaship.coupon.coupongenerationissue.exception.RecommendMemberCouponTypeNotFoundException;
+import shop.gaship.coupon.coupontype.exception.CouponTypeNotFoundException;
 import shop.gaship.coupon.coupontype.dto.CouponTypeCreationRequestDto;
 import shop.gaship.coupon.coupontype.entity.CouponType;
 import shop.gaship.coupon.coupontype.repository.CouponTypeRepository;

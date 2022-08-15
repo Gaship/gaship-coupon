@@ -3,7 +3,6 @@ package shop.gaship.coupon.coupongenerationissue.service.impl;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatNoException;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.BDDMockito.given;
@@ -24,7 +23,7 @@ import shop.gaship.coupon.coupongenerationissue.adapter.SchedulerAdapterAboutCou
 import shop.gaship.coupon.coupongenerationissue.dto.response.CouponGenerationIssueDetailsResponseDto;
 import shop.gaship.coupon.coupongenerationissue.entity.CouponGenerationIssue;
 import shop.gaship.coupon.coupongenerationissue.exception.CouponGenerationIssueNotFoundException;
-import shop.gaship.coupon.coupongenerationissue.exception.CouponTypeNotFoundException;
+import shop.gaship.coupon.coupontype.exception.CouponTypeNotFoundException;
 import shop.gaship.coupon.coupongenerationissue.exception.RecommendMemberCouponTypeNotFoundException;
 import shop.gaship.coupon.coupongenerationissue.repository.CouponGenerationIssueRepository;
 import shop.gaship.coupon.coupontype.entity.CouponType;
