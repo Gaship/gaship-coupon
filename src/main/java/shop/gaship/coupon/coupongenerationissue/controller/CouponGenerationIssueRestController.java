@@ -24,6 +24,7 @@ import shop.gaship.coupon.coupongenerationissue.service.CouponGenerationIssueSer
 @RequestMapping("/api/coupon-generations-issues")
 @RequiredArgsConstructor
 public class CouponGenerationIssueRestController {
+
     private final CouponGenerationIssueService couponGenerationIssueService;
 
     /**
@@ -41,8 +42,14 @@ public class CouponGenerationIssueRestController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
+    /**
+     * 추천인쿠폰 생성 및 발급 요청을 처리하는 기능입니다.
+     *
+     * @param recommendMemberNo 추천인번호를 나타냅니다.
+     * @return
+     */
     @PostMapping("/{recommendMemberNo}")
-    public ResponseEntity<Void> couponGenerationIssueAddToRecommendMember(
+    public ResponseEntity<Void> recommendMemberCouponGenerationIssueAdd(
         @PathVariable Integer recommendMemberNo) {
         couponGenerationIssueService.addCouponGenerationIssueToRecommendMember(recommendMemberNo);
         return ResponseEntity.status(HttpStatus.CREATED).build();

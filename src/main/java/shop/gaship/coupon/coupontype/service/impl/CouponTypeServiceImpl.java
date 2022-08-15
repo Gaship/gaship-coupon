@@ -45,8 +45,8 @@ public class CouponTypeServiceImpl implements CouponTypeService {
     public void modifyRecommendMemberCoupon(
         CouponTypeCreationRequestDto couponTypeCreationRequestDto) {
 
-        Optional<RecommendMemberCouponType> optionalRecommendMemberCouponType
-            = recommendMemberCouponTypeRepository.findTopFetchJoinByOrderByCouponTypeNoDesc();
+        Optional<RecommendMemberCouponType> optionalRecommendMemberCouponType =
+            recommendMemberCouponTypeRepository.findTopFetchJoinByOrderByCouponTypeNoDesc();
 
         createCouponTypeAndRecommendMemberCouponType(couponTypeCreationRequestDto);
 
@@ -58,14 +58,15 @@ public class CouponTypeServiceImpl implements CouponTypeService {
     }
 
     /**
-     * 추천인쿠폰종류가 기존에 존재했든 하지않았든간에 새로운 추천인쿠폰종류를 만들고 관련된 정보를 RecommendMemberCouponType에 삽입하고 db에 연동하는 기능입니다.
+     * 추천인쿠폰종류가 기존에 존재했든 하지않았든간에 새로운 추천인쿠폰종류를 만들고 관련된 정보를 RecommendMemberCouponType에
+     * 삽입하고 db에 연동하는 기능입니다.
      *
      * @param couponTypeCreationRequestDto 추가시 필요한 정보를 담고있는 DTO 객체입니다.
      */
     private void createCouponTypeAndRecommendMemberCouponType(
         CouponTypeCreationRequestDto couponTypeCreationRequestDto) {
-        CouponType couponType = couponTypeCreationRequestDtoToCouponTypeEntity(
-            couponTypeCreationRequestDto);
+        CouponType couponType =
+            couponTypeCreationRequestDtoToCouponTypeEntity(couponTypeCreationRequestDto);
         couponTypeRepository.save(couponType);
 
         RecommendMemberCouponType recommendMemberCouponType = new RecommendMemberCouponType();
