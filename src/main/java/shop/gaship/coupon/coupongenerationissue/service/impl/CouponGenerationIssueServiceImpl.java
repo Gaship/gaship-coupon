@@ -9,11 +9,11 @@ import shop.gaship.coupon.coupongenerationissue.dto.request.CouponGenerationIssu
 import shop.gaship.coupon.coupongenerationissue.dto.response.CouponGenerationIssueDetailsResponseDto;
 import shop.gaship.coupon.coupongenerationissue.entity.CouponGenerationIssue;
 import shop.gaship.coupon.coupongenerationissue.exception.CouponGenerationIssueNotFoundException;
-import shop.gaship.coupon.coupongenerationissue.exception.CouponTypeNotFoundException;
 import shop.gaship.coupon.coupongenerationissue.exception.RecommendMemberCouponTypeNotFoundException;
 import shop.gaship.coupon.coupongenerationissue.repository.CouponGenerationIssueRepository;
 import shop.gaship.coupon.coupongenerationissue.service.CouponGenerationIssueService;
 import shop.gaship.coupon.coupontype.entity.CouponType;
+import shop.gaship.coupon.coupontype.exception.CouponTypeNotFoundException;
 import shop.gaship.coupon.coupontype.repository.CouponTypeRepository;
 import shop.gaship.coupon.recommendmembercoupontype.entity.RecommendMemberCouponType;
 import shop.gaship.coupon.recommendmembercoupontype.repository.RecommendMemberCouponTypeRepository;
@@ -45,6 +45,9 @@ public class CouponGenerationIssueServiceImpl implements CouponGenerationIssueSe
             couponGenerationIssueCreationRequestDto);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Transactional
     @Override
     public void addCouponGenerationIssueToRecommendMember(Integer recommendMemberNo) {
@@ -66,7 +69,9 @@ public class CouponGenerationIssueServiceImpl implements CouponGenerationIssueSe
         couponGenerationIssueRepository.save(couponGenerationIssue);
     }
 
-    @Transactional(readOnly = true)
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public CouponGenerationIssueDetailsResponseDto findCouponGenerationIssue(
         Integer couponGenerationIssueNo) {
