@@ -79,7 +79,7 @@ public class CouponGenerationIssueRestController {
      * @param pageable pagination 에 맞게 조회하기 위한 정보를 담고있는 객체.
      * @return 해당 요청이 잘 처리되었다는 응답과, 요청에 대한 데이터(페이지).
      */
-    @GetMapping("/unused-couopns")
+    @GetMapping("/unused-coupons")
     public ResponseEntity<PageResponse<CouponGenerationIssueResponseDto>> couponGenerationIssueUnusedList(
         Pageable pageable) {
         Page<CouponGenerationIssueResponseDto> couponGenerationIssueUnusedPage =
