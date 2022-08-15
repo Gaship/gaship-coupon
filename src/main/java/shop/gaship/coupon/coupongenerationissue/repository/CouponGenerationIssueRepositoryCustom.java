@@ -5,6 +5,8 @@ import org.springframework.data.domain.Pageable;
 import shop.gaship.coupon.coupongenerationissue.dto.response.CouponGenerationIssueResponseDto;
 
 /**
+ * 쿠폰 생성 발급 엔티티에 대한 커스텀 repository 구현체 인터페이스 입니다.
+ *
  * @author : 조재철
  * @since 1.0
  */
@@ -18,11 +20,15 @@ public interface CouponGenerationIssueRepositoryCustom {
 
     Page<CouponGenerationIssueResponseDto> findAllCouponGenerationIssuesByMemberNo(Pageable pageable, Integer memberNo);
 
-    Page<CouponGenerationIssueResponseDto> findAllCouponGenerationIssuesUsedByMemberNo(Pageable pageable, Integer memberNo);
+    Page<CouponGenerationIssueResponseDto> findAllCouponGenerationIssuesUsedByMemberNo(Pageable pageable,
+        Integer memberNo);
 
-    Page<CouponGenerationIssueResponseDto> findAllCouponGenerationIssuesUnusedByMemberNo(Pageable pageable, Integer memberNo);
+    Page<CouponGenerationIssueResponseDto> findAllCouponGenerationIssuesUnusedByMemberNo(Pageable pageable,
+        Integer memberNo);
 
-    Page<CouponGenerationIssueResponseDto> findAllCouponGenerationIssuesUnusedAndExpiredByMemberNo(Pageable pageable, Integer memberNo);
+    Page<CouponGenerationIssueResponseDto> findAllCouponGenerationIssuesUnusedAndExpiredByMemberNo(Pageable pageable,
+        Integer memberNo);
 
-    Page<CouponGenerationIssueResponseDto> findAllCouponGenerationIssuesUnusedAndUnexpiredByMemberNo(Pageable pageable, Integer memberNo);
+    Page<CouponGenerationIssueResponseDto> findAllCouponGenerationIssuesUnusedAndUnexpiredByMemberNo(Pageable pageable,
+        Integer memberNo);
 }

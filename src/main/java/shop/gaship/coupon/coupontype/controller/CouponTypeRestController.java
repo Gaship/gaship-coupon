@@ -20,6 +20,7 @@ import shop.gaship.coupon.coupontype.service.CouponTypeService;
 @Controller
 @RequiredArgsConstructor
 public class CouponTypeRestController {
+
     private final CouponTypeService couponTypeService;
 
     /**

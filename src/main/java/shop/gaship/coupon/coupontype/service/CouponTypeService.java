@@ -7,4 +7,5 @@ package shop.gaship.coupon.coupontype.service;
  * @since 1.0
  */
 public interface CouponTypeService {
+
 }

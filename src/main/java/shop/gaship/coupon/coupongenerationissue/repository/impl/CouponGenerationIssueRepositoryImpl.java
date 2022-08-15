@@ -14,6 +14,8 @@ import shop.gaship.coupon.coupongenerationissue.repository.CouponGenerationIssue
 import shop.gaship.coupon.coupontype.entity.QCouponType;
 
 /**
+ * 쿠폰 생성 발급 엔티티에 대한 커스텀 repository 구현체 클래스 입니다.
+ *
  * @author : 조재철
  * @since 1.0
  */
@@ -27,6 +29,12 @@ public class CouponGenerationIssueRepositoryImpl extends QuerydslRepositorySuppo
     QCouponGenerationIssue couponGenerationIssue = QCouponGenerationIssue.couponGenerationIssue;
     QCouponType couponType = QCouponType.couponType;
 
+    /**
+     * 생성, 발급된 전체 쿠폰을 Page 타입 만큼 가져오기 위한 repository 메서드 입니다.
+     *
+     * @param pageable pagination 에 맞게 조회하기 위한 정보를 담고있는 객체.
+     * @return 해당 쿼리의 결과 (페이지).
+     */
     @Override
     public Page<CouponGenerationIssueResponseDto> findAllCouponGenerationIssues(Pageable pageable) {
         List<CouponGenerationIssueResponseDto> couponGenerationIssueResponseDtoList = from(couponGenerationIssue)
@@ -42,6 +50,12 @@ public class CouponGenerationIssueRepositoryImpl extends QuerydslRepositorySuppo
             couponGenerationIssueResponseDtoList::size);
     }
 
+    /**
+     * 생성, 발급된 전체 쿠폰 중 사용된 쿠폰을 Page 타입 만큼 가져오기 위한 repository 메서드 입니다.
+     *
+     * @param pageable pagination 에 맞게 조회하기 위한 정보를 담고있는 객체.
+     * @return 해당 쿼리의 결과 (페이지).
+     */
     @Override
     public Page<CouponGenerationIssueResponseDto> findAllCouponGenerationIssuesUsed(Pageable pageable) {
         List<CouponGenerationIssueResponseDto> couponGenerationIssueUsedResponseDtoList = from(couponGenerationIssue)
@@ -58,6 +72,12 @@ public class CouponGenerationIssueRepositoryImpl extends QuerydslRepositorySuppo
             couponGenerationIssueUsedResponseDtoList::size);
     }
 
+    /**
+     * 생성, 발급된 전체 쿠폰 중 사용되지 않은 쿠폰을 Page 타입 만큼 가져오기 위한 repository 메서드 입니다.
+     *
+     * @param pageable pagination 에 맞게 조회하기 위한 정보를 담고있는 객체.
+     * @return 해당 쿼리의 결과 (페이지).
+     */
     @Override
     public Page<CouponGenerationIssueResponseDto> findAllCouponGenerationIssuesUnused(Pageable pageable) {
         List<CouponGenerationIssueResponseDto> couponGenerationIssueUnusedResponseDtoList = from(couponGenerationIssue)
@@ -74,6 +94,13 @@ public class CouponGenerationIssueRepositoryImpl extends QuerydslRepositorySuppo
             couponGenerationIssueUnusedResponseDtoList::size);
     }
 
+    /**
+     * 특정 회원의 생성, 발급된 전체 쿠폰을 Page 타입 만큼 가져오기 위한 repository 메서드 입니다.
+     *
+     * @param pageable pagination 에 맞게 조회하기 위한 정보를 담고있는 객체.
+     * @param memberNo 조회하는 회원의 회원 번호.
+     * @return 해당 쿼리의 결과 (페이지).
+     */
     @Override
     public Page<CouponGenerationIssueResponseDto> findAllCouponGenerationIssuesByMemberNo(Pageable pageable,
         Integer memberNo) {
@@ -93,6 +120,13 @@ public class CouponGenerationIssueRepositoryImpl extends QuerydslRepositorySuppo
             couponGenerationIssueResponseDtoByMemberNoList::size);
     }
 
+    /**
+     * 특정 회원의 생성, 발급된 전체 쿠폰 중 사용된 쿠폰을 Page 타입 만큼 가져오기 위한 repository 메서드 입니다.
+     *
+     * @param pageable pagination 에 맞게 조회하기 위한 정보를 담고있는 객체.
+     * @param memberNo 조회하는 회원의 회원 번호.
+     * @return 해당 쿼리의 결과 (페이지).
+     */
     @Override
     public Page<CouponGenerationIssueResponseDto> findAllCouponGenerationIssuesUsedByMemberNo(Pageable pageable,
         Integer memberNo) {
@@ -112,6 +146,13 @@ public class CouponGenerationIssueRepositoryImpl extends QuerydslRepositorySuppo
             couponGenerationIssueUsedResponseDtoByMemberNoList::size);
     }
 
+    /**
+     * 특정 회원의 생성, 발급된 전체 쿠폰 중 사용되지 않은 쿠폰을 Page 타입 만큼 가져오기 위한 repository 메서드 입니다.
+     *
+     * @param pageable pagination 에 맞게 조회하기 위한 정보를 담고있는 객체.
+     * @param memberNo 조회하는 회원의 회원 번호.
+     * @return 해당 쿼리의 결과 (페이지).
+     */
     @Override
     public Page<CouponGenerationIssueResponseDto> findAllCouponGenerationIssuesUnusedByMemberNo(Pageable pageable,
         Integer memberNo) {
@@ -131,6 +172,13 @@ public class CouponGenerationIssueRepositoryImpl extends QuerydslRepositorySuppo
             couponGenerationIssueUnusedResponseDtoByMemberNoList::size);
     }
 
+    /**
+     * 특정 회원의 생성, 발급된 전체 쿠폰 중 사용되지 않고 만료된 쿠폰을 Page 타입 만큼 가져오기 위한 repository 메서드 입니다.
+     *
+     * @param pageable pagination 에 맞게 조회하기 위한 정보를 담고있는 객체.
+     * @param memberNo 조회하는 회원의 회원 번호.
+     * @return 해당 쿼리의 결과 (페이지).
+     */
     @Override
     public Page<CouponGenerationIssueResponseDto> findAllCouponGenerationIssuesUnusedAndExpiredByMemberNo(
         Pageable pageable, Integer memberNo) {
@@ -153,6 +201,13 @@ public class CouponGenerationIssueRepositoryImpl extends QuerydslRepositorySuppo
             couponGenerationIssueUnusedAndExpiredResponseDtoByMemberNoList::size);
     }
 
+    /**
+     * 특정 회원의 생성, 발급된 전체 쿠폰 중 사용되지 않고 만료되지 않은 쿠폰을 Page 타입 만큼 가져오기 위한 repository 메서드 입니다.
+     *
+     * @param pageable pagination 에 맞게 조회하기 위한 정보를 담고있는 객체.
+     * @param memberNo 조회하는 회원의 회원 번호.
+     * @return 해당 쿼리의 결과 (페이지).
+     */
     @Override
     public Page<CouponGenerationIssueResponseDto> findAllCouponGenerationIssuesUnusedAndUnexpiredByMemberNo(
         Pageable pageable, Integer memberNo) {

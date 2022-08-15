@@ -36,6 +36,7 @@ import shop.gaship.coupon.dataprotection.exception.NotFoundDataProtectionReposeD
 @ConfigurationProperties(prefix = "secure-key-manager")
 @Slf4j
 public class DataProtectionConfig {
+
     private String url;
     private String appKey;
     private String userInfoProtectionKey;
@@ -62,8 +63,8 @@ public class DataProtectionConfig {
             SSLConnectionSocketFactory sslConnectionSocketFactory =
                 new SSLConnectionSocketFactory(sslContextBuilder.build());
             CloseableHttpClient httpClient = HttpClients.custom()
-                .setSSLSocketFactory(sslConnectionSocketFactory)
-                .build();
+                                                        .setSSLSocketFactory(sslConnectionSocketFactory)
+                                                        .build();
             HttpComponentsClientHttpRequestFactory requestFactory =
                 new HttpComponentsClientHttpRequestFactory(httpClient);
 
@@ -71,15 +72,15 @@ public class DataProtectionConfig {
             log.debug("app key : {}", appKey);
 
             return Objects.requireNonNull(new RestTemplate(requestFactory)
-                    .getForEntity(url + "/keymanager/v1.0/appkey/{appkey}/secrets/{keyid}",
-                        SecureKeyResponse.class,
-                        appKey,
-                        keyId)
-                    .getBody())
-                .getBody()
-                .getSecret();
+                              .getForEntity(url + "/keymanager/v1.0/appkey/{appkey}/secrets/{keyid}",
+                                  SecureKeyResponse.class,
+                                  appKey,
+                                  keyId)
+                              .getBody())
+                          .getBody()
+                          .getSecret();
         } catch (CertificateException | NoSuchAlgorithmException | KeyStoreException
-                 | UnrecoverableKeyException | IOException | KeyManagementException e) {
+            | UnrecoverableKeyException | IOException | KeyManagementException e) {
             log.error("error reason : {}", ExceptionUtils.getStackTrace(e));
             throw new NotFoundDataProtectionReposeData(errorMessage);
         }
