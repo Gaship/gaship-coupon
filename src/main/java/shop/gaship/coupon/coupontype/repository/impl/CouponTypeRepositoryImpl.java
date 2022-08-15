@@ -1,9 +1,11 @@
 package shop.gaship.coupon.coupontype.repository.impl;
 
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.JPAExpressions;
 import java.util.List;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.data.support.PageableExecutionUtils;
@@ -58,9 +60,11 @@ public class CouponTypeRepositoryImpl
      */
     public Page<CouponTypeDto> findAllCouponTypesCanDelete(Pageable pageable) {
         List<CouponTypeDto> couponTypeDtoListCanDelete = from(couponType)
-            .where(JPAExpressions.select(couponType).from(couponType).innerJoin(couponGenerationIssue)
-                                 .on(couponType.couponTypeNo.eq(couponGenerationIssue.couponType.couponTypeNo))
-                                 .notExists())
+            .where(JPAExpressions.select(couponType).
+                    from(couponType).
+                    innerJoin(couponGenerationIssue)
+                    .on(couponType.couponTypeNo.eq(couponGenerationIssue.couponType.couponTypeNo))
+                    .notExists())
             .offset(pageable.getOffset())
             .limit(Math.min(pageable.getPageSize(), 10))
             .orderBy(couponType.couponTypeNo.desc())
@@ -90,9 +94,11 @@ public class CouponTypeRepositoryImpl
     @Override
     public Page<CouponTypeDto> findAllCouponTypesCannotDelete(Pageable pageable) {
         List<CouponTypeDto> couponTypeDtoListCannotDelete = from(couponType)
-            .where(JPAExpressions.select(couponType).from(couponType).innerJoin(couponGenerationIssue)
-                                 .on(couponType.couponTypeNo.eq(couponGenerationIssue.couponType.couponTypeNo))
-                                 .exists())
+            .where(JPAExpressions.select(couponType)
+                    .from(couponType)
+                    .innerJoin(couponGenerationIssue)
+                    .on(couponType.couponTypeNo.eq(couponGenerationIssue.couponType.couponTypeNo))
+                    .exists())
             .offset(pageable.getOffset())
             .limit(Math.min(pageable.getPageSize(), 10))
             .orderBy(couponType.couponTypeNo.desc())
@@ -105,6 +111,30 @@ public class CouponTypeRepositoryImpl
             couponTypeDtoListCannotDelete::size);
     }
 
+    @Override
+    public Page<CouponTypeDto> coupon(Pageable pageable,
+                                      boolean typeCheck){
+        List<CouponTypeDto> content = from(couponType)
+                .where(trueIsRateFalseAmount(typeCheck))
+                .select(Projections.constructor(CouponTypeDto.class,
+                        couponType.name,
+                        couponType.discountRate,
+                        couponType.discountAmount,
+                        couponType.isStopGenerationIssue))
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .orderBy(couponType.couponTypeNo.desc())
+                .fetch();
+
+        return new PageImpl<>(content, pageable, content.size());
+    }
+    //정액 정률 구분
+    private BooleanExpression trueIsRateFalseAmount(boolean test){
+        if(test){
+            return couponType.discountRate.isNull().and(couponType.discountAmount.isNotNull());
+        }
+        return couponType.discountRate.isNotNull().and(couponType.discountAmount.isNull());
+    }
     /**
      * 정액 할인 정책을 가진 coupont type 의 Page 타입 만큼 가져오기 위한 repository 메서드 입니다.
      *
@@ -114,7 +144,8 @@ public class CouponTypeRepositoryImpl
     @Override
     public Page<CouponTypeDto> findAllCouponTypesFixedAmount(Pageable pageable) {
         List<CouponTypeDto> couponTypeDtoListFixedAmount = from(couponType)
-            .where(couponType.discountRate.isNull(), couponType.discountAmount.isNotNull())
+            .where(couponType.discountRate.isNull(),
+                    couponType.discountAmount.isNotNull())
             .offset(pageable.getOffset())
             .limit(Math.min(pageable.getPageSize(), 10))
             .orderBy(couponType.couponTypeNo.desc())
@@ -135,7 +166,8 @@ public class CouponTypeRepositoryImpl
     @Override
     public Page<CouponTypeDto> findAllCouponTypesFixedRate(Pageable pageable) {
         List<CouponTypeDto> couponTypeDtoListFixedRate = from(couponType)
-            .where(couponType.discountRate.isNotNull(), couponType.discountAmount.isNull())
+            .where(couponType.discountRate.isNotNull(),
+                    couponType.discountAmount.isNull())
             .offset(pageable.getOffset())
             .limit(Math.min(pageable.getPageSize(), 10))
             .orderBy(couponType.couponTypeNo.desc())

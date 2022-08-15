@@ -36,6 +36,9 @@ public interface CouponTypeRepositoryCustom {
      */
     Page<CouponTypeDto> findAllCouponTypesCannotDelete(Pageable pageable);
 
+    Page<CouponTypeDto> coupon(Pageable pageable,
+                               boolean typeCheck);
+
     /**
      * 정액 할인 정책을 가진 coupont type의 Page 타입 만큼 가져오기 위한 repository 메서드 입니다.
      *

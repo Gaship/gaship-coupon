@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -233,5 +234,51 @@ class CouponTypeRepositoryImplTest {
             couponTypeFixRateCanDelete.getDiscountAmount());
         assertThat(allCouponTypes.get().collect(Collectors.toList()).get(0).getDiscountRate()).isEqualTo(
             couponTypeFixRateCanDelete.getDiscountRate());
+    }
+
+    @DisplayName("정액 쿠폰테스트")
+    @Test
+    void couponTest(){
+        couponTypeRepository.save(couponTypeFixAmountCannotDelete);
+
+        Pageable pageable = PageRequest.of(0, 3, Sort.by(Sort.Direction.DESC, "couponTypeNo"));
+
+        // when
+        Page<CouponTypeDto> allCouponTypes = couponTypeRepository.coupon(pageable,true);
+
+        // then
+        assertThat(allCouponTypes.getTotalElements()).isEqualTo(1);
+        assertThat(allCouponTypes.getContent()).hasSize(1);
+        assertThat(allCouponTypes.get().collect(Collectors.toList()).get(0).getName()).isEqualTo(
+                couponTypeFixAmountCannotDelete.getName());
+        assertThat(allCouponTypes.get().collect(Collectors.toList()).get(0).getIsStopGenerationIssue()).isEqualTo(
+                couponTypeFixAmountCannotDelete.getIsStopGenerationIssue());
+        assertThat(allCouponTypes.get().collect(Collectors.toList()).get(0).getDiscountAmount()).isEqualTo(
+                couponTypeFixAmountCannotDelete.getDiscountAmount());
+        assertThat(allCouponTypes.get().collect(Collectors.toList()).get(0).getDiscountRate()).isEqualTo(
+                couponTypeFixAmountCannotDelete.getDiscountRate());
+    }
+
+    @DisplayName("정률 쿠폰테스트")
+    @Test
+    void couponTest2(){
+        couponTypeRepository.save(couponTypeFixRateCanDelete);
+
+        Pageable pageable = PageRequest.of(0, 3, Sort.by(Sort.Direction.DESC, "couponTypeNo"));
+
+        // when
+        Page<CouponTypeDto> allCouponTypes = couponTypeRepository.coupon(pageable, false);
+
+        // then
+        assertThat(allCouponTypes.getTotalElements()).isEqualTo(1);
+        assertThat(allCouponTypes.getContent()).hasSize(1);
+        assertThat(allCouponTypes.get().collect(Collectors.toList()).get(0).getName()).isEqualTo(
+                couponTypeFixRateCanDelete.getName());
+        assertThat(allCouponTypes.get().collect(Collectors.toList()).get(0).getIsStopGenerationIssue()).isEqualTo(
+                couponTypeFixRateCanDelete.getIsStopGenerationIssue());
+        assertThat(allCouponTypes.get().collect(Collectors.toList()).get(0).getDiscountAmount()).isEqualTo(
+                couponTypeFixRateCanDelete.getDiscountAmount());
+        assertThat(allCouponTypes.get().collect(Collectors.toList()).get(0).getDiscountRate()).isEqualTo(
+                couponTypeFixRateCanDelete.getDiscountRate());
     }
 }
