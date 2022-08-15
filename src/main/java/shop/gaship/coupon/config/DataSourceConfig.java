@@ -5,7 +5,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import shop.gaship.coupon.config.DataProtectionConfig;
 
 /**
  * Mysql 데이터 소스를 불러오는 설정입니다.
@@ -16,6 +15,7 @@ import shop.gaship.coupon.config.DataProtectionConfig;
 @Configuration
 @ConfigurationProperties(prefix = "datasource")
 public class DataSourceConfig {
+
     private String driverClassName;
     private String url;
     private String username;
