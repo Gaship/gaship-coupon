@@ -15,4 +15,14 @@ public interface CouponGenerationIssueRepositoryCustom {
     Page<CouponGenerationIssueResponseDto> findAllCouponGenerationIssuesUsed(Pageable pageable);
 
     Page<CouponGenerationIssueResponseDto> findAllCouponGenerationIssuesUnused(Pageable pageable);
+
+    Page<CouponGenerationIssueResponseDto> findAllCouponGenerationIssuesByMemberNo(Pageable pageable, Integer memberNo);
+
+    Page<CouponGenerationIssueResponseDto> findAllCouponGenerationIssuesUsedByMemberNo(Pageable pageable, Integer memberNo);
+
+    Page<CouponGenerationIssueResponseDto> findAllCouponGenerationIssuesUnusedByMemberNo(Pageable pageable, Integer memberNo);
+
+    Page<CouponGenerationIssueResponseDto> findAllCouponGenerationIssuesUnusedAndExpiredByMemberNo(Pageable pageable, Integer memberNo);
+
+    Page<CouponGenerationIssueResponseDto> findAllCouponGenerationIssuesUnusedAndUnexpiredByMemberNo(Pageable pageable, Integer memberNo);
 }

@@ -11,7 +11,7 @@ import shop.gaship.coupon.coupongenerationissue.repository.CouponGenerationIssue
 import shop.gaship.coupon.coupongenerationissue.service.CouponGenerationIssueService;
 
 /**
- * @author : 최겸준
+ * @author : 최겸준, 조재철
  * @since 1.0
  */
 @Service
@@ -37,5 +37,35 @@ public class CouponGenerationIssueServiceImpl implements CouponGenerationIssueSe
     @Override
     public Page<CouponGenerationIssueResponseDto> findCouponGenerationIssuesUnused(Pageable pageable) {
         return couponGenerationIssueRepository.findAllCouponGenerationIssuesUnused(pageable);
+    }
+
+    @Override
+    public Page<CouponGenerationIssueResponseDto> findCouponGenerationIssuesByMemberNo(Pageable pageable,
+        Integer memberNo) {
+        return couponGenerationIssueRepository.findAllCouponGenerationIssuesByMemberNo(pageable, memberNo);
+    }
+
+    @Override
+    public Page<CouponGenerationIssueResponseDto> findCouponGenerationIssuesUsedByMemberNo(Pageable pageable,
+        Integer memberNo) {
+        return couponGenerationIssueRepository.findAllCouponGenerationIssuesUsedByMemberNo(pageable, memberNo);
+    }
+
+    @Override
+    public Page<CouponGenerationIssueResponseDto> findCouponGenerationIssuesUnusedByMemberNo(Pageable pageable,
+        Integer memberNo) {
+        return couponGenerationIssueRepository.findAllCouponGenerationIssuesUnusedByMemberNo(pageable, memberNo);
+    }
+
+    @Override
+    public Page<CouponGenerationIssueResponseDto> findCouponGenerationIssuesUnusedAndExpiredByMemberNo(
+        Pageable pageable, Integer memberNo) {
+        return couponGenerationIssueRepository.findAllCouponGenerationIssuesUnusedAndExpiredByMemberNo(pageable, memberNo);
+    }
+
+    @Override
+    public Page<CouponGenerationIssueResponseDto> findCouponGenerationIssuesUnusedAndUnexpiredByMemberNo(
+        Pageable pageable, Integer memberNo) {
+        return couponGenerationIssueRepository.findAllCouponGenerationIssuesUnusedAndUnexpiredByMemberNo(pageable, memberNo);
     }
 }
