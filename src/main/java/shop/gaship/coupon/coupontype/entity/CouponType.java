@@ -45,9 +45,6 @@ public class CouponType {
     @Column(name = "is_stop_generation_issue", nullable = false)
     private Boolean isStopGenerationIssue;
 
-    @OneToMany(mappedBy = "couponType")
-    private List<CouponGenerationIssue> couponGenerationIssueList = new ArrayList<>();
-
     @Builder
     public CouponType(String name, Long discountAmount, Double discountRate,
                       Boolean isStopGenerationIssue) {
