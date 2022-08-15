@@ -1,7 +1,9 @@
-package shop.gaship.coupon.coupongenerationissue.exception;
+package shop.gaship.coupon.coupontype.exception;
 
 /**
- * @author : 최겸준
+ * 쿠폰종류가 존재하지 않을때 발생시킬 예외클래스입니다.
+ *
+ * @author 최겸준
  * @since 1.0
  */
 public class CouponTypeNotFoundException extends RuntimeException {

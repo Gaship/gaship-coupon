@@ -1,6 +1,5 @@
 package shop.gaship.coupon.coupongenerationissue.controller;
 
-import java.sql.SQLException;
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -8,7 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,13 +34,16 @@ public class CouponGenerationIssueRestController {
      * @author 최겸준
      */
     @PostMapping
-    public ResponseEntity<Void> couponGenerationIssueAdd(@RequestBody @Valid CouponGenerationIssueCreationRequestDto couponGenerationIssueCreationRequestDto) {
-        couponGenerationIssueService.addCouponGenerationIssue(couponGenerationIssueCreationRequestDto);
+    public ResponseEntity<Void> couponGenerationIssueAdd(@RequestBody
+                                                         @Valid CouponGenerationIssueCreationRequestDto couponGenerationIssueCreationRequestDto) {
+        couponGenerationIssueService.addCouponGenerationIssue(
+            couponGenerationIssueCreationRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @PostMapping("/{recommendMemberNo}")
-    public ResponseEntity<Void> couponGenerationIssueAddToRecommendMember(@PathVariable Integer recommendMemberNo) {
+    public ResponseEntity<Void> couponGenerationIssueAddToRecommendMember(
+        @PathVariable Integer recommendMemberNo) {
         couponGenerationIssueService.addCouponGenerationIssueToRecommendMember(recommendMemberNo);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -54,8 +55,10 @@ public class CouponGenerationIssueRestController {
      * @return body에 CouponGenerationIssueDetailsResponseDto를 담아서 200 상태코드와 함께 반환합니다.
      */
     @GetMapping("/{couponGenerationIssueNo}")
-    public ResponseEntity<CouponGenerationIssueDetailsResponseDto> couponGenerationIssueDetails(@PathVariable Integer couponGenerationIssueNo) {
-        return ResponseEntity.ok(couponGenerationIssueService.findCouponGenerationIssue(couponGenerationIssueNo));
+    public ResponseEntity<CouponGenerationIssueDetailsResponseDto> couponGenerationIssueDetails(
+        @PathVariable Integer couponGenerationIssueNo) {
+        return ResponseEntity.ok(
+            couponGenerationIssueService.findCouponGenerationIssue(couponGenerationIssueNo));
     }
 
 }
