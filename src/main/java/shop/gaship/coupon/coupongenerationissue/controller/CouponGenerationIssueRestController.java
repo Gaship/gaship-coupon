@@ -45,4 +45,27 @@ public class CouponGenerationIssueRestController {
 
         return ResponseEntity.ok(couponGenerationIssueResponsePage);
     }
+
+    @GetMapping("/used-coupons")
+    public ResponseEntity<PageResponse<CouponGenerationIssueResponseDto>> couponGenerationIssueUsedList(Pageable pageable) {
+        Page<CouponGenerationIssueResponseDto> couponGenerationIssueUsedPage =
+            couponGenerationIssueService.findCouponGenerationIssuesUsed(pageable);
+
+        PageResponse<CouponGenerationIssueResponseDto> couponGenerationIssueUsedResponsePage =
+            new PageResponse<>(couponGenerationIssueUsedPage);
+
+        return ResponseEntity.ok(couponGenerationIssueUsedResponsePage);
+    }
+
+    @GetMapping("/unused-couopns")
+    public ResponseEntity<PageResponse<CouponGenerationIssueResponseDto>> couponGenerationIssueUnusedList(Pageable pageable) {
+        Page<CouponGenerationIssueResponseDto> couponGenerationIssueUnusedPage =
+            couponGenerationIssueService.findCouponGenerationIssuesUnused(pageable);
+
+        PageResponse<CouponGenerationIssueResponseDto> couponGenerationIssueUnusedResponsePage =
+            new PageResponse<>(couponGenerationIssueUnusedPage);
+
+        return ResponseEntity.ok(couponGenerationIssueUnusedResponsePage);
+    }
+
 }

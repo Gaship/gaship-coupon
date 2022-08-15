@@ -28,4 +28,14 @@ public class CouponGenerationIssueServiceImpl implements CouponGenerationIssueSe
     public Page<CouponGenerationIssueResponseDto> findCouponGenerationIssues(Pageable pageable) {
         return couponGenerationIssueRepository.findAllCouponGenerationIssues(pageable);
     }
+
+    @Override
+    public Page<CouponGenerationIssueResponseDto> findCouponGenerationIssuesUsed(Pageable pageable) {
+        return couponGenerationIssueRepository.findAllCouponGenerationIssuesUsed(pageable);
+    }
+
+    @Override
+    public Page<CouponGenerationIssueResponseDto> findCouponGenerationIssuesUnused(Pageable pageable) {
+        return couponGenerationIssueRepository.findAllCouponGenerationIssuesUnused(pageable);
+    }
 }

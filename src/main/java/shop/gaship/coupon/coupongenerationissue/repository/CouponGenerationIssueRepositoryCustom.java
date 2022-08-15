@@ -11,4 +11,8 @@ import shop.gaship.coupon.coupongenerationissue.dto.response.CouponGenerationIss
 public interface CouponGenerationIssueRepositoryCustom {
 
     Page<CouponGenerationIssueResponseDto> findAllCouponGenerationIssues(Pageable pageable);
+
+    Page<CouponGenerationIssueResponseDto> findAllCouponGenerationIssuesUsed(Pageable pageable);
+
+    Page<CouponGenerationIssueResponseDto> findAllCouponGenerationIssuesUnused(Pageable pageable);
 }

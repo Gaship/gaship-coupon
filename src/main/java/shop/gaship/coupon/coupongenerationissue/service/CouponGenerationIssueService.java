@@ -13,4 +13,8 @@ public interface CouponGenerationIssueService {
     void addCouponIssue(CouponIssueCreationRequestDto couponTypeDto);
 
     Page<CouponGenerationIssueResponseDto> findCouponGenerationIssues(Pageable pageable);
+
+    Page<CouponGenerationIssueResponseDto> findCouponGenerationIssuesUsed(Pageable pageable);
+
+    Page<CouponGenerationIssueResponseDto> findCouponGenerationIssuesUnused(Pageable pageable);
 }

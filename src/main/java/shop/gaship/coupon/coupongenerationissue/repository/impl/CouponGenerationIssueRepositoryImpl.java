@@ -40,4 +40,36 @@ public class CouponGenerationIssueRepositoryImpl extends QuerydslRepositorySuppo
         return PageableExecutionUtils.getPage(couponGenerationIssueResponseDtoList, pageable,
             couponGenerationIssueResponseDtoList::size);
     }
+
+    @Override
+    public Page<CouponGenerationIssueResponseDto> findAllCouponGenerationIssuesUsed(Pageable pageable) {
+        List<CouponGenerationIssueResponseDto> couponGenerationIssueUsedResponseDtoList = from(couponGenerationIssue)
+            .where(couponGenerationIssue.usedDatetime.isNotNull())
+            .offset(pageable.getOffset())
+            .limit(Math.min(pageable.getPageSize(), 10))
+            .orderBy(couponGenerationIssue.couponGenerationIssueNo.desc())
+            .select(
+                Projections.constructor(CouponGenerationIssueResponseDto.class, couponGenerationIssue.couponType.name,
+                    couponGenerationIssue.memberNo, couponGenerationIssue.memberNo))
+            .fetch();
+
+        return PageableExecutionUtils.getPage(couponGenerationIssueUsedResponseDtoList, pageable,
+            couponGenerationIssueUsedResponseDtoList::size);
+    }
+
+    @Override
+    public Page<CouponGenerationIssueResponseDto> findAllCouponGenerationIssuesUnused(Pageable pageable) {
+        List<CouponGenerationIssueResponseDto> couponGenerationIssueUnusedResponseDtoList = from(couponGenerationIssue)
+            .where(couponGenerationIssue.usedDatetime.isNull())
+            .offset(pageable.getOffset())
+            .limit(Math.min(pageable.getPageSize(), 10))
+            .orderBy(couponGenerationIssue.couponGenerationIssueNo.desc())
+            .select(
+                Projections.constructor(CouponGenerationIssueResponseDto.class, couponGenerationIssue.couponType.name,
+                    couponGenerationIssue.memberNo, couponGenerationIssue.memberNo))
+            .fetch();
+
+        return PageableExecutionUtils.getPage(couponGenerationIssueUnusedResponseDtoList, pageable,
+            couponGenerationIssueUnusedResponseDtoList::size);
+    }
 }
