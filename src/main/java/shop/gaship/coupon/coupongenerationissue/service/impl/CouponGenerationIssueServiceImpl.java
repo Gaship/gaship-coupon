@@ -26,7 +26,6 @@ import shop.gaship.coupon.coupongenerationissue.service.CouponGenerationIssueSer
 public class CouponGenerationIssueServiceImpl implements CouponGenerationIssueService {
 
     private final CouponGenerationIssueRepository couponGenerationIssueRepository;
-    private final MemberAdapter memberAdapter;
 
     @Override
     public void addCouponIssue(CouponIssueCreationRequestDto couponIssueCreationRequestDto) {
@@ -146,7 +145,7 @@ public class CouponGenerationIssueServiceImpl implements CouponGenerationIssueSe
                 couponGenerationIssueRepository.findById(couponGenerationIssueNumber).orElseThrow(
                     NotFoundCouponGenerationIssueException::new);
 
-            couponGenerationIssue.useCoupon(LocalDateTime.now());
+            couponGenerationIssue.useCoupon();
         }
 
     }
