@@ -7,18 +7,26 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import shop.gaship.coupon.coupongenerationissue.adapter.MemberAdapter;
-import shop.gaship.coupon.coupongenerationissue.dto.request.CouponIssueCreationRequestDto;
+import shop.gaship.coupon.coupongenerationissue.adapter.SchedulerAdapterAboutCouponCreation;
+import shop.gaship.coupon.coupongenerationissue.dto.request.CouponGenerationIssueCreationRequestDto;
+import shop.gaship.coupon.coupongenerationissue.dto.response.CouponGenerationIssueDetailsResponseDto;
 import shop.gaship.coupon.coupongenerationissue.dto.response.CouponGenerationIssueResponseDto;
 import shop.gaship.coupon.coupongenerationissue.entity.CouponGenerationIssue;
+import shop.gaship.coupon.coupongenerationissue.exception.CouponGenerationIssueNotFoundException;
 import shop.gaship.coupon.coupongenerationissue.exception.NotFoundCouponGenerationIssueException;
+import shop.gaship.coupon.coupongenerationissue.exception.RecommendMemberCouponTypeNotFoundException;
 import shop.gaship.coupon.coupongenerationissue.repository.CouponGenerationIssueRepository;
 import shop.gaship.coupon.coupongenerationissue.service.CouponGenerationIssueService;
+import shop.gaship.coupon.coupontype.entity.CouponType;
+import shop.gaship.coupon.coupontype.repository.CouponTypeRepository;
+import shop.gaship.coupon.recommendmembercoupontype.entity.RecommendMemberCouponType;
+import shop.gaship.coupon.recommendmembercoupontype.repository.RecommendMemberCouponTypeRepository;
 
 /**
  * 쿠폰 생성 발급에 대한 비즈니스 로직을 처리하는 service 구현체 클래스 입니다.
  *
  * @author : 최겸준, 조재철
+ * @see CouponGenerationIssueService
  * @since 1.0
  */
 @Service
@@ -26,10 +34,9 @@ import shop.gaship.coupon.coupongenerationissue.service.CouponGenerationIssueSer
 public class CouponGenerationIssueServiceImpl implements CouponGenerationIssueService {
 
     private final CouponGenerationIssueRepository couponGenerationIssueRepository;
-
-    @Override
-    public void addCouponIssue(CouponIssueCreationRequestDto couponIssueCreationRequestDto) {
-    }
+    private final SchedulerAdapterAboutCouponCreation schedulerAdapterAboutCouponCreation;
+    private final CouponTypeRepository couponTypeRepository;
+    private final RecommendMemberCouponTypeRepository recommendMemberCouponTypeRepository;
 
     /**
      * 생성, 발급된 모든 쿠폰을 조회하기 위한 로직을 처리하는 메서드 입니다.
@@ -166,6 +173,58 @@ public class CouponGenerationIssueServiceImpl implements CouponGenerationIssueSe
 
             couponGenerationIssue.cancelUsedCoupon();
         }
+    }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Transactional
+    @Override
+    public void addCouponGenerationIssue(
+        CouponGenerationIssueCreationRequestDto couponGenerationIssueCreationRequestDto) {
+        schedulerAdapterAboutCouponCreation.addCouponGenerationIssue(
+            couponGenerationIssueCreationRequestDto);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Transactional
+    @Override
+    public void addCouponGenerationIssueToRecommendMember(Integer recommendMemberNo) {
+        RecommendMemberCouponType recommendMemberCouponType =
+            recommendMemberCouponTypeRepository.findTopFetchJoinByOrderByCouponTypeNoDesc()
+                                               .orElseThrow(
+                                                   RecommendMemberCouponTypeNotFoundException::new);
+
+        CouponGenerationIssue couponGenerationIssue = CouponGenerationIssue.builder()
+                                                                           .couponType(
+                                                                               recommendMemberCouponType.getCouponType())
+                                                                           .memberNo(recommendMemberNo)
+                                                                           .generationDatetime(LocalDateTime.now())
+                                                                           .issueDatetime(LocalDateTime.now())
+                                                                           .expirationDatetime(LocalDateTime.now())
+                                                                           .build();
+
+        couponGenerationIssueRepository.save(couponGenerationIssue);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public CouponGenerationIssueDetailsResponseDto findCouponGenerationIssue(
+        Integer couponGenerationIssueNo) {
+
+        CouponGenerationIssue coupon =
+            couponGenerationIssueRepository.findCouponGenerationIssueByIdAsFetchJoin(
+                                               couponGenerationIssueNo)
+                                           .orElseThrow(CouponGenerationIssueNotFoundException::new);
+
+        CouponType couponType = coupon.getCouponType();
+        return new CouponGenerationIssueDetailsResponseDto(couponType.getName(),
+            couponType.getDiscountAmount(), couponType.getDiscountRate(),
+            coupon.getGenerationDatetime(), coupon.getIssueDatetime(),
+            coupon.getExpirationDatetime(), coupon.getUsedDatetime(), coupon.getMemberNo());
     }
 }

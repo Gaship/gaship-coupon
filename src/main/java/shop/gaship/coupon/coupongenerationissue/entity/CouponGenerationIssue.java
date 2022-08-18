@@ -9,9 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedAttributeNode;
-import javax.persistence.NamedEntityGraph;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import shop.gaship.coupon.coupontype.entity.CouponType;
@@ -19,13 +19,11 @@ import shop.gaship.coupon.coupontype.entity.CouponType;
 /**
  * coupon_generations_issues 테이블과 1:1 대응되는 엔티티입니다.
  *
- * @author : 최겸준
+ * @author 최겸준, 조재철
  * @since 1.0
  */
-
-@NamedEntityGraph(name = "CouponGenerationIssue.withCouponType", attributeNodes = {
-    @NamedAttributeNode("couponType")
-})
+@NamedQuery(name = "CouponGenerationIssue.findByIdAsFetchJoin",
+    query = "select c from CouponGenerationIssue c join fetch c.couponType where c.couponGenerationIssueNo = :couponGenerationIssueNo")
 @Entity
 @Table(name = "coupon_generations_issues")
 @Getter
@@ -62,5 +60,17 @@ public class CouponGenerationIssue {
 
     public void cancelUsedCoupon() {
         this.usedDatetime = null;
+    }
+
+    @Builder
+    public CouponGenerationIssue(CouponType couponType, Integer memberNo,
+                                 LocalDateTime generationDatetime,
+                                 LocalDateTime issueDatetime,
+                                 LocalDateTime expirationDatetime) {
+        this.couponType = couponType;
+        this.memberNo = memberNo;
+        this.generationDatetime = generationDatetime;
+        this.issueDatetime = issueDatetime;
+        this.expirationDatetime = expirationDatetime;
     }
 }
