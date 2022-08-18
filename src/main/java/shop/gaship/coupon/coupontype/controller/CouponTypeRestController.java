@@ -56,8 +56,7 @@ public class CouponTypeRestController {
     }
 
     /**
-     * 추천인쿠폰에 대한 변경요청을 처리하는 기능입니다.
-     * 실제로는 변경이 아니라 새로 로우를 만들어서 대체하는 기능입니다.
+     * 추천인쿠폰에 대한 변경요청을 처리하는 기능입니다. 실제로는 변경이 아니라 새로 로우를 만들어서 대체하는 기능입니다.
      *
      * @param couponTypeCreationRequestDto 추가시 필요한 정보를 담고있는 DTO 객체입니다.
      * @return body에 void값을 넣고 200값을 반환합니다.

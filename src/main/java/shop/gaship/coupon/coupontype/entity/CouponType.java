@@ -24,6 +24,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class CouponType {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "coupon_type_no")
@@ -51,7 +52,7 @@ public class CouponType {
      */
     @Builder
     public CouponType(String name, Long discountAmount, Double discountRate,
-                      Boolean isStopGenerationIssue) {
+        Boolean isStopGenerationIssue) {
         this.name = name;
         this.discountAmount = discountAmount;
         this.discountRate = discountRate;

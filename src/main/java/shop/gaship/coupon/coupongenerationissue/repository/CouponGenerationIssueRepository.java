@@ -11,7 +11,8 @@ import shop.gaship.coupon.coupongenerationissue.entity.CouponGenerationIssue;
  * @author 최겸준, 조재철
  * @since 1.0
  */
-public interface CouponGenerationIssueRepository extends JpaRepository<CouponGenerationIssue, Integer>, CouponGenerationIssueRepositoryCustom {
+public interface CouponGenerationIssueRepository
+    extends JpaRepository<CouponGenerationIssue, Integer>, CouponGenerationIssueRepositoryCustom {
 
     @Query(name = "CouponGenerationIssue.findByIdAsFetchJoin")
     Optional<CouponGenerationIssue> findCouponGenerationIssueByIdAsFetchJoin(Integer couponGenerationIssueNo);

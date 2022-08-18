@@ -64,9 +64,9 @@ public class CouponGenerationIssue {
 
     @Builder
     public CouponGenerationIssue(CouponType couponType, Integer memberNo,
-                                 LocalDateTime generationDatetime,
-                                 LocalDateTime issueDatetime,
-                                 LocalDateTime expirationDatetime) {
+        LocalDateTime generationDatetime,
+        LocalDateTime issueDatetime,
+        LocalDateTime expirationDatetime) {
         this.couponType = couponType;
         this.memberNo = memberNo;
         this.generationDatetime = generationDatetime;

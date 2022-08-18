@@ -5,14 +5,10 @@ import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import javax.validation.Valid;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -36,7 +32,7 @@ import shop.gaship.coupon.dto.response.PageResponse;
 public class CouponGenerationIssueRestController {
 
     private final CouponGenerationIssueService couponGenerationIssueService;
-    
+
     /**
      * 쿠폰생성발급 전체 조회 요청을 처리하는 메서드 입니다.
      *
@@ -156,7 +152,7 @@ public class CouponGenerationIssueRestController {
      */
     @GetMapping("/member/{memberNo}/unused-coupons/expired-coupons")
     public ResponseEntity<PageResponse<CouponGenerationIssueResponseDto>>
-        couponGenerationIssueUnusedAndExpiredByMemberNoList(
+    couponGenerationIssueUnusedAndExpiredByMemberNoList(
         Pageable pageable, @PathVariable(value = "memberNo") Integer memberNo) {
         Page<CouponGenerationIssueResponseDto> couponGenerationIssueUnusedAndExpiredByMemberNoPage =
             couponGenerationIssueService.findCouponGenerationIssuesUnusedAndExpiredByMemberNo(pageable, memberNo);
@@ -176,7 +172,7 @@ public class CouponGenerationIssueRestController {
      */
     @GetMapping("/member/{memberNo}/unused-coupons/unexpired-coupons")
     public ResponseEntity<PageResponse<CouponGenerationIssueResponseDto>>
-        couponGenerationIssueUnusedAndUnexpiredByMemberNoList(
+    couponGenerationIssueUnusedAndUnexpiredByMemberNoList(
         Pageable pageable, @PathVariable(value = "memberNo") Integer memberNo) {
         Page<CouponGenerationIssueResponseDto> couponGenerationIssueUnusedAndUnexpiredByMemberNoPage =
             couponGenerationIssueService.findCouponGenerationIssuesUnusedAndUnexpiredByMemberNo(pageable, memberNo);
@@ -212,6 +208,7 @@ public class CouponGenerationIssueRestController {
 
         return ResponseEntity.ok().build();
     }
+
     /**
      * 쿠폰을 생성 및 발급하기위한 요청을 처리하는 기능입니다.
      *
@@ -221,7 +218,7 @@ public class CouponGenerationIssueRestController {
      */
     @PostMapping
     public ResponseEntity<Void> couponGenerationIssueAdd(@RequestBody
-                                                         @Valid CouponGenerationIssueCreationRequestDto couponGenerationIssueCreationRequestDto) {
+    @Valid CouponGenerationIssueCreationRequestDto couponGenerationIssueCreationRequestDto) {
         couponGenerationIssueService.addCouponGenerationIssue(
             couponGenerationIssueCreationRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
