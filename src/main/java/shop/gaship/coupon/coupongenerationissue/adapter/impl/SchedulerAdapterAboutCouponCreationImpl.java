@@ -16,6 +16,7 @@ import shop.gaship.coupon.coupongenerationissue.dto.request.CouponGenerationIssu
 @RequiredArgsConstructor
 public class SchedulerAdapterAboutCouponCreationImpl implements
     shop.gaship.coupon.coupongenerationissue.adapter.SchedulerAdapterAboutCouponCreation {
+
     private final WebClient schedulerWebClient;
 
     /**
@@ -24,9 +25,9 @@ public class SchedulerAdapterAboutCouponCreationImpl implements
     public void addCouponGenerationIssue(
         CouponGenerationIssueCreationRequestDto couponGenerationIssueCreationRequestDto) {
         schedulerWebClient.post().uri("/api/coupon-generations-issues")
-            .bodyValue(couponGenerationIssueCreationRequestDto)
-            .retrieve()
-            .bodyToMono(void.class)
-            .block();
+                          .bodyValue(couponGenerationIssueCreationRequestDto)
+                          .retrieve()
+                          .bodyToMono(void.class)
+                          .block();
     }
 }

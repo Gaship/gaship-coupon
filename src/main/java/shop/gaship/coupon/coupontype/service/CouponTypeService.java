@@ -10,6 +10,7 @@ import shop.gaship.coupon.coupontype.entity.CouponType;
  * @since 1.0
  */
 public interface CouponTypeService {
+
     /**
      * 쿠폰타입 추가요청에 대한 비지니스로직을 처리합니다.
      *
@@ -19,8 +20,7 @@ public interface CouponTypeService {
     void addCouponType(CouponTypeCreationRequestDto couponTypeCreationRequestDto);
 
     /**
-     * 추천인쿠폰 변경요청에 대한 비지니스로직을 처리합니다.
-     * 실제로는 변경이아니라 기존의 것을 새로운것으로 대체하는 작업입니다.
+     * 추천인쿠폰 변경요청에 대한 비지니스로직을 처리합니다. 실제로는 변경이아니라 기존의 것을 새로운것으로 대체하는 작업입니다.
      *
      * @param couponTypeCreationRequestDto 추가시 필요한 정보를 담고있는 DTO 객체입니다.
      * @author 최겸준
@@ -37,10 +37,10 @@ public interface CouponTypeService {
     default CouponType couponTypeCreationRequestDtoToCouponTypeEntity(
         CouponTypeCreationRequestDto couponTypeCreationRequestDto) {
         return CouponType.builder()
-            .name(couponTypeCreationRequestDto.getName())
-            .discountAmount(couponTypeCreationRequestDto.getDiscountAmount())
-            .discountRate(couponTypeCreationRequestDto.getDiscountRate())
-            .isStopGenerationIssue(Boolean.FALSE)
-            .build();
+                         .name(couponTypeCreationRequestDto.getName())
+                         .discountAmount(couponTypeCreationRequestDto.getDiscountAmount())
+                         .discountRate(couponTypeCreationRequestDto.getDiscountRate())
+                         .isStopGenerationIssue(Boolean.FALSE)
+                         .build();
     }
 }
