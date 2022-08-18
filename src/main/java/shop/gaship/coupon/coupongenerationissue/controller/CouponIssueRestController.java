@@ -1,4 +1,4 @@
-package shop.gaship.coupon.couponissue.controller;
+package shop.gaship.coupon.coupongenerationissue.controller;
 
 import javax.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import shop.gaship.coupon.couponissue.dto.request.CouponIssueCreationRequestDto;
-import shop.gaship.coupon.couponissue.service.CouponGenerationIssueService;
+import shop.gaship.coupon.coupongenerationissue.dto.request.CouponIssueCreationRequestDto;
+import shop.gaship.coupon.coupongenerationissue.service.CouponGenerationIssueService;
 
 /**
  * @author : 최겸준

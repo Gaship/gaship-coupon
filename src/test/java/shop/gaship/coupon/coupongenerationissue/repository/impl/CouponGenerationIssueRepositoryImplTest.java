@@ -1,4 +1,4 @@
-package shop.gaship.coupon.couponissue.repository.impl;
+package shop.gaship.coupon.coupongenerationissue.repository.impl;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -9,8 +9,8 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.util.ReflectionTestUtils;
-import shop.gaship.coupon.couponissue.entity.CouponGenerationIssue;
-import shop.gaship.coupon.couponissue.repository.CouponGenerationIssueRepository;
+import shop.gaship.coupon.coupongenerationissue.entity.CouponGenerationIssue;
+import shop.gaship.coupon.coupongenerationissue.repository.CouponGenerationIssueRepository;
 import shop.gaship.coupon.coupontype.entity.CouponType;
 import shop.gaship.coupon.coupontype.repository.CouponTypeRepository;
 

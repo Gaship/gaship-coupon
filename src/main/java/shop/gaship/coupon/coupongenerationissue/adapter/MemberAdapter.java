@@ -1,4 +1,4 @@
-package shop.gaship.coupon.couponissue.adapter;
+package shop.gaship.coupon.coupongenerationissue.adapter;
 
 import org.springframework.stereotype.Component;
 

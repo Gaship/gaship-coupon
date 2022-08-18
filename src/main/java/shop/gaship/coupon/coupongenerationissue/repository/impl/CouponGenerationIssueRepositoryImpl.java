@@ -1,10 +1,10 @@
-package shop.gaship.coupon.couponissue.repository.impl;
+package shop.gaship.coupon.coupongenerationissue.repository.impl;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
-import shop.gaship.coupon.couponissue.entity.CouponGenerationIssue;
-import shop.gaship.coupon.couponissue.entity.QCouponGenerationIssue;
-import shop.gaship.coupon.couponissue.repository.CouponGenerationIssueRepositoryCustom;
+import shop.gaship.coupon.coupongenerationissue.entity.CouponGenerationIssue;
+import shop.gaship.coupon.coupongenerationissue.entity.QCouponGenerationIssue;
+import shop.gaship.coupon.coupongenerationissue.repository.CouponGenerationIssueRepositoryCustom;
 
 /**
  * couponGenerationIssue 의 repository(crud 를 위한) 의 custom 구현체 입니다.

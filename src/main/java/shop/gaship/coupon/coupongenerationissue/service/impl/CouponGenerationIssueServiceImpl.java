@@ -1,11 +1,11 @@
-package shop.gaship.coupon.couponissue.service.impl;
+package shop.gaship.coupon.coupongenerationissue.service.impl;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import shop.gaship.coupon.couponissue.adapter.MemberAdapter;
-import shop.gaship.coupon.couponissue.dto.request.CouponIssueCreationRequestDto;
-import shop.gaship.coupon.couponissue.repository.CouponGenerationIssueRepository;
-import shop.gaship.coupon.couponissue.service.CouponGenerationIssueService;
+import shop.gaship.coupon.coupongenerationissue.adapter.MemberAdapter;
+import shop.gaship.coupon.coupongenerationissue.dto.request.CouponIssueCreationRequestDto;
+import shop.gaship.coupon.coupongenerationissue.repository.CouponGenerationIssueRepository;
+import shop.gaship.coupon.coupongenerationissue.service.CouponGenerationIssueService;
 
 /**
  * @author : 최겸준

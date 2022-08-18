@@ -1,4 +1,4 @@
-package shop.gaship.coupon.couponissue.dto.request;
+package shop.gaship.coupon.coupongenerationissue.dto.request;
 
 import java.time.LocalDateTime;
 import javax.validation.constraints.Min;

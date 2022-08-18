@@ -1,7 +1,7 @@
-package shop.gaship.coupon.couponissue.repository;
+package shop.gaship.coupon.coupongenerationissue.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import shop.gaship.coupon.couponissue.entity.CouponGenerationIssue;
+import shop.gaship.coupon.coupongenerationissue.entity.CouponGenerationIssue;
 
 /**
  * couponGenerationIssue 의 repository(crud 를 위한) 클래스 입니다.

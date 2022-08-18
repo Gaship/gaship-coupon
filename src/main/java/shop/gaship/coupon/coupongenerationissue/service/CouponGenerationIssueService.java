@@ -1,6 +1,6 @@
-package shop.gaship.coupon.couponissue.service;
+package shop.gaship.coupon.coupongenerationissue.service;
 
-import shop.gaship.coupon.couponissue.dto.request.CouponIssueCreationRequestDto;
+import shop.gaship.coupon.coupongenerationissue.dto.request.CouponIssueCreationRequestDto;
 
 /**
  * @author : 최겸준
