@@ -9,7 +9,7 @@ import shop.gaship.coupon.dataprotection.exception.EncodeFailureException;
  * db에 aes로 암호화된 email을 찾는 방법이 없어 email 중복 검사가 힘든 이유로 SHA-512로 암호화 하여 값을 db에 저장 후 email 중복검사시 넘겨온 값을 SHA-512로 암호화 하여 db의
  * SHA-512로 암호화된 정보와 비교하기 위해 SHA-512를 이용한 암호화를 위한 클래스.
  *
- * @author : 조재철
+ * @author 조재철
  * @since 1.0
  */
 @Component
