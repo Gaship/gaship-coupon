@@ -3,7 +3,6 @@ package shop.gaship.coupon.coupongenerationissue.repository;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,6 +19,7 @@ import shop.gaship.coupon.coupontype.entity.CouponType;
  */
 @DataJpaTest
 class CouponGenerationIssueRepositoryTest {
+
     @Autowired
     private CouponGenerationIssueRepository repository;
 
@@ -57,7 +57,7 @@ class CouponGenerationIssueRepositoryTest {
 
         CouponGenerationIssue result
             = repository.findCouponGenerationIssueByIdAsFetchJoin(
-                couponGenerationIssue.getCouponGenerationIssueNo()).get();
+            couponGenerationIssue.getCouponGenerationIssueNo()).get();
         CouponType type = result.getCouponType();
 
         assertThat(result.getCouponGenerationIssueNo())

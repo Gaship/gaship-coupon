@@ -58,4 +58,8 @@ public class CouponType {
         this.discountRate = discountRate;
         this.isStopGenerationIssue = isStopGenerationIssue;
     }
+
+    public void changeStopGenerationIssue(boolean stopGenerationIssue) {
+        this.isStopGenerationIssue = stopGenerationIssue;
+    }
 }

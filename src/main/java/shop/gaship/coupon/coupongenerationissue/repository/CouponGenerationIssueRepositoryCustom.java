@@ -13,6 +13,14 @@ import shop.gaship.coupon.coupongenerationissue.dto.response.CouponGenerationIss
 public interface CouponGenerationIssueRepositoryCustom {
 
     /**
+     * 해당 쿠폰 타입 번호를 가진 생성 or 발급 된 쿠폰이 존재하는지 체크하는 메서드 입니다.
+     *
+     * @param couponTypeNo 쿠폰 타입 번호 입니다.
+     * @return 해당 쿠폰 타입 번호를 가진 생성 or 발급 된 쿠폰의 존재 여부 반환.
+     */
+    Boolean existCouponHasCouponTypeNo(Integer couponTypeNo);
+
+    /**
      * 생성, 발급된 전체 쿠폰을 Page 타입 만큼 가져오기 위한 repository 메서드 입니다.
      *
      * @param pageable pagination 에 맞게 조회하기 위한 정보를 담고있는 객체.

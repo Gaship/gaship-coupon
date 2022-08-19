@@ -1,22 +1,16 @@
 package shop.gaship.coupon.coupongenerationissue.service.impl;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
-import org.junit.jupiter.api.BeforeEach;
 import static org.assertj.core.api.Assertions.assertThatNoException;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -74,7 +68,6 @@ class CouponGenerationIssueServiceImplTest {
 
     private CouponGenerationIssue couponGenerationIssueUsed;
     private CouponGenerationIssue couponGenerationIssueUnusedAndExpired;
-    private CouponGenerationIssue couponGenerationIssueUnusedAndUnexpired;
 
     private CouponGenerationIssueResponseDto couponGenerationIssueUsedResponseDto;
     private CouponGenerationIssueResponseDto couponGenerationIssueUnusedAndExpiredResponseDto;
@@ -166,7 +159,7 @@ class CouponGenerationIssueServiceImplTest {
     }
 
     private void setCouponGenerationIssueUnusedAndUnexpired() {
-        couponGenerationIssueUnusedAndUnexpired = new CouponGenerationIssue();
+        CouponGenerationIssue couponGenerationIssueUnusedAndUnexpired = new CouponGenerationIssue();
 
         ReflectionTestUtils.setField(couponGenerationIssueUnusedAndUnexpired, "memberNo", 1);
         ReflectionTestUtils.setField(couponGenerationIssueUnusedAndUnexpired, "generationDatetime",
@@ -376,8 +369,9 @@ class CouponGenerationIssueServiceImplTest {
             .willReturn(Optional.empty());
 
         assertThatThrownBy(() -> service.findCouponGenerationIssue(1)).isInstanceOf(
-            CouponGenerationIssueNotFoundException.class)
-            .hasMessageContaining(CouponGenerationIssueNotFoundException.MESSAGE);
+                                                                          CouponGenerationIssueNotFoundException.class)
+                                                                      .hasMessageContaining(
+                                                                          CouponGenerationIssueNotFoundException.MESSAGE);
     }
 
     @DisplayName("비지니스 로직이 정상적으로 동작하며 정상적으로 save 메소드까지 동작한다.")

@@ -17,6 +17,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 @EnableConfigurationProperties(value = WebClientConfig.class)
 @TestPropertySource(value = "classpath:application-dev.properties")
 class WebClientConfigTest {
+
     @Autowired
     WebClientConfig webClientConfig;
 

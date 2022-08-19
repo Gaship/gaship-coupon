@@ -1,10 +1,13 @@
 package shop.gaship.coupon.coupongenerationissue.controller;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -12,17 +15,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
-
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.verify;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
-import java.time.LocalDateTime;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -295,13 +287,14 @@ class CouponGenerationIssueRestControllerTest {
                        .content(content))
                .andExpect(status().isOk());
     }
-    
+
     @DisplayName("추천인에게 쿠폰생성발급 요청이 들어오면 예외없이 addCouponGenerationIssueToRecommendMember() 메서드가 잘 동작한다.")
     @Test
     void couponGenerationIssueAddToRecommendMember() throws Exception {
         doNothing().when(couponGenerationIssueService).addCouponGenerationIssueToRecommendMember(1);
-            mockMvc.perform(post("/api/coupon-generations-issues/{recommendMemberNo}", 1).accept(MediaType.APPLICATION_JSON))
-            .andExpect(status().isCreated());
+        mockMvc.perform(
+                   post("/api/coupon-generations-issues/{recommendMemberNo}", 1).accept(MediaType.APPLICATION_JSON))
+               .andExpect(status().isCreated());
         verify(couponGenerationIssueService).addCouponGenerationIssueToRecommendMember(1);
     }
 
@@ -316,14 +309,14 @@ class CouponGenerationIssueRestControllerTest {
             .willReturn(dto);
 
         mockMvc.perform(get("/api/coupon-generations-issues/{couponGenerationIssueNo}", 1).accept(
-                MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk())
-            .andExpect(jsonPath("$.couponName").value(dto.getCouponName()))
-            .andExpect(jsonPath("$.discountAmount").value(dto.getDiscountAmount()))
-            .andExpect(jsonPath("$.discountRate").value(dto.getDiscountRate()))
-            .andExpect(jsonPath("$.memberNo").value(dto.getMemberNo()))
-            .andReturn();
+                   MediaType.APPLICATION_JSON))
+               .andExpect(status().isOk())
+               .andExpect(jsonPath("$.couponName").value(dto.getCouponName()))
+               .andExpect(jsonPath("$.discountAmount").value(dto.getDiscountAmount()))
+               .andExpect(jsonPath("$.discountRate").value(dto.getDiscountRate()))
+               .andExpect(jsonPath("$.memberNo").value(dto.getMemberNo()))
+               .andReturn();
 
         verify(couponGenerationIssueService).findCouponGenerationIssue(1);
-        }
     }
+}

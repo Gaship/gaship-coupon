@@ -10,7 +10,7 @@ import shop.gaship.coupon.coupongenerationissue.dto.response.CouponGenerationIss
 /**
  * 쿠폰 생성 발급에 대한 비즈니스 로직을 처리하는 service 인터페이스 클래스 입니다.
  *
- * @author : 최겸준, 조재철
+ * @author 최겸준, 조재철
  * @since 1.0
  */
 public interface CouponGenerationIssueService {

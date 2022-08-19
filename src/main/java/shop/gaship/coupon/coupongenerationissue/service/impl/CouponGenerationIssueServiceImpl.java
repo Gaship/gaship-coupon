@@ -18,7 +18,6 @@ import shop.gaship.coupon.coupongenerationissue.exception.RecommendMemberCouponT
 import shop.gaship.coupon.coupongenerationissue.repository.CouponGenerationIssueRepository;
 import shop.gaship.coupon.coupongenerationissue.service.CouponGenerationIssueService;
 import shop.gaship.coupon.coupontype.entity.CouponType;
-import shop.gaship.coupon.coupontype.repository.CouponTypeRepository;
 import shop.gaship.coupon.recommendmembercoupontype.entity.RecommendMemberCouponType;
 import shop.gaship.coupon.recommendmembercoupontype.repository.RecommendMemberCouponTypeRepository;
 
@@ -35,7 +34,6 @@ public class CouponGenerationIssueServiceImpl implements CouponGenerationIssueSe
 
     private final CouponGenerationIssueRepository couponGenerationIssueRepository;
     private final SchedulerAdapterAboutCouponCreation schedulerAdapterAboutCouponCreation;
-    private final CouponTypeRepository couponTypeRepository;
     private final RecommendMemberCouponTypeRepository recommendMemberCouponTypeRepository;
 
     /**

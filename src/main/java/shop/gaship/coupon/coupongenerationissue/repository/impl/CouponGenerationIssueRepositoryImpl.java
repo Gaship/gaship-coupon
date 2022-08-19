@@ -1,6 +1,9 @@
 package shop.gaship.coupon.coupongenerationissue.repository.impl;
 
+import static shop.gaship.coupon.coupongenerationissue.entity.QCouponGenerationIssue.couponGenerationIssue;
+
 import com.querydsl.core.types.Projections;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.data.domain.Page;
@@ -14,20 +17,38 @@ import shop.gaship.coupon.coupongenerationissue.repository.CouponGenerationIssue
 import shop.gaship.coupon.coupontype.entity.QCouponType;
 
 /**
- * 쿠폰 생성 발급 엔티티에 대한 커스텀 repository 구현체 클래스 입니다.
+ * couponGenerationIssue 의 repository(crud 를 위한) 의 custom 구현체 입니다.
  *
  * @author : 조재철
  * @since 1.0
  */
-public class CouponGenerationIssueRepositoryImpl extends QuerydslRepositorySupport
-    implements CouponGenerationIssueRepositoryCustom {
+public class CouponGenerationIssueRepositoryImpl
+    extends QuerydslRepositorySupport implements CouponGenerationIssueRepositoryCustom {
 
     public CouponGenerationIssueRepositoryImpl() {
         super(CouponGenerationIssue.class);
     }
 
-    QCouponGenerationIssue couponGenerationIssue = QCouponGenerationIssue.couponGenerationIssue;
-    QCouponType couponType = QCouponType.couponType;
+    /**
+     * 해당 쿠폰 타입 번호를 가진 생성 or 발급 된 쿠폰이 존재하는지 체크하는 메서드 입니다.
+     *
+     * @param couponTypeNo 쿠폰 타입 번호 입니다.
+     * @return 해당 쿠폰 타입 번호를 가진 생성 or 발급 된 쿠폰의 존재 여부 반환.
+     */
+    @Override
+    public Boolean existCouponHasCouponTypeNo(Integer couponTypeNo) {
+        QCouponGenerationIssue couponGenerationIssue = QCouponGenerationIssue.couponGenerationIssue;
+
+        JPAQueryFactory jpaQueryFactory = new JPAQueryFactory(this.getEntityManager());
+
+        Integer fetchOne = jpaQueryFactory
+            .selectOne()
+            .from(couponGenerationIssue)
+            .where(couponGenerationIssue.couponType.couponTypeNo.eq(couponTypeNo))
+            .fetchFirst();
+
+        return fetchOne != null;
+    }
 
     /**
      * 생성, 발급된 전체 쿠폰을 Page 타입 만큼 가져오기 위한 repository 메서드 입니다.
@@ -37,13 +58,15 @@ public class CouponGenerationIssueRepositoryImpl extends QuerydslRepositorySuppo
      */
     @Override
     public Page<CouponGenerationIssueResponseDto> findAllCouponGenerationIssues(Pageable pageable) {
+        QCouponGenerationIssue couponGenerationIssue = QCouponGenerationIssue.couponGenerationIssue;
+
         List<CouponGenerationIssueResponseDto> couponGenerationIssueResponseDtoList = from(couponGenerationIssue)
             .offset(pageable.getOffset())
             .limit(Math.min(pageable.getPageSize(), 10))
             .orderBy(couponGenerationIssue.couponGenerationIssueNo.desc())
             .select(
                 Projections.constructor(CouponGenerationIssueResponseDto.class, couponGenerationIssue.couponType.name,
-                    couponGenerationIssue.memberNo, couponGenerationIssue.memberNo))
+                    couponGenerationIssue.memberNo, couponGenerationIssue.expirationDatetime))
             .fetch();
 
         return PageableExecutionUtils.getPage(couponGenerationIssueResponseDtoList, pageable,
@@ -65,7 +88,7 @@ public class CouponGenerationIssueRepositoryImpl extends QuerydslRepositorySuppo
             .orderBy(couponGenerationIssue.couponGenerationIssueNo.desc())
             .select(
                 Projections.constructor(CouponGenerationIssueResponseDto.class, couponGenerationIssue.couponType.name,
-                    couponGenerationIssue.memberNo, couponGenerationIssue.memberNo))
+                    couponGenerationIssue.memberNo, couponGenerationIssue.expirationDatetime))
             .fetch();
 
         return PageableExecutionUtils.getPage(couponGenerationIssueUsedResponseDtoList, pageable,
@@ -87,7 +110,7 @@ public class CouponGenerationIssueRepositoryImpl extends QuerydslRepositorySuppo
             .orderBy(couponGenerationIssue.couponGenerationIssueNo.desc())
             .select(
                 Projections.constructor(CouponGenerationIssueResponseDto.class, couponGenerationIssue.couponType.name,
-                    couponGenerationIssue.memberNo, couponGenerationIssue.memberNo))
+                    couponGenerationIssue.memberNo, couponGenerationIssue.expirationDatetime))
             .fetch();
 
         return PageableExecutionUtils.getPage(couponGenerationIssueUnusedResponseDtoList, pageable,
@@ -113,7 +136,7 @@ public class CouponGenerationIssueRepositoryImpl extends QuerydslRepositorySuppo
                 .select(
                     Projections.constructor(CouponGenerationIssueResponseDto.class,
                         couponGenerationIssue.couponType.name,
-                        couponGenerationIssue.memberNo, couponGenerationIssue.memberNo))
+                        couponGenerationIssue.memberNo, couponGenerationIssue.expirationDatetime))
                 .fetch();
 
         return PageableExecutionUtils.getPage(couponGenerationIssueResponseDtoByMemberNoList, pageable,
@@ -139,7 +162,7 @@ public class CouponGenerationIssueRepositoryImpl extends QuerydslRepositorySuppo
                 .select(
                     Projections.constructor(CouponGenerationIssueResponseDto.class,
                         couponGenerationIssue.couponType.name,
-                        couponGenerationIssue.memberNo, couponGenerationIssue.memberNo))
+                        couponGenerationIssue.memberNo, couponGenerationIssue.expirationDatetime))
                 .fetch();
 
         return PageableExecutionUtils.getPage(couponGenerationIssueUsedResponseDtoByMemberNoList, pageable,
@@ -165,7 +188,7 @@ public class CouponGenerationIssueRepositoryImpl extends QuerydslRepositorySuppo
                 .select(
                     Projections.constructor(CouponGenerationIssueResponseDto.class,
                         couponGenerationIssue.couponType.name,
-                        couponGenerationIssue.memberNo, couponGenerationIssue.memberNo))
+                        couponGenerationIssue.memberNo, couponGenerationIssue.expirationDatetime))
                 .fetch();
 
         return PageableExecutionUtils.getPage(couponGenerationIssueUnusedResponseDtoByMemberNoList, pageable,
@@ -194,7 +217,7 @@ public class CouponGenerationIssueRepositoryImpl extends QuerydslRepositorySuppo
                 .select(
                     Projections.constructor(CouponGenerationIssueResponseDto.class,
                         couponGenerationIssue.couponType.name,
-                        couponGenerationIssue.memberNo, couponGenerationIssue.memberNo))
+                        couponGenerationIssue.memberNo, couponGenerationIssue.expirationDatetime))
                 .fetch();
 
         return PageableExecutionUtils.getPage(couponGenerationIssueUnusedAndExpiredResponseDtoByMemberNoList, pageable,
@@ -223,7 +246,7 @@ public class CouponGenerationIssueRepositoryImpl extends QuerydslRepositorySuppo
                 .select(
                     Projections.constructor(CouponGenerationIssueResponseDto.class,
                         couponGenerationIssue.couponType.name,
-                        couponGenerationIssue.memberNo, couponGenerationIssue.memberNo))
+                        couponGenerationIssue.memberNo, couponGenerationIssue.expirationDatetime))
                 .fetch();
 
         return PageableExecutionUtils.getPage(couponGenerationIssueUnusedAndUnexpiredResponseDtoByMemberNoList,
