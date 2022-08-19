@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -46,9 +45,6 @@ class CouponTypeRepositoryImplTest {
     private CouponTypeDto couponTypeDtoFixRateCanDelete;
     private CouponTypeDto couponTypeDtoFixAmountCannotDelete;
 
-    private PageImpl<CouponTypeDto> couponTypeDtoFixRateCanPage;
-    private PageImpl<CouponTypeDto> couponTypeDtoFixAmountCannotDeletePage;
-
     @BeforeEach
     void setUp() {
         setCouponTypeFixRateCanDelete();
@@ -59,7 +55,6 @@ class CouponTypeRepositoryImplTest {
         setCouponTypeDtoFixAmountCannotDeleteList();
     }
 
-    @Order(1)
     private void setCouponTypeFixRateCanDelete() {
         couponTypeFixRateCanDelete = new CouponType();
 
@@ -68,7 +63,6 @@ class CouponTypeRepositoryImplTest {
         ReflectionTestUtils.setField(couponTypeFixRateCanDelete, "discountRate", 10.0);
     }
 
-    @Order(1)
     private void setCouponTypeDtoFixRateCanDelete() {
         couponTypeDtoFixRateCanDelete = new CouponTypeDto();
 
@@ -77,7 +71,6 @@ class CouponTypeRepositoryImplTest {
         ReflectionTestUtils.setField(couponTypeDtoFixRateCanDelete, "discountRate", 10.0);
     }
 
-    @Order(1)
     private void setCouponTypeDtoFixAmountCannotDelete() {
         couponTypeDtoFixAmountCannotDelete = new CouponTypeDto();
 
@@ -86,15 +79,13 @@ class CouponTypeRepositoryImplTest {
         ReflectionTestUtils.setField(couponTypeDtoFixAmountCannotDelete, "discountAmount", 10000L);
     }
 
-
-    @Order(2)
     private void setCouponTypeDtoFixRateCanDeleteList() {
         List<CouponTypeDto> couponTypeDtoFixRateCanList = List.of(couponTypeDtoFixRateCanDelete);
 
-        couponTypeDtoFixRateCanPage = new PageImpl(couponTypeDtoFixRateCanList, PageRequest.of(0, 5), 10);
+        PageImpl<CouponTypeDto> couponTypeDtoFixRateCanPage =
+            new PageImpl(couponTypeDtoFixRateCanList, PageRequest.of(0, 5), 10);
     }
 
-    @Order(1)
     private void setCouponTypeFixAmountCannotDelete() {
         couponTypeFixAmountCannotDelete = new CouponType();
 
@@ -103,11 +94,10 @@ class CouponTypeRepositoryImplTest {
         ReflectionTestUtils.setField(couponTypeFixAmountCannotDelete, "discountAmount", 10000L);
     }
 
-    @Order(2)
     private void setCouponTypeDtoFixAmountCannotDeleteList() {
         List<CouponTypeDto> couponTypeDtoFixAmountCannotDeleteList = List.of(couponTypeDtoFixAmountCannotDelete);
 
-        couponTypeDtoFixAmountCannotDeletePage = new PageImpl(
+        PageImpl<CouponTypeDto> couponTypeDtoFixAmountCannotDeletePage = new PageImpl(
             couponTypeDtoFixAmountCannotDeleteList, PageRequest.of(0, 5), 10);
     }
 

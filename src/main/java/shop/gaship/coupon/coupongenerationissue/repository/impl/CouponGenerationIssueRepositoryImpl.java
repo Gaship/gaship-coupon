@@ -67,7 +67,7 @@ public class CouponGenerationIssueRepositoryImpl
             .orderBy(couponGenerationIssue.couponGenerationIssueNo.desc())
             .select(
                 Projections.constructor(CouponGenerationIssueResponseDto.class, couponGenerationIssue.couponType.name,
-                    couponGenerationIssue.memberNo, couponGenerationIssue.memberNo))
+                    couponGenerationIssue.memberNo, couponGenerationIssue.expirationDatetime))
             .fetch();
 
         return PageableExecutionUtils.getPage(couponGenerationIssueResponseDtoList, pageable,
@@ -89,7 +89,7 @@ public class CouponGenerationIssueRepositoryImpl
             .orderBy(couponGenerationIssue.couponGenerationIssueNo.desc())
             .select(
                 Projections.constructor(CouponGenerationIssueResponseDto.class, couponGenerationIssue.couponType.name,
-                    couponGenerationIssue.memberNo, couponGenerationIssue.memberNo))
+                    couponGenerationIssue.memberNo, couponGenerationIssue.expirationDatetime))
             .fetch();
 
         return PageableExecutionUtils.getPage(couponGenerationIssueUsedResponseDtoList, pageable,
@@ -111,7 +111,7 @@ public class CouponGenerationIssueRepositoryImpl
             .orderBy(couponGenerationIssue.couponGenerationIssueNo.desc())
             .select(
                 Projections.constructor(CouponGenerationIssueResponseDto.class, couponGenerationIssue.couponType.name,
-                    couponGenerationIssue.memberNo, couponGenerationIssue.memberNo))
+                    couponGenerationIssue.memberNo, couponGenerationIssue.expirationDatetime))
             .fetch();
 
         return PageableExecutionUtils.getPage(couponGenerationIssueUnusedResponseDtoList, pageable,
@@ -137,7 +137,7 @@ public class CouponGenerationIssueRepositoryImpl
                 .select(
                     Projections.constructor(CouponGenerationIssueResponseDto.class,
                         couponGenerationIssue.couponType.name,
-                        couponGenerationIssue.memberNo, couponGenerationIssue.memberNo))
+                        couponGenerationIssue.memberNo, couponGenerationIssue.expirationDatetime))
                 .fetch();
 
         return PageableExecutionUtils.getPage(couponGenerationIssueResponseDtoByMemberNoList, pageable,
@@ -163,7 +163,7 @@ public class CouponGenerationIssueRepositoryImpl
                 .select(
                     Projections.constructor(CouponGenerationIssueResponseDto.class,
                         couponGenerationIssue.couponType.name,
-                        couponGenerationIssue.memberNo, couponGenerationIssue.memberNo))
+                        couponGenerationIssue.memberNo, couponGenerationIssue.expirationDatetime))
                 .fetch();
 
         return PageableExecutionUtils.getPage(couponGenerationIssueUsedResponseDtoByMemberNoList, pageable,
@@ -189,7 +189,7 @@ public class CouponGenerationIssueRepositoryImpl
                 .select(
                     Projections.constructor(CouponGenerationIssueResponseDto.class,
                         couponGenerationIssue.couponType.name,
-                        couponGenerationIssue.memberNo, couponGenerationIssue.memberNo))
+                        couponGenerationIssue.memberNo, couponGenerationIssue.expirationDatetime))
                 .fetch();
 
         return PageableExecutionUtils.getPage(couponGenerationIssueUnusedResponseDtoByMemberNoList, pageable,
@@ -218,7 +218,7 @@ public class CouponGenerationIssueRepositoryImpl
                 .select(
                     Projections.constructor(CouponGenerationIssueResponseDto.class,
                         couponGenerationIssue.couponType.name,
-                        couponGenerationIssue.memberNo, couponGenerationIssue.memberNo))
+                        couponGenerationIssue.memberNo, couponGenerationIssue.expirationDatetime))
                 .fetch();
 
         return PageableExecutionUtils.getPage(couponGenerationIssueUnusedAndExpiredResponseDtoByMemberNoList, pageable,
@@ -247,7 +247,7 @@ public class CouponGenerationIssueRepositoryImpl
                 .select(
                     Projections.constructor(CouponGenerationIssueResponseDto.class,
                         couponGenerationIssue.couponType.name,
-                        couponGenerationIssue.memberNo, couponGenerationIssue.memberNo))
+                        couponGenerationIssue.memberNo, couponGenerationIssue.expirationDatetime))
                 .fetch();
 
         return PageableExecutionUtils.getPage(couponGenerationIssueUnusedAndUnexpiredResponseDtoByMemberNoList,

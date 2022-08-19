@@ -68,7 +68,6 @@ class CouponGenerationIssueServiceImplTest {
 
     private CouponGenerationIssue couponGenerationIssueUsed;
     private CouponGenerationIssue couponGenerationIssueUnusedAndExpired;
-    private CouponGenerationIssue couponGenerationIssueUnusedAndUnexpired;
 
     private CouponGenerationIssueResponseDto couponGenerationIssueUsedResponseDto;
     private CouponGenerationIssueResponseDto couponGenerationIssueUnusedAndExpiredResponseDto;
@@ -160,7 +159,7 @@ class CouponGenerationIssueServiceImplTest {
     }
 
     private void setCouponGenerationIssueUnusedAndUnexpired() {
-        couponGenerationIssueUnusedAndUnexpired = new CouponGenerationIssue();
+        CouponGenerationIssue couponGenerationIssueUnusedAndUnexpired = new CouponGenerationIssue();
 
         ReflectionTestUtils.setField(couponGenerationIssueUnusedAndUnexpired, "memberNo", 1);
         ReflectionTestUtils.setField(couponGenerationIssueUnusedAndUnexpired, "generationDatetime",
