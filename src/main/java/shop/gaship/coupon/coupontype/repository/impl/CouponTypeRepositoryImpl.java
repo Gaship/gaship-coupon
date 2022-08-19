@@ -68,15 +68,6 @@ public class CouponTypeRepositoryImpl
                 couponType.discountAmount, couponType.isStopGenerationIssue))
             .fetch();
 
-
-//        List<CouponTypeDto> couponTypeDtoList = from(couponType)
-//            .where(couponType.couponGenerationIssueList.isNotEmpty())
-//            .offset(pageable.getOffset()).limit(Math.min(pageable.getPageSize(), 10))
-//            .orderBy(couponType.couponTypeNo.desc())
-//            .select(Projections.constructor(CouponTypeDto.class, couponType.name, couponType.discountRate,
-//                couponType.discountAmount, couponType.couponGenerationIssueList))
-//            .fetch();
-
         return PageableExecutionUtils.getPage(couponTypeDtoListCanDelete, pageable,
             couponTypeDtoListCanDelete::size);
     }

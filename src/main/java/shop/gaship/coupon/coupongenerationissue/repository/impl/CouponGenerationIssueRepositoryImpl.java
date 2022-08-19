@@ -59,7 +59,6 @@ public class CouponGenerationIssueRepositoryImpl
     @Override
     public Page<CouponGenerationIssueResponseDto> findAllCouponGenerationIssues(Pageable pageable) {
         QCouponGenerationIssue couponGenerationIssue = QCouponGenerationIssue.couponGenerationIssue;
-        QCouponType couponType = QCouponType.couponType;
 
         List<CouponGenerationIssueResponseDto> couponGenerationIssueResponseDtoList = from(couponGenerationIssue)
             .offset(pageable.getOffset())
