@@ -86,7 +86,7 @@ public class CouponTypeRestController {
      * @return 해당 요청을 성공적으로 잘 처리했다는 응답을 보냅니다.
      */
     @PatchMapping(value = "{couponTypeNo}/stop-generation-issue")
-    public ResponseEntity<Void> couponTypeModify(@PathVariable(value = "couponTypeNo") Integer couponTypeNo) {
+    public ResponseEntity<Void> couponTypeStopGenerationIssueModify(@PathVariable(value = "couponTypeNo") Integer couponTypeNo) {
         couponTypeService.modifyCouponTypeStopGenerationIssue(couponTypeNo);
 
         return ResponseEntity.ok().build();
