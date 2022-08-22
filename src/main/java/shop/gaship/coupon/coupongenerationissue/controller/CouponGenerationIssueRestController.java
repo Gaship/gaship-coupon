@@ -27,7 +27,7 @@ import shop.gaship.coupon.dto.response.PageResponse;
  * @since 1.0
  */
 @RestController
-@RequestMapping("/api/coupon-generations-issues")
+@RequestMapping("/api/coupons/coupon-generations-issues")
 @RequiredArgsConstructor
 public class CouponGenerationIssueRestController {
 

@@ -147,7 +147,7 @@ class CouponGenerationIssueRestControllerTest {
 
         // when, then
         mockMvc.perform(
-                   get("/api/coupon-generations-issues/unused-coupons"))
+                   get("/api/coupons/coupon-generations-issues/unused-coupons"))
                .andExpect(status().isOk())
                .andExpect(
                    jsonPath("$.content[0].name").value(couponGenerationIssueUnusedAndExpiredResponseDto.getName()))
@@ -166,7 +166,7 @@ class CouponGenerationIssueRestControllerTest {
 
         // when, then
         mockMvc.perform(
-                   get("/api/coupon-generations-issues/member/1"))
+                   get("/api/coupons/coupon-generations-issues/member/1"))
                .andExpect(status().isOk())
                .andExpect(jsonPath("$.content[0].name").value(couponGenerationIssueUsedResponseDto.getName()))
                .andExpect(jsonPath("$.content[0].memberNo").value(couponGenerationIssueUsedResponseDto.getMemberNo()))
@@ -187,7 +187,7 @@ class CouponGenerationIssueRestControllerTest {
 
         // when, then
         mockMvc.perform(
-                   get("/api/coupon-generations-issues/member/1/used-coupons"))
+                   get("/api/coupons/coupon-generations-issues/member/1/used-coupons"))
                .andExpect(status().isOk())
                .andExpect(jsonPath("$.content[0].name").value(couponGenerationIssueUsedResponseDto.getName()))
                .andExpect(jsonPath("$.content[0].memberNo").value(couponGenerationIssueUsedResponseDto.getMemberNo()))
@@ -208,7 +208,7 @@ class CouponGenerationIssueRestControllerTest {
 
         // when, then
         mockMvc.perform(
-                   get("/api/coupon-generations-issues/member/1/unused-coupons"))
+                   get("/api/coupons/coupon-generations-issues/member/1/unused-coupons"))
                .andExpect(status().isOk())
                .andExpect(
                    jsonPath("$.content[0].name").value(couponGenerationIssueUnusedAndUnexpiredResponseDto.getName()))
@@ -227,7 +227,7 @@ class CouponGenerationIssueRestControllerTest {
 
         // when, then
         mockMvc.perform(
-                   get("/api/coupon-generations-issues/member/1/unused-coupons/expired-coupons"))
+                   get("/api/coupons/coupon-generations-issues/member/1/unused-coupons/expired-coupons"))
                .andExpect(status().isOk())
                .andExpect(
                    jsonPath("$.content[0].name").value(couponGenerationIssueUnusedAndExpiredResponseDto.getName()))
@@ -246,7 +246,7 @@ class CouponGenerationIssueRestControllerTest {
 
         // when, then
         mockMvc.perform(
-                   get("/api/coupon-generations-issues/member/1/unused-coupons/unexpired-coupons"))
+                   get("/api/coupons/coupon-generations-issues/member/1/unused-coupons/unexpired-coupons"))
                .andExpect(status().isOk())
                .andExpect(
                    jsonPath("$.content[0].name").value(couponGenerationIssueUnusedAndUnexpiredResponseDto.getName()))
@@ -266,7 +266,7 @@ class CouponGenerationIssueRestControllerTest {
 
         // when, then
         mockMvc.perform(
-                   patch("/api/coupon-generations-issues/used")
+                   patch("/api/coupons/coupon-generations-issues/used")
                        .contentType(MediaType.APPLICATION_JSON)
                        .content(content))
                .andExpect(status().isOk());
@@ -282,7 +282,7 @@ class CouponGenerationIssueRestControllerTest {
 
         // when, then
         mockMvc.perform(
-                   patch("/api/coupon-generations-issues/used-to-cancel")
+                   patch("/api/coupons/coupon-generations-issues/used-to-cancel")
                        .contentType(MediaType.APPLICATION_JSON)
                        .content(content))
                .andExpect(status().isOk());
@@ -293,7 +293,7 @@ class CouponGenerationIssueRestControllerTest {
     void couponGenerationIssueAddToRecommendMember() throws Exception {
         doNothing().when(couponGenerationIssueService).addCouponGenerationIssueToRecommendMember(1);
         mockMvc.perform(
-                   post("/api/coupon-generations-issues/{recommendMemberNo}", 1).accept(MediaType.APPLICATION_JSON))
+                   post("/api/coupons/coupon-generations-issues/{recommendMemberNo}", 1).accept(MediaType.APPLICATION_JSON))
                .andExpect(status().isCreated());
         verify(couponGenerationIssueService).addCouponGenerationIssueToRecommendMember(1);
     }
@@ -308,7 +308,7 @@ class CouponGenerationIssueRestControllerTest {
         given(couponGenerationIssueService.findCouponGenerationIssue(1))
             .willReturn(dto);
 
-        mockMvc.perform(get("/api/coupon-generations-issues/{couponGenerationIssueNo}", 1).accept(
+        mockMvc.perform(get("/api/coupons/coupon-generations-issues/{couponGenerationIssueNo}", 1).accept(
                    MediaType.APPLICATION_JSON))
                .andExpect(status().isOk())
                .andExpect(jsonPath("$.couponName").value(dto.getCouponName()))

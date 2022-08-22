@@ -17,6 +17,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CouponTypeDto {
 
+    @NotNull
+    private Integer couponTypeNo;
+
     @NotBlank
     private String name;
 
