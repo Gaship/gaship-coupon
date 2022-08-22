@@ -19,7 +19,7 @@ public class CouponTypeCreationRequestDto {
 
     @Min(0)
     @Max(100)
-    private Double discountRate;
+    private Integer discountRate;
 
     @Min(0)
     private Long discountAmount;
@@ -29,7 +29,7 @@ public class CouponTypeCreationRequestDto {
      *
      * @param discountRate 정액처리시 null값이 들어옵니다.
      */
-    public void setDiscountRate(Double discountRate) {
+    public void setDiscountRate(Integer discountRate) {
         this.discountRate = discountRate;
     }
 

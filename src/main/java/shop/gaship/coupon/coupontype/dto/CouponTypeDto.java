@@ -25,7 +25,7 @@ public class CouponTypeDto {
 
     @Min(0)
     @Max(100)
-    private Double discountRate;
+    private Integer discountRate;
 
     @Min(0)
     private Long discountAmount;

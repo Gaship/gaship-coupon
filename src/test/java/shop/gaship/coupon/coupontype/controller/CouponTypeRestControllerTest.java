@@ -58,12 +58,12 @@ class CouponTypeRestControllerTest {
     void setUp() {
         couponTypeCreationRequestDtoAmount = new CouponTypeCreationRequestDto();
         ReflectionTestUtils.setField(couponTypeCreationRequestDtoAmount, "name", "1000원 할인쿠폰");
-        couponTypeCreationRequestDtoAmount.setDiscountRate(0.1); // 검증용값 null로 변할것임
+        couponTypeCreationRequestDtoAmount.setDiscountRate(10); // 검증용값 null로 변할것임
         couponTypeCreationRequestDtoAmount.setDiscountAmount(1000L);
 
         couponTypeCreationRequestDtoRate = new CouponTypeCreationRequestDto();
         ReflectionTestUtils.setField(couponTypeCreationRequestDtoRate, "name", "10% 할인쿠폰");
-        couponTypeCreationRequestDtoRate.setDiscountRate(0.9);
+        couponTypeCreationRequestDtoRate.setDiscountRate(90);
         couponTypeCreationRequestDtoRate.setDiscountAmount(100L); // 검증용값 null로 변할것임
 
         setCouponTypeDtoFixRateCanDelete();
@@ -78,7 +78,7 @@ class CouponTypeRestControllerTest {
 
         ReflectionTestUtils.setField(couponTypeDtoFixRateCanDelete, "name", "최겸준");
         ReflectionTestUtils.setField(couponTypeDtoFixRateCanDelete, "isStopGenerationIssue", false);
-        ReflectionTestUtils.setField(couponTypeDtoFixRateCanDelete, "discountRate", 10.0);
+        ReflectionTestUtils.setField(couponTypeDtoFixRateCanDelete, "discountRate", 10);
     }
 
     private void setCouponTypeDtoFixRateCanDeleteList() {

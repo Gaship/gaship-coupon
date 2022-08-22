@@ -80,7 +80,7 @@ class CouponTypeServiceImplTest {
 
         ReflectionTestUtils.setField(fixRateCouponType, "couponTypeNo", fixRateCouponTypeNo);
         ReflectionTestUtils.setField(fixRateCouponType, "name", "최겸준");
-        ReflectionTestUtils.setField(fixRateCouponType, "discountRate", 10.0);
+        ReflectionTestUtils.setField(fixRateCouponType, "discountRate", 10);
         ReflectionTestUtils.setField(fixRateCouponType, "isStopGenerationIssue", false);
 
         ReflectionTestUtils.setField(fixAmountCouponType, "couponTypeNo", fixAmountCouponTypeNo);
@@ -93,7 +93,7 @@ class CouponTypeServiceImplTest {
         ReflectionTestUtils.setField(couponTypeCreationRequestDtoFixedAmount, "name", "1000원 할인쿠폰");
 
         couponTypeCreationRequestDtoFixedRate = new CouponTypeCreationRequestDto();
-        couponTypeCreationRequestDtoFixedRate.setDiscountRate(0.9);
+        couponTypeCreationRequestDtoFixedRate.setDiscountRate(90);
         ReflectionTestUtils.setField(couponTypeCreationRequestDtoFixedRate, "name", "10% 할인쿠폰");
 
         CouponType couponTypeFixedAmount = CouponType.builder()

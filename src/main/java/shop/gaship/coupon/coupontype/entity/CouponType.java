@@ -37,7 +37,7 @@ public class CouponType {
     private Long discountAmount;
 
     @Column(name = "discount_rate")
-    private Double discountRate;
+    private Integer discountRate;
 
     @Column(name = "is_stop_generation_issue", nullable = false)
     private Boolean isStopGenerationIssue;
@@ -51,7 +51,7 @@ public class CouponType {
      * @param isStopGenerationIssue 앞으로 해당 종류로 쿠폰을 생성 및 발급 할 수 있을지 여부를 의미합니다.
      */
     @Builder
-    public CouponType(String name, Long discountAmount, Double discountRate,
+    public CouponType(String name, Long discountAmount, Integer discountRate,
         Boolean isStopGenerationIssue) {
         this.name = name;
         this.discountAmount = discountAmount;
