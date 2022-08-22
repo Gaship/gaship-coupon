@@ -12,8 +12,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.time.LocalDateTime;
 import java.util.List;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,7 +27,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
+import shop.gaship.coupon.coupongenerationissue.dto.request.CouponGenerationIssueCreationRequestDto;
 import shop.gaship.coupon.coupongenerationissue.dto.response.CouponGenerationIssueDetailsResponseDto;
 import shop.gaship.coupon.coupongenerationissue.dto.response.CouponGenerationIssueResponseDto;
 import shop.gaship.coupon.coupongenerationissue.service.CouponGenerationIssueService;
@@ -108,7 +114,7 @@ class CouponGenerationIssueRestControllerTest {
 
         // when, then
         mockMvc.perform(
-                   get("/api/coupon-generations-issues"))
+                   get("/api/coupons/coupon-generations-issues"))
                .andExpect(status().isOk())
                .andExpect(jsonPath("$.content[0].name").value(couponGenerationIssueUsedResponseDto.getName()))
                .andExpect(jsonPath("$.content[0].memberNo").value(couponGenerationIssueUsedResponseDto.getMemberNo()))
@@ -128,7 +134,7 @@ class CouponGenerationIssueRestControllerTest {
 
         // when, then
         mockMvc.perform(
-                   get("/api/coupon-generations-issues/used-coupons"))
+                   get("/api/coupons/coupon-generations-issues/used-coupons"))
                .andExpect(status().isOk())
                .andExpect(jsonPath("$.content[0].name").value(couponGenerationIssueUsedResponseDto.getName()))
                .andExpect(jsonPath("$.content[0].memberNo").value(couponGenerationIssueUsedResponseDto.getMemberNo()))
@@ -318,5 +324,32 @@ class CouponGenerationIssueRestControllerTest {
                .andReturn();
 
         verify(couponGenerationIssueService).findCouponGenerationIssue(1);
+    }
+
+    @Test
+    void couponGenerationIssueAdd() throws Exception {
+        CouponGenerationIssueCreationRequestDto couponGenerationIssueCreationRequestDto =
+            new CouponGenerationIssueCreationRequestDto();
+
+        ReflectionTestUtils.setField(couponGenerationIssueCreationRequestDto, "couponTypeNo", 1);
+        ReflectionTestUtils.setField(couponGenerationIssueCreationRequestDto, "memberGradeNo", 1);
+        ReflectionTestUtils.setField(couponGenerationIssueCreationRequestDto, "generationDatetime", LocalDateTime.now());
+        ReflectionTestUtils.setField(couponGenerationIssueCreationRequestDto, "expirationDatetime", LocalDateTime.now().plusDays(1));
+
+        doNothing().when(couponGenerationIssueService)
+                   .addCouponGenerationIssue(couponGenerationIssueCreationRequestDto);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        objectMapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+
+        String content = objectMapper.writeValueAsString(couponGenerationIssueCreationRequestDto);
+
+        mockMvc.perform(
+                   post("/api/coupons/coupon-generations-issues")
+                       .contentType(MediaType.APPLICATION_JSON)
+                       .content(content))
+               .andExpect(status().isCreated());
+//        verify(couponGenerationIssueService).addCouponGenerationIssue(couponGenerationIssueCreationRequestDto);
     }
 }

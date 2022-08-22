@@ -70,11 +70,12 @@ public class CouponTypeRepositoryImpl
                                                                          .orderBy(couponType.couponTypeNo.desc())
                                                                          .select(Projections.constructor(
                                                                              CouponTypeDto.class,
-                                                                             couponType.couponTypeNo.countDistinct(),
+                                                                             couponType.couponTypeNo,
                                                                              couponType.name,
                                                                              couponType.discountRate,
                                                                              couponType.discountAmount,
                                                                              couponType.isStopGenerationIssue))
+                                                                         .distinct()
                                                                          .fetch();
 
         return PageableExecutionUtils.getPage(couponTypeDtoListCanDelete, pageable,
@@ -122,8 +123,12 @@ public class CouponTypeRepositoryImpl
             .offset(pageable.getOffset())
             .limit(Math.min(pageable.getPageSize(), 10))
             .orderBy(couponType.couponTypeNo.desc())
-            .select(Projections.constructor(CouponTypeDto.class, couponType.name, couponType.discountRate,
-                couponType.discountAmount, couponType.isStopGenerationIssue))
+            .select(Projections.constructor(CouponTypeDto.class,
+                couponType.couponTypeNo,
+                couponType.name,
+                couponType.discountRate,
+                couponType.discountAmount,
+                couponType.isStopGenerationIssue))
             .fetch();
 
         return PageableExecutionUtils.getPage(couponTypeDtoListFixedAmount, pageable,
@@ -143,8 +148,12 @@ public class CouponTypeRepositoryImpl
             .offset(pageable.getOffset())
             .limit(Math.min(pageable.getPageSize(), 10))
             .orderBy(couponType.couponTypeNo.desc())
-            .select(Projections.constructor(CouponTypeDto.class, couponType.name, couponType.discountRate,
-                couponType.discountAmount, couponType.isStopGenerationIssue))
+            .select(Projections.constructor(CouponTypeDto.class,
+                couponType.couponTypeNo,
+                couponType.name,
+                couponType.discountRate,
+                couponType.discountAmount,
+                couponType.isStopGenerationIssue))
             .fetch();
 
         return PageableExecutionUtils.getPage(couponTypeDtoListFixedRate, pageable,

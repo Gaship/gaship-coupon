@@ -6,6 +6,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -25,6 +26,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 import shop.gaship.coupon.coupongenerationissue.adapter.SchedulerAdapterAboutCouponCreation;
+import shop.gaship.coupon.coupongenerationissue.dto.request.CouponGenerationIssueCreationRequestDto;
 import shop.gaship.coupon.coupongenerationissue.dto.response.CouponGenerationIssueDetailsResponseDto;
 import shop.gaship.coupon.coupongenerationissue.dto.response.CouponGenerationIssueResponseDto;
 import shop.gaship.coupon.coupongenerationissue.entity.CouponGenerationIssue;
@@ -401,5 +403,18 @@ class CouponGenerationIssueServiceImplTest {
         assertThatThrownBy(() -> service.addCouponGenerationIssueToRecommendMember(1))
             .isInstanceOf(RecommendMemberCouponTypeNotFoundException.class)
             .hasMessageContaining(RecommendMemberCouponTypeNotFoundException.MESSAGE);
+    }
+
+    @Test
+    void addCouponGenerationIssue() {
+        // given
+        doNothing().when(schedulerAdapterAboutCouponCreation).addCouponGenerationIssue(any());
+
+        // when
+        service.addCouponGenerationIssue(any());
+
+        // then
+        verify(schedulerAdapterAboutCouponCreation).addCouponGenerationIssue(any());
+
     }
 }

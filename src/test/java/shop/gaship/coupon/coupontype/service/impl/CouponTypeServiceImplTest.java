@@ -31,6 +31,7 @@ import shop.gaship.coupon.coupontype.dto.CouponTypeCreationRequestDto;
 import shop.gaship.coupon.coupontype.dto.CouponTypeDto;
 import shop.gaship.coupon.coupontype.entity.CouponType;
 import shop.gaship.coupon.coupontype.exception.DeleteCouponTypeException;
+import shop.gaship.coupon.coupontype.exception.NotFoundCouponTypeException;
 import shop.gaship.coupon.coupontype.repository.CouponTypeRepository;
 import shop.gaship.coupon.coupontype.service.CouponTypeService;
 import shop.gaship.coupon.recommendmembercoupontype.entity.RecommendMemberCouponType;
@@ -123,6 +124,20 @@ class CouponTypeServiceImplTest {
 
         // then
         verify(couponTypeRepository).findById(fixAmountCouponTypeNo);
+
+    }
+
+    @Test
+    void modifyCouponTypeStopGenerationIssueNotFoundCouponType() {
+
+        // given
+        when(couponTypeRepository.findById(fixAmountCouponTypeNo)).thenReturn(Optional.empty());
+
+        // when, then
+        assertThatThrownBy(
+            () -> couponTypeService.modifyCouponTypeStopGenerationIssue(fixAmountCouponTypeNo))
+            .isInstanceOf(NotFoundCouponTypeException.class)
+            .hasMessageContaining("해당 쿠폰 종류가 존재하지 않습니다.");
 
     }
 
