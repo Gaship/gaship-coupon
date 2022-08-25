@@ -1,7 +1,6 @@
 package shop.gaship.coupon.coupontype.repository.impl;
 
 import com.querydsl.core.types.Projections;
-import com.querydsl.jpa.JPAExpressions;
 import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -42,8 +41,12 @@ public class CouponTypeRepositoryImpl
             .offset(pageable.getOffset())
             .limit(Math.min(pageable.getPageSize(), 10))
             .orderBy(couponType.couponTypeNo.desc())
-            .select(Projections.constructor(CouponTypeDto.class, couponType.name, couponType.discountRate,
-                couponType.discountAmount, couponType.isStopGenerationIssue))
+            .select(Projections.constructor(CouponTypeDto.class,
+                couponType.couponTypeNo,
+                couponType.name,
+                couponType.discountRate,
+                couponType.discountAmount,
+                couponType.isStopGenerationIssue))
             .fetch();
 
         return PageableExecutionUtils.getPage(couponTypeDtoList, pageable,
@@ -57,16 +60,23 @@ public class CouponTypeRepositoryImpl
      * @return 아직 생성, 발급 되지 않은 쿠폰 타입의 Page 타입.
      */
     public Page<CouponTypeDto> findAllCouponTypesCanDelete(Pageable pageable) {
-        List<CouponTypeDto> couponTypeDtoListCanDelete = from(couponType)
-            .where(JPAExpressions.select(couponType).from(couponType).innerJoin(couponGenerationIssue)
-                                 .on(couponType.couponTypeNo.eq(couponGenerationIssue.couponType.couponTypeNo))
-                                 .notExists())
-            .offset(pageable.getOffset())
-            .limit(Math.min(pageable.getPageSize(), 10))
-            .orderBy(couponType.couponTypeNo.desc())
-            .select(Projections.constructor(CouponTypeDto.class, couponType.name, couponType.discountRate,
-                couponType.discountAmount, couponType.isStopGenerationIssue))
-            .fetch();
+        List<CouponTypeDto> couponTypeDtoListCanDelete = from(couponType).leftJoin(couponGenerationIssue)
+                                                                         .on(couponType.couponTypeNo.eq(
+                                                                             couponGenerationIssue.couponType.couponTypeNo))
+                                                                         .where(
+                                                                             couponGenerationIssue.couponGenerationIssueNo.isNull())
+                                                                         .offset(pageable.getOffset())
+                                                                         .limit(Math.min(pageable.getPageSize(), 10))
+                                                                         .orderBy(couponType.couponTypeNo.desc())
+                                                                         .select(Projections.constructor(
+                                                                             CouponTypeDto.class,
+                                                                             couponType.couponTypeNo,
+                                                                             couponType.name,
+                                                                             couponType.discountRate,
+                                                                             couponType.discountAmount,
+                                                                             couponType.isStopGenerationIssue))
+                                                                         .distinct()
+                                                                         .fetch();
 
         return PageableExecutionUtils.getPage(couponTypeDtoListCanDelete, pageable,
             couponTypeDtoListCanDelete::size);
@@ -80,17 +90,21 @@ public class CouponTypeRepositoryImpl
      */
     @Override
     public Page<CouponTypeDto> findAllCouponTypesCannotDelete(Pageable pageable) {
-        List<CouponTypeDto> couponTypeDtoListCannotDelete = from(couponType)
-            .where(JPAExpressions.select(couponType).from(couponType).innerJoin(couponGenerationIssue)
-                                 .on(couponType.couponTypeNo.eq(couponGenerationIssue.couponType.couponTypeNo))
-                                 .exists())
-            .offset(pageable.getOffset())
-            .limit(Math.min(pageable.getPageSize(), 10))
-            .orderBy(couponType.couponTypeNo.desc())
-            .select(Projections.constructor(CouponTypeDto.class, couponType.name, couponType.discountRate,
-                couponType.discountAmount, couponType.isStopGenerationIssue))
-            .fetch();
-
+        List<CouponTypeDto> couponTypeDtoListCannotDelete = from(couponType).innerJoin(couponGenerationIssue)
+                                                                            .on(couponType.couponTypeNo.eq(
+                                                                                couponGenerationIssue.couponType.couponTypeNo))
+                                                                            .offset(pageable.getOffset())
+                                                                            .limit(Math.min(pageable.getPageSize(), 10))
+                                                                            .orderBy(couponType.couponTypeNo.desc())
+                                                                            .select(Projections.constructor(
+                                                                                CouponTypeDto.class,
+                                                                                couponType.couponTypeNo,
+                                                                                couponType.name,
+                                                                                couponType.discountRate,
+                                                                                couponType.discountAmount,
+                                                                                couponType.isStopGenerationIssue))
+                                                                            .distinct()
+                                                                            .fetch();
 
         return PageableExecutionUtils.getPage(couponTypeDtoListCannotDelete, pageable,
             couponTypeDtoListCannotDelete::size);
@@ -109,8 +123,12 @@ public class CouponTypeRepositoryImpl
             .offset(pageable.getOffset())
             .limit(Math.min(pageable.getPageSize(), 10))
             .orderBy(couponType.couponTypeNo.desc())
-            .select(Projections.constructor(CouponTypeDto.class, couponType.name, couponType.discountRate,
-                couponType.discountAmount, couponType.isStopGenerationIssue))
+            .select(Projections.constructor(CouponTypeDto.class,
+                couponType.couponTypeNo,
+                couponType.name,
+                couponType.discountRate,
+                couponType.discountAmount,
+                couponType.isStopGenerationIssue))
             .fetch();
 
         return PageableExecutionUtils.getPage(couponTypeDtoListFixedAmount, pageable,
@@ -130,8 +148,12 @@ public class CouponTypeRepositoryImpl
             .offset(pageable.getOffset())
             .limit(Math.min(pageable.getPageSize(), 10))
             .orderBy(couponType.couponTypeNo.desc())
-            .select(Projections.constructor(CouponTypeDto.class, couponType.name, couponType.discountRate,
-                couponType.discountAmount, couponType.isStopGenerationIssue))
+            .select(Projections.constructor(CouponTypeDto.class,
+                couponType.couponTypeNo,
+                couponType.name,
+                couponType.discountRate,
+                couponType.discountAmount,
+                couponType.isStopGenerationIssue))
             .fetch();
 
         return PageableExecutionUtils.getPage(couponTypeDtoListFixedRate, pageable,

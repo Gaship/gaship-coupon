@@ -4,6 +4,8 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import lombok.Getter;
+import shop.gaship.coupon.coupontype.dto.group.FixAmountGroup;
+import shop.gaship.coupon.coupontype.dto.group.FixRateGroup;
 
 /**
  * 쿠폰타입을 추가할때 필요로하는 정보를 담고있는 DTO 클래스입니다.
@@ -14,14 +16,14 @@ import lombok.Getter;
 @Getter
 public class CouponTypeCreationRequestDto {
 
-    @NotBlank
+    @NotBlank(message = "이름은 필수 값 입니다.")
     private String name;
 
-    @Min(0)
-    @Max(100)
-    private Double discountRate;
+    @Min(value = 0, message = "할인 비율은 0 ~ 100% 입니다.", groups = FixRateGroup.class)
+    @Max(value = 100, message = "할인 비율은 0 ~ 100% 입니다.", groups = FixRateGroup.class)
+    private Integer discountRate;
 
-    @Min(0)
+    @Min(value = 0, message = "할인금액은 0원 이상입니다.", groups = FixAmountGroup.class)
     private Long discountAmount;
 
     /**
@@ -29,7 +31,7 @@ public class CouponTypeCreationRequestDto {
      *
      * @param discountRate 정액처리시 null값이 들어옵니다.
      */
-    public void setDiscountRate(Double discountRate) {
+    public void setDiscountRate(Integer discountRate) {
         this.discountRate = discountRate;
     }
 

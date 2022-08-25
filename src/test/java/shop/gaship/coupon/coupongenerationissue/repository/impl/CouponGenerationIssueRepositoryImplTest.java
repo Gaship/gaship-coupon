@@ -185,7 +185,7 @@ class CouponGenerationIssueRepositoryImplTest {
 
         ReflectionTestUtils.setField(couponType, "name", "최겸준");
         ReflectionTestUtils.setField(couponType, "isStopGenerationIssue", false);
-        ReflectionTestUtils.setField(couponType, "discountRate", 10.0);
+        ReflectionTestUtils.setField(couponType, "discountRate", 10);
 
         CouponType savedCouponType = couponTypeRepository.save(couponType);
 

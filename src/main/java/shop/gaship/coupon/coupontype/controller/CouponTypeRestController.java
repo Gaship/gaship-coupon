@@ -26,7 +26,7 @@ import shop.gaship.coupon.dto.response.PageResponse;
  * @author 최겸준, 조재철
  * @since 1.0
  */
-@RequestMapping("/api/coupon-types")
+@RequestMapping("/api/coupons/coupon-types")
 @RestController
 @RequiredArgsConstructor
 public class CouponTypeRestController {

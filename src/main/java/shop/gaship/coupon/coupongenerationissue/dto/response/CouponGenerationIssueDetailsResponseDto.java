@@ -16,7 +16,7 @@ public class CouponGenerationIssueDetailsResponseDto {
 
     private String couponName;
     private Long discountAmount;
-    private Double discountRate;
+    private Integer discountRate;
     private LocalDateTime generationDatetime;
     private LocalDateTime issueDatetime;
     private LocalDateTime expirationDatetime;

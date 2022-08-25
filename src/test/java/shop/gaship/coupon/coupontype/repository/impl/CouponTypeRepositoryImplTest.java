@@ -60,7 +60,7 @@ class CouponTypeRepositoryImplTest {
 
         ReflectionTestUtils.setField(couponTypeFixRateCanDelete, "name", "최겸준");
         ReflectionTestUtils.setField(couponTypeFixRateCanDelete, "isStopGenerationIssue", false);
-        ReflectionTestUtils.setField(couponTypeFixRateCanDelete, "discountRate", 10.0);
+        ReflectionTestUtils.setField(couponTypeFixRateCanDelete, "discountRate", 10);
     }
 
     private void setCouponTypeDtoFixRateCanDelete() {
@@ -68,7 +68,7 @@ class CouponTypeRepositoryImplTest {
 
         ReflectionTestUtils.setField(couponTypeDtoFixRateCanDelete, "name", "최겸준");
         ReflectionTestUtils.setField(couponTypeDtoFixRateCanDelete, "isStopGenerationIssue", false);
-        ReflectionTestUtils.setField(couponTypeDtoFixRateCanDelete, "discountRate", 10.0);
+        ReflectionTestUtils.setField(couponTypeDtoFixRateCanDelete, "discountRate", 10);
     }
 
     private void setCouponTypeDtoFixAmountCannotDelete() {

@@ -58,12 +58,12 @@ class CouponTypeRestControllerTest {
     void setUp() {
         couponTypeCreationRequestDtoAmount = new CouponTypeCreationRequestDto();
         ReflectionTestUtils.setField(couponTypeCreationRequestDtoAmount, "name", "1000원 할인쿠폰");
-        couponTypeCreationRequestDtoAmount.setDiscountRate(0.1); // 검증용값 null로 변할것임
+        couponTypeCreationRequestDtoAmount.setDiscountRate(10); // 검증용값 null로 변할것임
         couponTypeCreationRequestDtoAmount.setDiscountAmount(1000L);
 
         couponTypeCreationRequestDtoRate = new CouponTypeCreationRequestDto();
         ReflectionTestUtils.setField(couponTypeCreationRequestDtoRate, "name", "10% 할인쿠폰");
-        couponTypeCreationRequestDtoRate.setDiscountRate(0.9);
+        couponTypeCreationRequestDtoRate.setDiscountRate(90);
         couponTypeCreationRequestDtoRate.setDiscountAmount(100L); // 검증용값 null로 변할것임
 
         setCouponTypeDtoFixRateCanDelete();
@@ -78,7 +78,7 @@ class CouponTypeRestControllerTest {
 
         ReflectionTestUtils.setField(couponTypeDtoFixRateCanDelete, "name", "최겸준");
         ReflectionTestUtils.setField(couponTypeDtoFixRateCanDelete, "isStopGenerationIssue", false);
-        ReflectionTestUtils.setField(couponTypeDtoFixRateCanDelete, "discountRate", 10.0);
+        ReflectionTestUtils.setField(couponTypeDtoFixRateCanDelete, "discountRate", 10);
     }
 
     private void setCouponTypeDtoFixRateCanDeleteList() {
@@ -109,7 +109,7 @@ class CouponTypeRestControllerTest {
 
         ObjectMapper objectMapper = new ObjectMapper();
 
-        mockMvc.perform(post("/api/coupon-types/fixed-amount")
+        mockMvc.perform(post("/api/coupons/coupon-types/fixed-amount")
                    .contentType(MediaType.APPLICATION_JSON)
                    .content(objectMapper.writeValueAsString(couponTypeCreationRequestDtoAmount)))
                .andExpect(status().isCreated());
@@ -124,7 +124,7 @@ class CouponTypeRestControllerTest {
 
         ObjectMapper objectMapper = new ObjectMapper();
 
-        mockMvc.perform(post("/api/coupon-types/fixed-rate")
+        mockMvc.perform(post("/api/coupons/coupon-types/fixed-rate")
                    .contentType(MediaType.APPLICATION_JSON)
                    .content(objectMapper.writeValueAsString(couponTypeCreationRequestDtoRate)))
                .andExpect(status().isCreated());
@@ -139,7 +139,7 @@ class CouponTypeRestControllerTest {
 
         ObjectMapper objectMapper = new ObjectMapper();
 
-        mockMvc.perform(put("/api/coupon-types/recommend-member-coupon")
+        mockMvc.perform(put("/api/coupons/coupon-types/recommend-member-coupon")
                    .contentType(MediaType.APPLICATION_JSON)
                    .content(objectMapper.writeValueAsString(couponTypeCreationRequestDtoAmount)))
                .andExpect(status().isOk());
@@ -157,7 +157,7 @@ class CouponTypeRestControllerTest {
         // when, then
 
         mockMvc.perform(
-                   patch("/api/coupon-types/" + couponTypeNo + "/stop-generation-issue"))
+                   patch("/api/coupons/coupon-types/" + couponTypeNo + "/stop-generation-issue"))
                .andExpect(status().isOk());
 
         verify(couponTypeService).modifyCouponTypeStopGenerationIssue(couponTypeNo);
@@ -173,7 +173,7 @@ class CouponTypeRestControllerTest {
 
         // when, then
         mockMvc.perform(
-                   delete("/api/coupon-types/" + couponTypeNo))
+                   delete("/api/coupons/coupon-types/" + couponTypeNo))
                .andExpect(status().isOk());
 
         verify(couponTypeService).deleteCouponType(couponTypeNo);
@@ -186,7 +186,7 @@ class CouponTypeRestControllerTest {
 
         // when, then
         mockMvc.perform(
-                   get("/api/coupon-types"))
+                   get("/api/coupons/coupon-types"))
                .andExpect(status().isOk())
                .andExpect(jsonPath("$.content[0].name").value(couponTypeDtoFixRateCanDelete.getName()))
                .andExpect(
@@ -206,7 +206,7 @@ class CouponTypeRestControllerTest {
 
         // when, then
         mockMvc.perform(
-                   get("/api/coupon-types/delete-can"))
+                   get("/api/coupons/coupon-types/delete-can"))
                .andExpect(status().isOk())
                .andExpect(jsonPath("$.content[0].name").value(couponTypeDtoFixRateCanDelete.getName()))
                .andExpect(
@@ -227,7 +227,7 @@ class CouponTypeRestControllerTest {
 
         // when, then
         mockMvc.perform(
-                   get("/api/coupon-types/delete-cannot"))
+                   get("/api/coupons/coupon-types/delete-cannot"))
                .andExpect(status().isOk())
                .andExpect(jsonPath("$.content[0].name").value(couponTypeDtoFixAmountCannotDelete.getName()))
                .andExpect(
@@ -248,7 +248,7 @@ class CouponTypeRestControllerTest {
 
         // when, then
         mockMvc.perform(
-                   get("/api/coupon-types/fixed-amount"))
+                   get("/api/coupons/coupon-types/fixed-amount"))
                .andExpect(status().isOk())
                .andExpect(jsonPath("$.content[0].name").value(couponTypeDtoFixAmountCannotDelete.getName()))
                .andExpect(
@@ -273,7 +273,7 @@ class CouponTypeRestControllerTest {
 
         // when, then
         mockMvc.perform(
-                   get("/api/coupon-types/fixed-rate"))
+                   get("/api/coupons/coupon-types/fixed-rate"))
                .andExpect(status().isOk())
                .andExpect(jsonPath("$.content[0].name").value(couponTypeDtoFixRateCanDelete.getName()))
                .andExpect(

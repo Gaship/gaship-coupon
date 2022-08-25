@@ -31,6 +31,7 @@ import shop.gaship.coupon.coupontype.dto.CouponTypeCreationRequestDto;
 import shop.gaship.coupon.coupontype.dto.CouponTypeDto;
 import shop.gaship.coupon.coupontype.entity.CouponType;
 import shop.gaship.coupon.coupontype.exception.DeleteCouponTypeException;
+import shop.gaship.coupon.coupontype.exception.NotFoundCouponTypeException;
 import shop.gaship.coupon.coupontype.repository.CouponTypeRepository;
 import shop.gaship.coupon.coupontype.service.CouponTypeService;
 import shop.gaship.coupon.recommendmembercoupontype.entity.RecommendMemberCouponType;
@@ -79,7 +80,7 @@ class CouponTypeServiceImplTest {
 
         ReflectionTestUtils.setField(fixRateCouponType, "couponTypeNo", fixRateCouponTypeNo);
         ReflectionTestUtils.setField(fixRateCouponType, "name", "최겸준");
-        ReflectionTestUtils.setField(fixRateCouponType, "discountRate", 10.0);
+        ReflectionTestUtils.setField(fixRateCouponType, "discountRate", 10);
         ReflectionTestUtils.setField(fixRateCouponType, "isStopGenerationIssue", false);
 
         ReflectionTestUtils.setField(fixAmountCouponType, "couponTypeNo", fixAmountCouponTypeNo);
@@ -92,7 +93,7 @@ class CouponTypeServiceImplTest {
         ReflectionTestUtils.setField(couponTypeCreationRequestDtoFixedAmount, "name", "1000원 할인쿠폰");
 
         couponTypeCreationRequestDtoFixedRate = new CouponTypeCreationRequestDto();
-        couponTypeCreationRequestDtoFixedRate.setDiscountRate(0.9);
+        couponTypeCreationRequestDtoFixedRate.setDiscountRate(90);
         ReflectionTestUtils.setField(couponTypeCreationRequestDtoFixedRate, "name", "10% 할인쿠폰");
 
         CouponType couponTypeFixedAmount = CouponType.builder()
@@ -123,6 +124,20 @@ class CouponTypeServiceImplTest {
 
         // then
         verify(couponTypeRepository).findById(fixAmountCouponTypeNo);
+
+    }
+
+    @Test
+    void modifyCouponTypeStopGenerationIssueNotFoundCouponType() {
+
+        // given
+        when(couponTypeRepository.findById(fixAmountCouponTypeNo)).thenReturn(Optional.empty());
+
+        // when, then
+        assertThatThrownBy(
+            () -> couponTypeService.modifyCouponTypeStopGenerationIssue(fixAmountCouponTypeNo))
+            .isInstanceOf(NotFoundCouponTypeException.class)
+            .hasMessageContaining("해당 쿠폰 종류가 존재하지 않습니다.");
 
     }
 
