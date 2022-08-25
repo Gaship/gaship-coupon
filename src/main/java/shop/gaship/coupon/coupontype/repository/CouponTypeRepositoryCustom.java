@@ -51,4 +51,6 @@ public interface CouponTypeRepositoryCustom {
      * @return 정률 할인 정책인 쿠폰 타입의 Page 타입.
      */
     Page<CouponTypeDto> findAllCouponTypesFixedRate(Pageable pageable);
+
+    Page<CouponTypeDto> findAllCouponTypesRecommend(Pageable pageable);
 }

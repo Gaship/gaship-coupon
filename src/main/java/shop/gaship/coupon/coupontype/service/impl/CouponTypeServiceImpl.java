@@ -169,6 +169,11 @@ public class CouponTypeServiceImpl implements CouponTypeService {
         return couponTypeRepository.findAllCouponTypesFixedRate(pageable);
     }
 
+    @Override
+    public Page<CouponTypeDto> findCouponTypeRecommend(Pageable pageable) {
+        return couponTypeRepository.findAllCouponTypesRecommend(pageable);
+    }
+
     /**
      * 쿠폰타입번호로 쿠폰타입을 조회하기 위한 service 메서드 입니다.
      *

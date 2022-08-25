@@ -11,6 +11,7 @@ import shop.gaship.coupon.coupontype.dto.CouponTypeDto;
 import shop.gaship.coupon.coupontype.entity.CouponType;
 import shop.gaship.coupon.coupontype.entity.QCouponType;
 import shop.gaship.coupon.coupontype.repository.CouponTypeRepositoryCustom;
+import shop.gaship.coupon.recommendmembercoupontype.entity.QRecommendMemberCouponType;
 
 /**
  * couponType 의 repository(crud 를 위한)의 커스텀 클래스 구현체 입니다.
@@ -27,6 +28,7 @@ public class CouponTypeRepositoryImpl
 
     QCouponType couponType = QCouponType.couponType;
     QCouponGenerationIssue couponGenerationIssue = QCouponGenerationIssue.couponGenerationIssue;
+    QRecommendMemberCouponType recommendMemberCouponType = QRecommendMemberCouponType.recommendMemberCouponType;
 
     /**
      * 모든 coupon type 의 Page 타입만큼 가져오기 위한 repository 메서드 입니다.
@@ -158,5 +160,26 @@ public class CouponTypeRepositoryImpl
 
         return PageableExecutionUtils.getPage(couponTypeDtoListFixedRate, pageable,
             couponTypeDtoListFixedRate::size);
+    }
+
+    @Override
+    public Page<CouponTypeDto> findAllCouponTypesRecommend(Pageable pageable) {
+        List<CouponTypeDto> couponTypeDtoListRecommend = from(couponType)
+            .innerJoin(recommendMemberCouponType)
+            .on(couponType.couponTypeNo.eq(recommendMemberCouponType.couponTypeNo))
+            .where(couponType.discountRate.isNotNull(), couponType.discountAmount.isNull())
+            .offset(pageable.getOffset())
+            .limit(Math.min(pageable.getPageSize(), 10))
+            .orderBy(couponType.couponTypeNo.desc())
+            .select(Projections.constructor(CouponTypeDto.class,
+                couponType.couponTypeNo,
+                couponType.name,
+                couponType.discountRate,
+                couponType.discountAmount,
+                couponType.isStopGenerationIssue))
+            .fetch();
+
+        return PageableExecutionUtils.getPage(couponTypeDtoListRecommend, pageable,
+            couponTypeDtoListRecommend::size);
     }
 }

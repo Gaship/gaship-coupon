@@ -184,4 +184,14 @@ public class CouponTypeRestController {
 
         return ResponseEntity.ok(couponTypesResponsePage);
     }
+
+    @GetMapping(value = "/recommend")
+    public ResponseEntity<PageResponse<CouponTypeDto>> couponTypeRecommendList(Pageable pageable) {
+        Page<CouponTypeDto> couponTypesRecommendPage =
+            couponTypeService.findCouponTypeRecommend(pageable);
+
+        PageResponse<CouponTypeDto> couponTypesResponsePage = new PageResponse<>(couponTypesRecommendPage);
+
+        return ResponseEntity.ok(couponTypesResponsePage);
+    }
 }
