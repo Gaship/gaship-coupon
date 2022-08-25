@@ -65,6 +65,7 @@ public class CouponGenerationIssueRepositoryImpl
             .orderBy(couponGenerationIssue.couponGenerationIssueNo.desc())
             .select(
                 Projections.constructor(CouponGenerationIssueResponseDto.class,
+                    couponGenerationIssue.couponGenerationIssueNo,
                     couponGenerationIssue.couponType.name,
                     couponGenerationIssue.memberNo,
                     couponGenerationIssue.expirationDatetime))
@@ -89,6 +90,7 @@ public class CouponGenerationIssueRepositoryImpl
             .orderBy(couponGenerationIssue.couponGenerationIssueNo.desc())
             .select(
                 Projections.constructor(CouponGenerationIssueResponseDto.class,
+                    couponGenerationIssue.couponGenerationIssueNo,
                     couponGenerationIssue.couponType.name,
                     couponGenerationIssue.memberNo,
                     couponGenerationIssue.expirationDatetime))
@@ -113,6 +115,7 @@ public class CouponGenerationIssueRepositoryImpl
             .orderBy(couponGenerationIssue.couponGenerationIssueNo.desc())
             .select(
                 Projections.constructor(CouponGenerationIssueResponseDto.class,
+                    couponGenerationIssue.couponGenerationIssueNo,
                     couponGenerationIssue.couponType.name,
                     couponGenerationIssue.memberNo,
                     couponGenerationIssue.expirationDatetime))
@@ -140,6 +143,7 @@ public class CouponGenerationIssueRepositoryImpl
                 .orderBy(couponGenerationIssue.couponGenerationIssueNo.desc())
                 .select(
                     Projections.constructor(CouponGenerationIssueResponseDto.class,
+                        couponGenerationIssue.couponGenerationIssueNo,
                         couponGenerationIssue.couponType.name,
                         couponGenerationIssue.memberNo,
                         couponGenerationIssue.expirationDatetime))
@@ -167,6 +171,7 @@ public class CouponGenerationIssueRepositoryImpl
                 .orderBy(couponGenerationIssue.couponGenerationIssueNo.desc())
                 .select(
                     Projections.constructor(CouponGenerationIssueResponseDto.class,
+                        couponGenerationIssue.couponGenerationIssueNo,
                         couponGenerationIssue.couponType.name,
                         couponGenerationIssue.memberNo,
                         couponGenerationIssue.expirationDatetime))
@@ -194,6 +199,7 @@ public class CouponGenerationIssueRepositoryImpl
                 .orderBy(couponGenerationIssue.couponGenerationIssueNo.desc())
                 .select(
                     Projections.constructor(CouponGenerationIssueResponseDto.class,
+                        couponGenerationIssue.couponGenerationIssueNo,
                         couponGenerationIssue.couponType.name,
                         couponGenerationIssue.memberNo,
                         couponGenerationIssue.expirationDatetime))
@@ -224,6 +230,7 @@ public class CouponGenerationIssueRepositoryImpl
                 .orderBy(couponGenerationIssue.couponGenerationIssueNo.desc())
                 .select(
                     Projections.constructor(CouponGenerationIssueResponseDto.class,
+                        couponGenerationIssue.couponGenerationIssueNo,
                         couponGenerationIssue.couponType.name,
                         couponGenerationIssue.memberNo,
                         couponGenerationIssue.expirationDatetime))
@@ -254,6 +261,7 @@ public class CouponGenerationIssueRepositoryImpl
                 .orderBy(couponGenerationIssue.couponGenerationIssueNo.desc())
                 .select(
                     Projections.constructor(CouponGenerationIssueResponseDto.class,
+                        couponGenerationIssue.couponGenerationIssueNo,
                         couponGenerationIssue.couponType.name,
                         couponGenerationIssue.memberNo,
                         couponGenerationIssue.expirationDatetime))
