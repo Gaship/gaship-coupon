@@ -126,7 +126,7 @@ public class CouponGenerationIssueRepositoryImpl
     }
 
     /**
-     * 특정 회원의 생성, 발급된 전체 쿠폰을 Page 타입 만큼 가져오기 위한 repository 메서드 입니다.
+     * 특정 회원의 발급된 전체 쿠폰을 Page 타입 만큼 가져오기 위한 repository 메서드 입니다.
      *
      * @param pageable pagination 에 맞게 조회하기 위한 정보를 담고있는 객체.
      * @param memberNo 조회하는 회원의 회원 번호.
@@ -137,7 +137,8 @@ public class CouponGenerationIssueRepositoryImpl
         Integer memberNo) {
         List<CouponGenerationIssueResponseDto> couponGenerationIssueResponseDtoByMemberNoList =
             from(couponGenerationIssue)
-                .where(couponGenerationIssue.memberNo.eq(memberNo))
+                .where(couponGenerationIssue.memberNo.eq(memberNo),
+                    couponGenerationIssue.issueDatetime.before(LocalDateTime.now()))
                 .offset(pageable.getOffset())
                 .limit(Math.min(pageable.getPageSize(), 10))
                 .orderBy(couponGenerationIssue.couponGenerationIssueNo.desc())
@@ -154,7 +155,7 @@ public class CouponGenerationIssueRepositoryImpl
     }
 
     /**
-     * 특정 회원의 생성, 발급된 전체 쿠폰 중 사용된 쿠폰을 Page 타입 만큼 가져오기 위한 repository 메서드 입니다.
+     * 특정 회원의 발급된 전체 쿠폰 중 사용된 쿠폰을 Page 타입 만큼 가져오기 위한 repository 메서드 입니다.
      *
      * @param pageable pagination 에 맞게 조회하기 위한 정보를 담고있는 객체.
      * @param memberNo 조회하는 회원의 회원 번호.
@@ -165,7 +166,9 @@ public class CouponGenerationIssueRepositoryImpl
         Integer memberNo) {
         List<CouponGenerationIssueResponseDto> couponGenerationIssueUsedResponseDtoByMemberNoList =
             from(couponGenerationIssue)
-                .where(couponGenerationIssue.usedDatetime.isNotNull(), couponGenerationIssue.memberNo.eq(memberNo))
+                .where(couponGenerationIssue.usedDatetime.isNotNull(),
+                    couponGenerationIssue.memberNo.eq(memberNo),
+                    couponGenerationIssue.issueDatetime.before(LocalDateTime.now()))
                 .offset(pageable.getOffset())
                 .limit(Math.min(pageable.getPageSize(), 10))
                 .orderBy(couponGenerationIssue.couponGenerationIssueNo.desc())
@@ -182,7 +185,7 @@ public class CouponGenerationIssueRepositoryImpl
     }
 
     /**
-     * 특정 회원의 생성, 발급된 전체 쿠폰 중 사용되지 않은 쿠폰을 Page 타입 만큼 가져오기 위한 repository 메서드 입니다.
+     * 특정 회원의 발급된 전체 쿠폰 중 사용되지 않은 쿠폰을 Page 타입 만큼 가져오기 위한 repository 메서드 입니다.
      *
      * @param pageable pagination 에 맞게 조회하기 위한 정보를 담고있는 객체.
      * @param memberNo 조회하는 회원의 회원 번호.
@@ -193,7 +196,9 @@ public class CouponGenerationIssueRepositoryImpl
         Integer memberNo) {
         List<CouponGenerationIssueResponseDto> couponGenerationIssueUnusedResponseDtoByMemberNoList =
             from(couponGenerationIssue)
-                .where(couponGenerationIssue.usedDatetime.isNull(), couponGenerationIssue.memberNo.eq(memberNo))
+                .where(couponGenerationIssue.usedDatetime.isNull(),
+                    couponGenerationIssue.memberNo.eq(memberNo),
+                    couponGenerationIssue.issueDatetime.before(LocalDateTime.now()))
                 .offset(pageable.getOffset())
                 .limit(Math.min(pageable.getPageSize(), 10))
                 .orderBy(couponGenerationIssue.couponGenerationIssueNo.desc())
@@ -210,7 +215,7 @@ public class CouponGenerationIssueRepositoryImpl
     }
 
     /**
-     * 특정 회원의 생성, 발급된 전체 쿠폰 중 사용되지 않고 만료된 쿠폰을 Page 타입 만큼 가져오기 위한 repository 메서드 입니다.
+     * 특정 회원의 발급된 전체 쿠폰 중 사용되지 않고 만료된 쿠폰을 Page 타입 만큼 가져오기 위한 repository 메서드 입니다.
      *
      * @param pageable pagination 에 맞게 조회하기 위한 정보를 담고있는 객체.
      * @param memberNo 조회하는 회원의 회원 번호.
@@ -223,8 +228,10 @@ public class CouponGenerationIssueRepositoryImpl
 
         List<CouponGenerationIssueResponseDto> couponGenerationIssueUnusedAndExpiredResponseDtoByMemberNoList =
             from(couponGenerationIssue)
-                .where(couponGenerationIssue.usedDatetime.isNull(), couponGenerationIssue.memberNo.eq(memberNo),
-                    couponGenerationIssue.expirationDatetime.before(now))
+                .where(couponGenerationIssue.usedDatetime.isNull(),
+                    couponGenerationIssue.memberNo.eq(memberNo),
+                    couponGenerationIssue.expirationDatetime.before(now),
+                    couponGenerationIssue.issueDatetime.before(LocalDateTime.now()))
                 .offset(pageable.getOffset())
                 .limit(Math.min(pageable.getPageSize(), 10))
                 .orderBy(couponGenerationIssue.couponGenerationIssueNo.desc())
@@ -241,7 +248,7 @@ public class CouponGenerationIssueRepositoryImpl
     }
 
     /**
-     * 특정 회원의 생성, 발급된 전체 쿠폰 중 사용되지 않고 만료되지 않은 쿠폰을 Page 타입 만큼 가져오기 위한 repository 메서드 입니다.
+     * 특정 회원의 발급된 전체 쿠폰 중 사용되지 않고 만료되지 않은 쿠폰을 Page 타입 만큼 가져오기 위한 repository 메서드 입니다.
      *
      * @param pageable pagination 에 맞게 조회하기 위한 정보를 담고있는 객체.
      * @param memberNo 조회하는 회원의 회원 번호.
@@ -254,8 +261,10 @@ public class CouponGenerationIssueRepositoryImpl
 
         List<CouponGenerationIssueResponseDto> couponGenerationIssueUnusedAndUnexpiredResponseDtoByMemberNoList =
             from(couponGenerationIssue)
-                .where(couponGenerationIssue.usedDatetime.isNull(), couponGenerationIssue.memberNo.eq(memberNo),
-                    couponGenerationIssue.expirationDatetime.after(now))
+                .where(couponGenerationIssue.usedDatetime.isNull(),
+                    couponGenerationIssue.memberNo.eq(memberNo),
+                    couponGenerationIssue.expirationDatetime.after(now),
+                    couponGenerationIssue.issueDatetime.before(LocalDateTime.now()))
                 .offset(pageable.getOffset())
                 .limit(Math.min(pageable.getPageSize(), 10))
                 .orderBy(couponGenerationIssue.couponGenerationIssueNo.desc())
