@@ -290,4 +290,21 @@ class CouponTypeServiceImplTest {
 
         verify(couponTypeRepository, never()).findById(anyInt());
     }
+
+    @Test
+    void findCouponTypeRecommend() {
+        // given
+        PageRequest pageRequest = PageRequest.of(0, 3, Sort.by(Sort.Direction.DESC, "couponTypeNo"));
+        Page<CouponTypeDto> page = new PageImpl<>(Collections.EMPTY_LIST, pageRequest, 10);
+
+        when(couponTypeRepository.findAllCouponTypesRecommend(any())).thenReturn(page);
+
+        // when
+        Page<CouponTypeDto> couponTypes = couponTypeService.findCouponTypeRecommend(any());
+
+        // then
+        assertThat(couponTypes).isEqualTo(page);
+        verify(couponTypeRepository).findAllCouponTypesRecommend(any());
+
+    }
 }

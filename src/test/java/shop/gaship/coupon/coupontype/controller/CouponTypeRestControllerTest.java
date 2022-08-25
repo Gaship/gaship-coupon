@@ -285,4 +285,28 @@ class CouponTypeRestControllerTest {
 
         verify(couponTypeService).findCouponTypesFixedRate(any());
     }
+
+    @Test
+    void couponTypeRecommendList() throws Exception {
+        // given
+        List<CouponTypeDto> couponTypeDtoList = List.of(couponTypeDtoFixRateCanDelete);
+
+        PageImpl<CouponTypeDto> couponTypesPage = new PageImpl(couponTypeDtoList, PageRequest.of(0, 5), 10);
+
+        given(couponTypeService.findCouponTypeRecommend(any())).willReturn(couponTypesPage);
+
+        // when, then
+        mockMvc.perform(
+                   get("/api/coupons/coupon-types/recommend"))
+               .andExpect(status().isOk())
+               .andExpect(jsonPath("$.content[0].name").value(couponTypeDtoFixRateCanDelete.getName()))
+               .andExpect(
+                   jsonPath("$.content[0].isStopGenerationIssue").value(
+                       couponTypeDtoFixRateCanDelete.getIsStopGenerationIssue()))
+               .andExpect(jsonPath("$.content[0].discountRate").value(couponTypeDtoFixRateCanDelete.getDiscountRate()))
+               .andExpect(
+                   jsonPath("$.content[0].discountAmount").value(couponTypeDtoFixRateCanDelete.getDiscountAmount()));
+
+        verify(couponTypeService).findCouponTypeRecommend(any());
+    }
 }
