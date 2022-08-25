@@ -101,5 +101,11 @@ public interface CouponTypeService {
      */
     Page<CouponTypeDto> findCouponTypesFixedRate(Pageable pageable);
 
+    /**
+     * 추천인 coupon type 의 Page 타입만큼 조회하기 위한 service 메서드 입니다.
+     *
+     * @param pageable pagination 에 맞게 조회하기 위한 정보를 담고있는 객체.
+     * @return 추천인 쿠폰 타입의 Page 타입.
+     */
     Page<CouponTypeDto> findCouponTypeRecommend(Pageable pageable);
 }

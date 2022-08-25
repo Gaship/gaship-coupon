@@ -185,6 +185,12 @@ public class CouponTypeRestController {
         return ResponseEntity.ok(couponTypesResponsePage);
     }
 
+    /**
+     * 해당 쿠폰 타입 중 추천인 쿠폰 타입 조회 요청을 받는 클래스 입니다.
+     *
+     * @param pageable pagination 에 맞게 조회하기 위한 정보를 담고있는 객체.
+     * @return 요청에 대한 응답으로 요청을 성공적으로 잘 처리했다는 응답과, couponType 의 PageResponse 타입으로 보냅니다.
+     */
     @GetMapping(value = "/recommend")
     public ResponseEntity<PageResponse<CouponTypeDto>> couponTypeRecommendList(Pageable pageable) {
         Page<CouponTypeDto> couponTypesRecommendPage =
