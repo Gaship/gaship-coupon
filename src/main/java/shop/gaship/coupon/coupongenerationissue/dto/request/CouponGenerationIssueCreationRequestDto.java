@@ -1,5 +1,6 @@
 package shop.gaship.coupon.coupongenerationissue.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -23,10 +24,13 @@ public class CouponGenerationIssueCreationRequestDto {
     private Integer memberGradeNo;
 
     @NotNull
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime generationDatetime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime issueDatetime;
 
     @NotNull
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime expirationDatetime;
 }

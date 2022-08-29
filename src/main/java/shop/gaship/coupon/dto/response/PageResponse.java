@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -14,26 +15,19 @@ import org.springframework.data.domain.Pageable;
  * @author : 조재철
  * @since 1.0
  */
+@NoArgsConstructor
 @Getter
 public class PageResponse<T> {
 
-    private final List<T> content;
-    //총 페이지 번호
-    private final int totalPage;
-    //현재 페이지 번호
-    private int page;
-    //목록 사이즈
-    private int size;
+    private List<T> content;
 
-    //시작 페이지 번호, 끝 페이지 번호
-    private int start;
-    private int end;
-    //이전, 다음
-    private boolean prev;
+    private int totalPages;
+
+    private int number;
+
+    private boolean previous;
+
     private boolean next;
-
-    //페이지 번호  목록
-    private List<Integer> pageList;
 
     /**
      * Instantiates a new Page response dto.
@@ -42,33 +36,19 @@ public class PageResponse<T> {
      */
     public PageResponse(Page<T> result) {
 
-        content = result.toList();
+        this.content = result.getContent();
 
-        totalPage = result.getTotalPages();
+        this.totalPages = result.getTotalPages();
 
-        makePageList(result.getPageable());
+        this.number = result.getNumber();
 
+        this.previous = result.hasPrevious();
+
+        this.next = result.hasNext();
     }
 
-    private void makePageList(Pageable pageable) {
-
-        // 0부터 시작하므로 1을 추가
-        this.page = pageable.getPageNumber();
-
-        this.size = pageable.getPageSize();
-
-        //temp end page
-        int tempEnd = (int) (Math.ceil(page / 10.0)) * 10;
-
-        start = tempEnd - 9;
-
-        prev = start > 1;
-
-        end = Math.min(totalPage, tempEnd);
-
-        next = totalPage > tempEnd;
-
-        pageList = IntStream.rangeClosed(start, end).boxed().collect(Collectors.toList());
-
+    public void decodeContent(List<T> decodedMembers) {
+        this.content = decodedMembers;
     }
 }
+

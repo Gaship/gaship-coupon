@@ -52,7 +52,8 @@ public class CouponTypeRepositoryImpl
             .fetch();
 
         return PageableExecutionUtils.getPage(couponTypeDtoList, pageable,
-            couponTypeDtoList::size);
+            () -> from(couponType).fetchCount());
+
     }
 
     /**
@@ -81,7 +82,12 @@ public class CouponTypeRepositoryImpl
                                                                          .fetch();
 
         return PageableExecutionUtils.getPage(couponTypeDtoListCanDelete, pageable,
-            couponTypeDtoListCanDelete::size);
+            () -> from(couponType).leftJoin(couponGenerationIssue)
+                                  .on(couponType.couponTypeNo.eq(
+                                      couponGenerationIssue.couponType.couponTypeNo))
+                                  .where(
+                                      couponGenerationIssue.couponGenerationIssueNo.isNull())
+                                  .fetchCount());
     }
 
     /**
@@ -109,7 +115,10 @@ public class CouponTypeRepositoryImpl
                                                                             .fetch();
 
         return PageableExecutionUtils.getPage(couponTypeDtoListCannotDelete, pageable,
-            couponTypeDtoListCannotDelete::size);
+            () -> from(couponType).innerJoin(couponGenerationIssue)
+                                  .on(couponType.couponTypeNo.eq(
+                                      couponGenerationIssue.couponType.couponTypeNo))
+                                  .fetchCount());
     }
 
     /**
@@ -134,7 +143,9 @@ public class CouponTypeRepositoryImpl
             .fetch();
 
         return PageableExecutionUtils.getPage(couponTypeDtoListFixedAmount, pageable,
-            couponTypeDtoListFixedAmount::size);
+            () -> from(couponType)
+                .where(couponType.discountRate.isNull(), couponType.discountAmount.isNotNull())
+                .fetchCount());
     }
 
     /**
@@ -159,7 +170,9 @@ public class CouponTypeRepositoryImpl
             .fetch();
 
         return PageableExecutionUtils.getPage(couponTypeDtoListFixedRate, pageable,
-            couponTypeDtoListFixedRate::size);
+            () -> from(couponType)
+                .where(couponType.discountRate.isNotNull(), couponType.discountAmount.isNull())
+                .fetchCount());
     }
 
     /**
@@ -186,6 +199,10 @@ public class CouponTypeRepositoryImpl
             .fetch();
 
         return PageableExecutionUtils.getPage(couponTypeDtoListRecommend, pageable,
-            couponTypeDtoListRecommend::size);
+            () -> from(couponType)
+                .innerJoin(recommendMemberCouponType)
+                .on(couponType.couponTypeNo.eq(recommendMemberCouponType.couponTypeNo))
+                .where(couponType.discountRate.isNotNull(), couponType.discountAmount.isNull())
+                .fetchCount());
     }
 }

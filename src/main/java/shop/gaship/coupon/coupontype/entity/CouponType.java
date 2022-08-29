@@ -40,7 +40,7 @@ public class CouponType {
     private Integer discountRate;
 
     @Column(name = "is_stop_generation_issue", nullable = false)
-    private Boolean isStopGenerationIssue;
+    private Boolean isStopGenerationIssue = false;
 
     /**
      * 간편하게 CouponType을 만들기 위한 builder 클래스입니다.
