@@ -3,11 +3,15 @@ package shop.gaship.coupon.coupongenerationissue.repository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import shop.gaship.coupon.coupongenerationissue.dto.response.CouponGenerationIssueResponseDto;
+import shop.gaship.coupon.coupongenerationissue.dto.response.UnusedMemberCouponResponseDto;
+
+import java.util.List;
 
 /**
  * 쿠폰 생성 발급 엔티티에 대한 커스텀 repository 구현체 인터페이스 입니다.
  *
  * @author : 조재철
+ * @author : 김세미
  * @since 1.0
  */
 public interface CouponGenerationIssueRepositoryCustom {
@@ -92,4 +96,12 @@ public interface CouponGenerationIssueRepositoryCustom {
      */
     Page<CouponGenerationIssueResponseDto> findAllCouponGenerationIssuesUnusedAndUnexpiredByMemberNo(Pageable pageable,
         Integer memberNo);
+
+    /**
+     * 특정 회원의 현재 사용가능한 쿠폰을 다건 조회하기 위한 repository 메서드 입니다.
+     *
+     * @return list
+     * @author 김세미
+     */
+    List<UnusedMemberCouponResponseDto> findUnusedMemberCoupons(Integer memberNo);
 }
