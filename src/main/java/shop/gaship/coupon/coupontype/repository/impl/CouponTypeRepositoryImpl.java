@@ -11,6 +11,7 @@ import shop.gaship.coupon.coupontype.dto.CouponTypeDto;
 import shop.gaship.coupon.coupontype.entity.CouponType;
 import shop.gaship.coupon.coupontype.entity.QCouponType;
 import shop.gaship.coupon.coupontype.repository.CouponTypeRepositoryCustom;
+import shop.gaship.coupon.recommendmembercoupontype.entity.QRecommendMemberCouponType;
 
 /**
  * couponType 의 repository(crud 를 위한)의 커스텀 클래스 구현체 입니다.
@@ -27,6 +28,7 @@ public class CouponTypeRepositoryImpl
 
     QCouponType couponType = QCouponType.couponType;
     QCouponGenerationIssue couponGenerationIssue = QCouponGenerationIssue.couponGenerationIssue;
+    QRecommendMemberCouponType recommendMemberCouponType = QRecommendMemberCouponType.recommendMemberCouponType;
 
     /**
      * 모든 coupon type 의 Page 타입만큼 가져오기 위한 repository 메서드 입니다.
@@ -50,7 +52,8 @@ public class CouponTypeRepositoryImpl
             .fetch();
 
         return PageableExecutionUtils.getPage(couponTypeDtoList, pageable,
-            couponTypeDtoList::size);
+            () -> from(couponType).fetchCount());
+
     }
 
     /**
@@ -79,7 +82,12 @@ public class CouponTypeRepositoryImpl
                                                                          .fetch();
 
         return PageableExecutionUtils.getPage(couponTypeDtoListCanDelete, pageable,
-            couponTypeDtoListCanDelete::size);
+            () -> from(couponType).leftJoin(couponGenerationIssue)
+                                  .on(couponType.couponTypeNo.eq(
+                                      couponGenerationIssue.couponType.couponTypeNo))
+                                  .where(
+                                      couponGenerationIssue.couponGenerationIssueNo.isNull())
+                                  .fetchCount());
     }
 
     /**
@@ -107,11 +115,14 @@ public class CouponTypeRepositoryImpl
                                                                             .fetch();
 
         return PageableExecutionUtils.getPage(couponTypeDtoListCannotDelete, pageable,
-            couponTypeDtoListCannotDelete::size);
+            () -> from(couponType).innerJoin(couponGenerationIssue)
+                                  .on(couponType.couponTypeNo.eq(
+                                      couponGenerationIssue.couponType.couponTypeNo))
+                                  .fetchCount());
     }
 
     /**
-     * 정액 할인 정책을 가진 coupont type 의 Page 타입 만큼 가져오기 위한 repository 메서드 입니다.
+     * 정액 할인 정책을 가진 coupon type 의 Page 타입 만큼 가져오기 위한 repository 메서드 입니다.
      *
      * @param pageable pagination 에 맞게 조회하기 위한 정보를 담고있는 객체.
      * @return 정액 할인 정책인 쿠폰 타입의 Page 타입.
@@ -132,11 +143,13 @@ public class CouponTypeRepositoryImpl
             .fetch();
 
         return PageableExecutionUtils.getPage(couponTypeDtoListFixedAmount, pageable,
-            couponTypeDtoListFixedAmount::size);
+            () -> from(couponType)
+                .where(couponType.discountRate.isNull(), couponType.discountAmount.isNotNull())
+                .fetchCount());
     }
 
     /**
-     * 정률 할인 정책을 가진 coupont type의 Page 타입 만큼 가져오기 위한 repository 메서드 입니다.
+     * 정률 할인 정책을 가진 coupon type 의 Page 타입 만큼 가져오기 위한 repository 메서드 입니다.
      *
      * @param pageable pagination 에 맞게 조회하기 위한 정보를 담고있는 객체.
      * @return 정률 할인 정책인 쿠폰 타입의 Page 타입.
@@ -157,6 +170,39 @@ public class CouponTypeRepositoryImpl
             .fetch();
 
         return PageableExecutionUtils.getPage(couponTypeDtoListFixedRate, pageable,
-            couponTypeDtoListFixedRate::size);
+            () -> from(couponType)
+                .where(couponType.discountRate.isNotNull(), couponType.discountAmount.isNull())
+                .fetchCount());
+    }
+
+    /**
+     * 추천인 coupon type 의 Page 타입 만큼 가져오기 위한 repository 메서드 입니다.
+     *
+     * @param pageable pagination 에 맞게 조회하기 위한 정보를 담고있는 객체.
+     * @return 추천인 쿠폰 타입의 Page 타입.
+     */
+    @Override
+    public Page<CouponTypeDto> findAllCouponTypesRecommend(Pageable pageable) {
+        List<CouponTypeDto> couponTypeDtoListRecommend = from(couponType)
+            .innerJoin(recommendMemberCouponType)
+            .on(couponType.couponTypeNo.eq(recommendMemberCouponType.couponTypeNo))
+            .where(couponType.discountRate.isNotNull(), couponType.discountAmount.isNull())
+            .offset(pageable.getOffset())
+            .limit(Math.min(pageable.getPageSize(), 10))
+            .orderBy(couponType.couponTypeNo.desc())
+            .select(Projections.constructor(CouponTypeDto.class,
+                couponType.couponTypeNo,
+                couponType.name,
+                couponType.discountRate,
+                couponType.discountAmount,
+                couponType.isStopGenerationIssue))
+            .fetch();
+
+        return PageableExecutionUtils.getPage(couponTypeDtoListRecommend, pageable,
+            () -> from(couponType)
+                .innerJoin(recommendMemberCouponType)
+                .on(couponType.couponTypeNo.eq(recommendMemberCouponType.couponTypeNo))
+                .where(couponType.discountRate.isNotNull(), couponType.discountAmount.isNull())
+                .fetchCount());
     }
 }

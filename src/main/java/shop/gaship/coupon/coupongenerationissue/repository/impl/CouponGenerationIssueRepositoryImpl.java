@@ -73,7 +73,10 @@ public class CouponGenerationIssueRepositoryImpl
             .fetch();
 
         return PageableExecutionUtils.getPage(couponGenerationIssueResponseDtoList, pageable,
-            couponGenerationIssueResponseDtoList::size);
+            () -> from(couponGenerationIssue)
+                .offset(pageable.getOffset())
+                .limit(Math.min(pageable.getPageSize(), 10))
+                .fetchCount());
     }
 
     /**
@@ -98,7 +101,9 @@ public class CouponGenerationIssueRepositoryImpl
             .fetch();
 
         return PageableExecutionUtils.getPage(couponGenerationIssueUsedResponseDtoList, pageable,
-            couponGenerationIssueUsedResponseDtoList::size);
+            () -> from(couponGenerationIssue)
+                .where(couponGenerationIssue.usedDatetime.isNotNull())
+                .fetchCount());
     }
 
     /**
@@ -123,7 +128,9 @@ public class CouponGenerationIssueRepositoryImpl
             .fetch();
 
         return PageableExecutionUtils.getPage(couponGenerationIssueUnusedResponseDtoList, pageable,
-            couponGenerationIssueUnusedResponseDtoList::size);
+            () -> from(couponGenerationIssue)
+                .where(couponGenerationIssue.usedDatetime.isNull())
+                .fetchCount());
     }
 
     /**
@@ -152,7 +159,10 @@ public class CouponGenerationIssueRepositoryImpl
                 .fetch();
 
         return PageableExecutionUtils.getPage(couponGenerationIssueResponseDtoByMemberNoList, pageable,
-            couponGenerationIssueResponseDtoByMemberNoList::size);
+            () -> from(couponGenerationIssue)
+                .where(couponGenerationIssue.memberNo.eq(memberNo),
+                    couponGenerationIssue.issueDatetime.before(LocalDateTime.now()))
+                .fetchCount());
     }
 
     /**
@@ -182,7 +192,11 @@ public class CouponGenerationIssueRepositoryImpl
                 .fetch();
 
         return PageableExecutionUtils.getPage(couponGenerationIssueUsedResponseDtoByMemberNoList, pageable,
-            couponGenerationIssueUsedResponseDtoByMemberNoList::size);
+            () -> from(couponGenerationIssue)
+                .where(couponGenerationIssue.usedDatetime.isNotNull(),
+                    couponGenerationIssue.memberNo.eq(memberNo),
+                    couponGenerationIssue.issueDatetime.before(LocalDateTime.now()))
+                .fetchCount());
     }
 
     /**
@@ -212,7 +226,11 @@ public class CouponGenerationIssueRepositoryImpl
                 .fetch();
 
         return PageableExecutionUtils.getPage(couponGenerationIssueUnusedResponseDtoByMemberNoList, pageable,
-            couponGenerationIssueUnusedResponseDtoByMemberNoList::size);
+            () -> from(couponGenerationIssue)
+                .where(couponGenerationIssue.usedDatetime.isNull(),
+                    couponGenerationIssue.memberNo.eq(memberNo),
+                    couponGenerationIssue.issueDatetime.before(LocalDateTime.now()))
+                .fetchCount());
     }
 
     /**
@@ -245,7 +263,12 @@ public class CouponGenerationIssueRepositoryImpl
                 .fetch();
 
         return PageableExecutionUtils.getPage(couponGenerationIssueUnusedAndExpiredResponseDtoByMemberNoList, pageable,
-            couponGenerationIssueUnusedAndExpiredResponseDtoByMemberNoList::size);
+            () -> from(couponGenerationIssue)
+                .where(couponGenerationIssue.usedDatetime.isNull(),
+                    couponGenerationIssue.memberNo.eq(memberNo),
+                    couponGenerationIssue.expirationDatetime.before(now),
+                    couponGenerationIssue.issueDatetime.before(LocalDateTime.now()))
+                .fetchCount());
     }
 
     /**
@@ -279,7 +302,12 @@ public class CouponGenerationIssueRepositoryImpl
 
         return PageableExecutionUtils.getPage(couponGenerationIssueUnusedAndUnexpiredResponseDtoByMemberNoList,
             pageable,
-            couponGenerationIssueUnusedAndUnexpiredResponseDtoByMemberNoList::size);
+            () -> from(couponGenerationIssue)
+                .where(couponGenerationIssue.usedDatetime.isNull(),
+                    couponGenerationIssue.memberNo.eq(memberNo),
+                    couponGenerationIssue.expirationDatetime.after(now),
+                    couponGenerationIssue.issueDatetime.before(LocalDateTime.now()))
+                .fetchCount());
     }
 
     /**

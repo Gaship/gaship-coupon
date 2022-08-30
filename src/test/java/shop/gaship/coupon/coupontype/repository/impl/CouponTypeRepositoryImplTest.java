@@ -22,6 +22,8 @@ import shop.gaship.coupon.coupongenerationissue.repository.CouponGenerationIssue
 import shop.gaship.coupon.coupontype.dto.CouponTypeDto;
 import shop.gaship.coupon.coupontype.entity.CouponType;
 import shop.gaship.coupon.coupontype.repository.CouponTypeRepository;
+import shop.gaship.coupon.recommendmembercoupontype.entity.RecommendMemberCouponType;
+import shop.gaship.coupon.recommendmembercoupontype.repository.RecommendMemberCouponTypeRepository;
 
 /**
  * CouponType 커스텀 repository 테스트 클래스 입니다.
@@ -38,6 +40,9 @@ class CouponTypeRepositoryImplTest {
 
     @Autowired
     CouponGenerationIssueRepository couponGenerationIssueRepository;
+
+    @Autowired
+    RecommendMemberCouponTypeRepository recommendMemberCouponTypeRepository;
 
     private CouponType couponTypeFixRateCanDelete;
     private CouponType couponTypeFixAmountCannotDelete;
@@ -211,6 +216,35 @@ class CouponTypeRepositoryImplTest {
 
         // when
         Page<CouponTypeDto> allCouponTypes = couponTypeRepository.findAllCouponTypesFixedRate(pageable);
+
+        // then
+        assertThat(allCouponTypes.getTotalElements()).isEqualTo(1);
+        assertThat(allCouponTypes.getContent()).hasSize(1);
+        assertThat(allCouponTypes.get().collect(Collectors.toList()).get(0).getName()).isEqualTo(
+            couponTypeFixRateCanDelete.getName());
+        assertThat(allCouponTypes.get().collect(Collectors.toList()).get(0).getIsStopGenerationIssue()).isEqualTo(
+            couponTypeFixRateCanDelete.getIsStopGenerationIssue());
+        assertThat(allCouponTypes.get().collect(Collectors.toList()).get(0).getDiscountAmount()).isEqualTo(
+            couponTypeFixRateCanDelete.getDiscountAmount());
+        assertThat(allCouponTypes.get().collect(Collectors.toList()).get(0).getDiscountRate()).isEqualTo(
+            couponTypeFixRateCanDelete.getDiscountRate());
+    }
+
+    @Test
+    void findAllCouponTypesRecommend() {
+        // given
+        CouponType savedCouponType = couponTypeRepository.save(couponTypeFixRateCanDelete);
+
+        RecommendMemberCouponType recommendMemberCouponType = new RecommendMemberCouponType();
+        recommendMemberCouponType.setCouponType(savedCouponType);
+        recommendMemberCouponType.setRegisterDatetime(LocalDateTime.now());
+
+        recommendMemberCouponTypeRepository.save(recommendMemberCouponType);
+
+        Pageable pageable = PageRequest.of(0, 3, Sort.by(Sort.Direction.DESC, "couponTypeNo"));
+
+        // when
+        Page<CouponTypeDto> allCouponTypes = couponTypeRepository.findAllCouponTypesRecommend(pageable);
 
         // then
         assertThat(allCouponTypes.getTotalElements()).isEqualTo(1);

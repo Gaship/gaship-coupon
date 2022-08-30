@@ -51,4 +51,12 @@ public interface CouponTypeRepositoryCustom {
      * @return 정률 할인 정책인 쿠폰 타입의 Page 타입.
      */
     Page<CouponTypeDto> findAllCouponTypesFixedRate(Pageable pageable);
+
+    /**
+     * 추천인 coupon type 의 Page 타입 만큼 가져오기 위한 repository 메서드 입니다.
+     *
+     * @param pageable pagination 에 맞게 조회하기 위한 정보를 담고있는 객체.
+     * @return 추천인 쿠폰 타입의 Page 타입.
+     */
+    Page<CouponTypeDto> findAllCouponTypesRecommend(Pageable pageable);
 }
