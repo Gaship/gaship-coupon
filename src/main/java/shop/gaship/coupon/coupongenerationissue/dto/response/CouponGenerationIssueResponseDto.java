@@ -21,7 +21,7 @@ public class CouponGenerationIssueResponseDto {
     @NotNull
     private Integer couponGenerationIssueNo;
 
-     @NotBlank(message = "쿠폰 이름은 필수값 입니다.")
+    @NotBlank(message = "쿠폰 이름은 필수값 입니다.")
     private String name;
 
     @NotNull(message = "회원 번호는 필수값 입니다.")
