@@ -6,11 +6,12 @@ import org.springframework.data.domain.Pageable;
 import shop.gaship.coupon.coupongenerationissue.dto.request.CouponGenerationIssueCreationRequestDto;
 import shop.gaship.coupon.coupongenerationissue.dto.response.CouponGenerationIssueDetailsResponseDto;
 import shop.gaship.coupon.coupongenerationissue.dto.response.CouponGenerationIssueResponseDto;
+import shop.gaship.coupon.coupongenerationissue.dto.response.UnusedMemberCouponResponseDto;
 
 /**
  * 쿠폰 생성 발급에 대한 비즈니스 로직을 처리하는 service 인터페이스 클래스 입니다.
  *
- * @author 최겸준, 조재철
+ * @author 최겸준, 조재철, 김세미
  * @since 1.0
  */
 public interface CouponGenerationIssueService {
@@ -126,4 +127,13 @@ public interface CouponGenerationIssueService {
      */
     CouponGenerationIssueDetailsResponseDto findCouponGenerationIssue(
         Integer couponGenerationIssueNo);
+
+    /**
+     * 회원의 현재 사용가능한 쿠폰에 대한 다건 조회 요청을 처리하는 메서드입니다.
+     *
+     * @param memberNo 쿠폰 조회에 대한 대상 회원의 식별번호입니다.
+     * @return 회원의 현재 사용가능한 쿠폰 목록을 반환합니다.
+     * @author 김세미
+     */
+    List<UnusedMemberCouponResponseDto> findUnusedMemberCouponList(Integer memberNo);
 }

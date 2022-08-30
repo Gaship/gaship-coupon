@@ -7,16 +7,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import shop.gaship.coupon.coupongenerationissue.dto.request.CouponGenerationIssueCreationRequestDto;
 import shop.gaship.coupon.coupongenerationissue.dto.response.CouponGenerationIssueDetailsResponseDto;
 import shop.gaship.coupon.coupongenerationissue.dto.response.CouponGenerationIssueResponseDto;
+import shop.gaship.coupon.coupongenerationissue.dto.response.UnusedMemberCouponResponseDto;
 import shop.gaship.coupon.coupongenerationissue.service.CouponGenerationIssueService;
 import shop.gaship.coupon.dto.response.PageResponse;
 
@@ -250,4 +245,19 @@ public class CouponGenerationIssueRestController {
             couponGenerationIssueService.findCouponGenerationIssue(couponGenerationIssueNo));
     }
 
+    /**
+     * 회원의 현재 사용가능한 쿠폰 다건 조회 요청을 처리합니다.
+     *
+     * @param memberNo 쿠폰 다건 조회 대상이 되는 회원의 식별번호입니다.
+     * @return 회원의 사용가능한 쿠폰 목록을 body 로 갖는 상태코드 200의 ResponseEntity 를 반환합니다.
+     * @author 김세미
+     */
+    @GetMapping(params = "memberNo")
+    public ResponseEntity<List<UnusedMemberCouponResponseDto>> unusedMemberCouponList(
+            @RequestParam Integer memberNo) {
+        List<UnusedMemberCouponResponseDto> a = couponGenerationIssueService
+                .findUnusedMemberCouponList(memberNo);
+
+        return ResponseEntity.ok(a);
+    }
 }

@@ -11,6 +11,7 @@ import shop.gaship.coupon.coupongenerationissue.adapter.SchedulerAdapterAboutCou
 import shop.gaship.coupon.coupongenerationissue.dto.request.CouponGenerationIssueCreationRequestDto;
 import shop.gaship.coupon.coupongenerationissue.dto.response.CouponGenerationIssueDetailsResponseDto;
 import shop.gaship.coupon.coupongenerationissue.dto.response.CouponGenerationIssueResponseDto;
+import shop.gaship.coupon.coupongenerationissue.dto.response.UnusedMemberCouponResponseDto;
 import shop.gaship.coupon.coupongenerationissue.entity.CouponGenerationIssue;
 import shop.gaship.coupon.coupongenerationissue.exception.CouponGenerationIssueNotFoundException;
 import shop.gaship.coupon.coupongenerationissue.exception.NotFoundCouponGenerationIssueException;
@@ -24,7 +25,7 @@ import shop.gaship.coupon.recommendmembercoupontype.repository.RecommendMemberCo
 /**
  * 쿠폰 생성 발급에 대한 비즈니스 로직을 처리하는 service 구현체 클래스 입니다.
  *
- * @author : 최겸준, 조재철
+ * @author : 최겸준, 조재철, 김세미
  * @see CouponGenerationIssueService
  * @since 1.0
  */
@@ -224,5 +225,13 @@ public class CouponGenerationIssueServiceImpl implements CouponGenerationIssueSe
             couponType.getDiscountAmount(), couponType.getDiscountRate(),
             coupon.getGenerationDatetime(), coupon.getIssueDatetime(),
             coupon.getExpirationDatetime(), coupon.getUsedDatetime(), coupon.getMemberNo());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<UnusedMemberCouponResponseDto> findUnusedMemberCouponList(Integer memberNo) {
+        return couponGenerationIssueRepository.findUnusedMemberCoupons(memberNo);
     }
 }

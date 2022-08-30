@@ -11,6 +11,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.data.support.PageableExecutionUtils;
 import shop.gaship.coupon.coupongenerationissue.dto.response.CouponGenerationIssueResponseDto;
+import shop.gaship.coupon.coupongenerationissue.dto.response.UnusedMemberCouponResponseDto;
 import shop.gaship.coupon.coupongenerationissue.entity.CouponGenerationIssue;
 import shop.gaship.coupon.coupongenerationissue.entity.QCouponGenerationIssue;
 import shop.gaship.coupon.coupongenerationissue.repository.CouponGenerationIssueRepositoryCustom;
@@ -307,5 +308,33 @@ public class CouponGenerationIssueRepositoryImpl
                     couponGenerationIssue.expirationDatetime.after(now),
                     couponGenerationIssue.issueDatetime.before(LocalDateTime.now()))
                 .fetchCount());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<UnusedMemberCouponResponseDto> findUnusedMemberCoupons(Integer memberNo) {
+        QCouponGenerationIssue couponGenerationIssue = QCouponGenerationIssue
+                .couponGenerationIssue;
+
+        LocalDateTime now = LocalDateTime.now();
+
+        return from(couponGenerationIssue)
+                .innerJoin(couponGenerationIssue.couponType)
+                .select(Projections.constructor(UnusedMemberCouponResponseDto.class,
+                        couponGenerationIssue.couponGenerationIssueNo,
+                        couponGenerationIssue.couponType.name,
+                        couponGenerationIssue.couponType.discountAmount,
+                        couponGenerationIssue.couponType.discountRate,
+                        couponGenerationIssue.issueDatetime,
+                        couponGenerationIssue.expirationDatetime))
+                .where(couponGenerationIssue.usedDatetime.isNull(),
+                        couponGenerationIssue.memberNo.eq(memberNo),
+                        couponGenerationIssue.expirationDatetime.after(now),
+                        couponGenerationIssue.issueDatetime.before(LocalDateTime.now())
+                        )
+                .orderBy(couponGenerationIssue.expirationDatetime.asc())
+                .fetch();
     }
 }
