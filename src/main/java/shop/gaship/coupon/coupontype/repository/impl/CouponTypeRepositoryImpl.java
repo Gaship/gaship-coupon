@@ -1,6 +1,11 @@
 package shop.gaship.coupon.coupontype.repository.impl;
 
+import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.BooleanOperation;
+import com.querydsl.jpa.JPAExpressions;
 import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -63,23 +68,25 @@ public class CouponTypeRepositoryImpl
      * @return 아직 생성, 발급 되지 않은 쿠폰 타입의 Page 타입.
      */
     public Page<CouponTypeDto> findAllCouponTypesCanDelete(Pageable pageable) {
-        List<CouponTypeDto> couponTypeDtoListCanDelete = from(couponType).leftJoin(couponGenerationIssue)
-                                                                         .on(couponType.couponTypeNo.eq(
-                                                                             couponGenerationIssue.couponType.couponTypeNo))
-                                                                         .where(
-                                                                             couponGenerationIssue.couponGenerationIssueNo.isNull())
-                                                                         .offset(pageable.getOffset())
-                                                                         .limit(Math.min(pageable.getPageSize(), 10))
-                                                                         .orderBy(couponType.couponTypeNo.desc())
-                                                                         .select(Projections.constructor(
-                                                                             CouponTypeDto.class,
-                                                                             couponType.couponTypeNo,
-                                                                             couponType.name,
-                                                                             couponType.discountRate,
-                                                                             couponType.discountAmount,
-                                                                             couponType.isStopGenerationIssue))
-                                                                         .distinct()
-                                                                         .fetch();
+
+        List<CouponTypeDto> couponTypeDtoListCanDelete = from(couponType)
+            .leftJoin(couponGenerationIssue)
+            .on(couponType.couponTypeNo.eq(couponGenerationIssue.couponType.couponTypeNo))
+            .leftJoin(recommendMemberCouponType)
+            .on(couponType.couponTypeNo.eq(recommendMemberCouponType.couponTypeNo))
+            .where(couponGenerationIssue.couponGenerationIssueNo.isNull(), recommendMemberCouponType.couponTypeNo.isNull())
+            .offset(pageable.getOffset())
+            .limit(Math.min(pageable.getPageSize(), 10))
+            .orderBy(couponType.couponTypeNo.desc())
+            .select(Projections.constructor(
+                CouponTypeDto.class,
+                couponType.couponTypeNo,
+                couponType.name,
+                couponType.discountRate,
+                couponType.discountAmount,
+                couponType.isStopGenerationIssue))
+            .distinct()
+            .fetch();
 
         return PageableExecutionUtils.getPage(couponTypeDtoListCanDelete, pageable,
             () -> from(couponType).leftJoin(couponGenerationIssue)
