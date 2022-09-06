@@ -72,7 +72,7 @@ public class CouponTypeRepositoryImpl
         List<CouponTypeDto> couponTypeDtoListCanDelete = from(couponType)
             .leftJoin(couponGenerationIssue)
             .on(couponType.couponTypeNo.eq(couponGenerationIssue.couponType.couponTypeNo))
-            .innerJoin(recommendMemberCouponType)
+            .leftJoin(recommendMemberCouponType)
             .on(couponType.couponTypeNo.eq(recommendMemberCouponType.couponTypeNo))
             .where(couponGenerationIssue.couponGenerationIssueNo.isNull(), recommendMemberCouponType.couponTypeNo.isNull())
             .offset(pageable.getOffset())
