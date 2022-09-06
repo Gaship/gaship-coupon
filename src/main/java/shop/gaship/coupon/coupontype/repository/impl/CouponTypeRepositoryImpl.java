@@ -1,11 +1,6 @@
 package shop.gaship.coupon.coupontype.repository.impl;
 
-import com.querydsl.core.BooleanBuilder;
-import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Projections;
-import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.core.types.dsl.BooleanOperation;
-import com.querydsl.jpa.JPAExpressions;
 import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -74,7 +69,8 @@ public class CouponTypeRepositoryImpl
             .on(couponType.couponTypeNo.eq(couponGenerationIssue.couponType.couponTypeNo))
             .leftJoin(recommendMemberCouponType)
             .on(couponType.couponTypeNo.eq(recommendMemberCouponType.couponTypeNo))
-            .where(couponGenerationIssue.couponGenerationIssueNo.isNull(), recommendMemberCouponType.couponTypeNo.isNull())
+            .where(couponGenerationIssue.couponGenerationIssueNo.isNull(),
+                recommendMemberCouponType.couponTypeNo.isNull())
             .offset(pageable.getOffset())
             .limit(Math.min(pageable.getPageSize(), 10))
             .orderBy(couponType.couponTypeNo.desc())
@@ -108,6 +104,11 @@ public class CouponTypeRepositoryImpl
         List<CouponTypeDto> couponTypeDtoListCannotDelete = from(couponType).innerJoin(couponGenerationIssue)
                                                                             .on(couponType.couponTypeNo.eq(
                                                                                 couponGenerationIssue.couponType.couponTypeNo))
+                                                                            .leftJoin(recommendMemberCouponType)
+                                                                            .on(couponType.couponTypeNo.eq(
+                                                                                recommendMemberCouponType.couponTypeNo))
+                                                                            .where(
+                                                                                recommendMemberCouponType.couponTypeNo.isNull())
                                                                             .offset(pageable.getOffset())
                                                                             .limit(Math.min(pageable.getPageSize(), 10))
                                                                             .orderBy(couponType.couponTypeNo.desc())
@@ -137,7 +138,10 @@ public class CouponTypeRepositoryImpl
     @Override
     public Page<CouponTypeDto> findAllCouponTypesFixedAmount(Pageable pageable) {
         List<CouponTypeDto> couponTypeDtoListFixedAmount = from(couponType)
-            .where(couponType.discountRate.isNull(), couponType.discountAmount.isNotNull())
+            .leftJoin(recommendMemberCouponType)
+            .on(couponType.couponTypeNo.eq(recommendMemberCouponType.couponTypeNo))
+            .where(couponType.discountRate.isNull(), couponType.discountAmount.isNotNull(),
+                recommendMemberCouponType.couponTypeNo.isNull())
             .offset(pageable.getOffset())
             .limit(Math.min(pageable.getPageSize(), 10))
             .orderBy(couponType.couponTypeNo.desc())
@@ -164,7 +168,10 @@ public class CouponTypeRepositoryImpl
     @Override
     public Page<CouponTypeDto> findAllCouponTypesFixedRate(Pageable pageable) {
         List<CouponTypeDto> couponTypeDtoListFixedRate = from(couponType)
-            .where(couponType.discountRate.isNotNull(), couponType.discountAmount.isNull())
+            .leftJoin(recommendMemberCouponType)
+            .on(couponType.couponTypeNo.eq(recommendMemberCouponType.couponTypeNo))
+            .where(couponType.discountRate.isNotNull(), couponType.discountAmount.isNull(),
+                recommendMemberCouponType.couponTypeNo.isNull())
             .offset(pageable.getOffset())
             .limit(Math.min(pageable.getPageSize(), 10))
             .orderBy(couponType.couponTypeNo.desc())
