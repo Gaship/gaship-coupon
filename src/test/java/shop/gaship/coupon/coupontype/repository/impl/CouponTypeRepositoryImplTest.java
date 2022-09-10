@@ -168,8 +168,8 @@ class CouponTypeRepositoryImplTest {
         Page<CouponTypeDto> allCouponTypes = couponTypeRepository.findAllCouponTypesCanDelete(pageable);
 
         // then
-        assertThat(allCouponTypes.getTotalElements()).isEqualTo(0);
-        assertThat(allCouponTypes.getContent()).hasSize(0);
+        assertThat(allCouponTypes.getTotalElements()).isZero();
+        assertThat(allCouponTypes.getContent()).isEmpty();
     }
 
     @Test
@@ -229,8 +229,8 @@ class CouponTypeRepositoryImplTest {
         Page<CouponTypeDto> allCouponTypes = couponTypeRepository.findAllCouponTypesCannotDelete(pageable);
 
         // then
-        assertThat(allCouponTypes.getTotalElements()).isEqualTo(0);
-        assertThat(allCouponTypes.getContent()).hasSize(0);
+        assertThat(allCouponTypes.getTotalElements()).isZero();
+        assertThat(allCouponTypes.getContent()).isEmpty();
     }
 
     @Test
@@ -272,8 +272,8 @@ class CouponTypeRepositoryImplTest {
         Page<CouponTypeDto> allCouponTypes = couponTypeRepository.findAllCouponTypesFixedAmount(pageable);
 
         // then
-        assertThat(allCouponTypes.getTotalElements()).isEqualTo(0);
-        assertThat(allCouponTypes.getContent()).hasSize(0);
+        assertThat(allCouponTypes.getTotalElements()).isZero();
+        assertThat(allCouponTypes.getContent()).isEmpty();
     }
 
     @Test
@@ -315,8 +315,8 @@ class CouponTypeRepositoryImplTest {
         Page<CouponTypeDto> allCouponTypes = couponTypeRepository.findAllCouponTypesFixedRate(pageable);
 
         // then
-        assertThat(allCouponTypes.getTotalElements()).isEqualTo(0);
-        assertThat(allCouponTypes.getContent()).hasSize(0);
+        assertThat(allCouponTypes.getTotalElements()).isZero();
+        assertThat(allCouponTypes.getContent()).isEmpty();
     }
 
     @Test
