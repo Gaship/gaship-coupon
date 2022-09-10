@@ -15,7 +15,7 @@ import org.springframework.test.context.TestPropertySource;
  * @since 1.0
  */
 @SpringBootTest
-@TestPropertySource(value = "classpath:application.properties")
+@TestPropertySource(value = "classpath:application-prod.properties")
 class DataSourceConfigTest {
 
     @Autowired
@@ -25,6 +25,6 @@ class DataSourceConfigTest {
     @Test
     void name() throws SQLException {
         assertThat(dataSource.getConnection().getMetaData().getURL())
-            .contains("gaship_coupon_test");
+            .contains("gaship_coupon_prod");
     }
 }
