@@ -231,10 +231,6 @@ class CouponGenerationIssueRepositoryImplTest {
             couponGenerationIssueUsed.getMemberNo());
         assertThat(allCouponGenerationIssues.get().collect(Collectors.toList()).get(0).getName()).isEqualTo(
             couponTypeUsed.getName());
-        assertThat(
-            allCouponGenerationIssues.get().collect(Collectors.toList()).get(0).getExpirationDatetime()).isEqualTo(
-            couponGenerationIssueUsed.getExpirationDatetime());
-
     }
 
     @Test
@@ -261,9 +257,6 @@ class CouponGenerationIssueRepositoryImplTest {
             couponGenerationIssueUsed.getMemberNo());
         assertThat(allCouponGenerationIssues.get().collect(Collectors.toList()).get(0).getName()).isEqualTo(
             couponTypeUsed.getName());
-        assertThat(
-            allCouponGenerationIssues.get().collect(Collectors.toList()).get(0).getExpirationDatetime()).isEqualTo(
-            couponGenerationIssueUsed.getExpirationDatetime());
     }
 
     @Test
@@ -291,9 +284,6 @@ class CouponGenerationIssueRepositoryImplTest {
             couponGenerationIssueUnusedAndExpired.getMemberNo());
         assertThat(allCouponGenerationIssues.get().collect(Collectors.toList()).get(0).getName()).isEqualTo(
             couponTypeUnusedAndExpired.getName());
-        assertThat(
-            allCouponGenerationIssues.get().collect(Collectors.toList()).get(0).getExpirationDatetime()).isEqualTo(
-            couponGenerationIssueUnusedAndExpired.getExpirationDatetime());
     }
 
     @Test
@@ -322,9 +312,6 @@ class CouponGenerationIssueRepositoryImplTest {
             couponGenerationIssueUnusedAndExpired.getMemberNo());
         assertThat(allCouponGenerationIssues.get().collect(Collectors.toList()).get(0).getName()).isEqualTo(
             couponTypeUnusedAndExpired.getName());
-        assertThat(
-            allCouponGenerationIssues.get().collect(Collectors.toList()).get(0).getExpirationDatetime()).isEqualTo(
-            couponGenerationIssueUnusedAndExpired.getExpirationDatetime());
     }
 
     @Test
@@ -352,9 +339,6 @@ class CouponGenerationIssueRepositoryImplTest {
             couponGenerationIssueUsed.getMemberNo());
         assertThat(allCouponGenerationIssues.get().collect(Collectors.toList()).get(0).getName()).isEqualTo(
             couponTypeUsed.getName());
-        assertThat(
-            allCouponGenerationIssues.get().collect(Collectors.toList()).get(0).getExpirationDatetime()).isEqualTo(
-            couponGenerationIssueUsed.getExpirationDatetime());
     }
 
     @Test
@@ -383,9 +367,6 @@ class CouponGenerationIssueRepositoryImplTest {
             couponGenerationIssueUnusedAndExpired.getMemberNo());
         assertThat(allCouponGenerationIssues.get().collect(Collectors.toList()).get(0).getName()).isEqualTo(
             couponTypeUnusedAndExpired.getName());
-        assertThat(
-            allCouponGenerationIssues.get().collect(Collectors.toList()).get(0).getExpirationDatetime()).isEqualTo(
-            couponGenerationIssueUnusedAndExpired.getExpirationDatetime());
     }
 
     @Test
@@ -414,9 +395,6 @@ class CouponGenerationIssueRepositoryImplTest {
             couponGenerationIssueUnusedAndExpired.getMemberNo());
         assertThat(allCouponGenerationIssues.get().collect(Collectors.toList()).get(0).getName()).isEqualTo(
             couponTypeUnusedAndExpired.getName());
-        assertThat(
-            allCouponGenerationIssues.get().collect(Collectors.toList()).get(0).getExpirationDatetime()).isEqualTo(
-            couponGenerationIssueUnusedAndExpired.getExpirationDatetime());
     }
 
     @Test
@@ -445,8 +423,5 @@ class CouponGenerationIssueRepositoryImplTest {
             couponGenerationIssueUnusedAndUnexpired.getMemberNo());
         assertThat(allCouponGenerationIssues.get().collect(Collectors.toList()).get(0).getName()).isEqualTo(
             couponTypeUnusedAndUnexpired.getName());
-        assertThat(
-            allCouponGenerationIssues.get().collect(Collectors.toList()).get(0).getExpirationDatetime()).isEqualTo(
-            couponGenerationIssueUnusedAndUnexpired.getExpirationDatetime());
     }
 }

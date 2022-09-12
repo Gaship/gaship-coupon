@@ -1,6 +1,7 @@
 package shop.gaship.coupon.coupongenerationissue.service.impl;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -202,7 +203,11 @@ public class CouponGenerationIssueServiceImpl implements CouponGenerationIssueSe
                                                                            .memberNo(recommendMemberNo)
                                                                            .generationDatetime(LocalDateTime.now())
                                                                            .issueDatetime(LocalDateTime.now())
-                                                                           .expirationDatetime(LocalDateTime.now())
+                                                                           .expirationDatetime(
+                                                                               LocalDateTime.parse(
+                                                                                   LocalDateTime.now().format(
+                                                                                           DateTimeFormatter.ofPattern(
+                                                                                               "yyyy-MM-dd'T'HH:mm"))).plusMonths(6))
                                                                            .build();
 
         couponGenerationIssueRepository.save(couponGenerationIssue);
